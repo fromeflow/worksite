@@ -28,29 +28,33 @@ class Course(models.Model):
         verbose_name = 'дисциплина'
         verbose_name_plural = 'дисциплины'
 
-# # TODO
-# class WorkYear:
+        # # TODO сделать ссылку на него из coursework
+        # class WorkYear:
 #     year = None
 #
 # # TODO
-# class CourseVersion:
+        # Версия курса (меняется от года к году), привязана к конкретной группе
+        # class CourseVersion:
 #     work_year = None
 #     course = None
-#
-# class CourseSemester:
+        # group = ForeignKey
+        #
+# Один семестр данной версии курса. семестр — от 1 до 8(10)
+        # class CourseSemester:
 #     course_version = None
-#     study_year = None
-#     semester = None
-#     exam_form = None
+#     semester_number = None
+        #     exam_form = None
 #
 # # TODO
-# class Lecture:
+# Одна лекционная тема
+        # class Lecture:
 #     course_semester = None
 #     number = None
 #     title = None
 #
 # # TODO
-# class LabWork:
+# Одна лабораторная работа
+        # class LabWork:
 #     course_semester = None
 #     number = None
 #     title = None
