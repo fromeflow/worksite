@@ -8,8 +8,11 @@
 
 {% block breadcrumb %}
 {{ block.super }}
-<li><a href="{% url 'courseworks-detail' coursework_id=work.id %}">{{ work.student.surname_initials }} «{{ work.title
-    }}»</a></li>
+<li>
+    <a href="{% url 'courseworks-detail' coursework_id=work.id %}">
+        {{ work.student.surname_initials }} «{{ work.title }}»
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
