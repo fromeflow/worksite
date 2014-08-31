@@ -2,13 +2,13 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
 import configparser
 
 config = configparser.ConfigParser()
 config.read(os.path.join(BASE_DIR, 'work.cfg'))
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config['Settings']['SECRET_KEY']
@@ -66,11 +66,11 @@ WSGI_APPLICATION = 'work.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'django',
-       'USER': 'root',
-       'PASSWORD': 'maria-dev',
-       'HOST': 'localhost',
-       'PORT': '3306'
+       'NAME': config['DB']['name'],
+       'USER': config['DB']['user'],
+       'PASSWORD': config['DB']['password'],
+       'HOST': config['DB']['host'],
+       'PORT': config['DB']['port']
     }
 }
 
