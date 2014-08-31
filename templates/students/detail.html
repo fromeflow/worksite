@@ -11,9 +11,12 @@
         <h1>
             {{ student.surname }} {{ student.name }} {{ student.patronymic }}
             <!--FIXME: check permissions-->
-
+            {% if not user.is_anonymous and user.is_superuser %}
             <small><a href="{% url 'students-edit' pk=student.id %}"><span
                     class="glyphicon glyphicon-edit"></span></a></small>
+            <small><a href="{% url 'students-delete' pk=student.id %}"><span
+                    class="glyphicon glyphicon-trash"></span></a></small>
+            {% endif %}
         </h1>
         <p>Группа: {{ student.group.to_link | safe }}</p>
 
