@@ -77,6 +77,9 @@ class Group(models.Model):
             year=self.year + self.max_course
         )
 
+    def get_absolute_url(self):
+        return reverse('students-group-detail', kwargs={'group_id': self.id})
+
     class Meta:
         ordering = ['-year', 'suffix']
         verbose_name = 'группа'
@@ -118,6 +121,9 @@ class Student(models.Model):
         s = self.surname_initials
         s += ' [{group}]'.format(group=self.group)
         return s
+
+    def get_absolute_url(self):
+        return reverse('students-detail', kwargs={'student_id': self.id})
 
     class Meta:
         ordering = ['group', 'surname']

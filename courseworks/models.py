@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 
 from students.models import Student
 from courses.models import Course
-
 import courseworks
 from misc.utils import upload_student_work_to
 from misc.validators import mark5_validator, work_year_validator
@@ -67,6 +66,9 @@ class CourseWork(models.Model):
                 student=self.student.surname_initials
             )
         return s
+
+    def get_absolute_url(self):
+        return reverse('courseworks-detail', kwargs={'coursework_id': self.id})
 
     class Meta:
         ordering = ['-year', 'student__surname']

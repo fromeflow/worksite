@@ -65,6 +65,9 @@ class DiplomaWork(models.Model):
             )
         return s
 
+    def get_absolute_url(self):
+        return reverse('diplomaworks-detail', kwargs={'diplomawork_id': self.id})
+
     class Meta:
         ordering = ['-year', 'student__surname']
         verbose_name = 'квалификационная работа'
