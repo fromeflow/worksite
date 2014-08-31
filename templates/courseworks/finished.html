@@ -1,0 +1,49 @@
+{% extends "courseworks/base.html" %}
+
+{% block title %}Завершённые{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+            <li><a href="{% url 'courseworks.views.finished' %}">Завершённые работы</a></li>
+{% endblock %}
+
+{% block content %}
+            <h1>Завершённые курсовые работы</h1>
+            {% if works_finished %}
+            {% regroup works_finished by academic_year as works_by_year %}
+            {% for wy in works_by_year %}
+                {% if wy.grouper %}
+                    <h2>{{ wy.grouper }} учебный год</h2>
+                {% else %}
+                    <h2>Когда-то</h2>
+                {% endif %}
+                {% regroup wy.list by course as works_by_course%}
+                {% for wc in works_by_course %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ wc.grouper }}</div>
+                        <table class="table table-hover">
+                        <tr>
+                            <th class="col-md-2">Студент</th>
+                            <th class="col-md-5">Тема</th>
+                            <th class="col-md-1">Оценка</th>
+                        </tr>
+                        {% for w in wc.list %}
+                        <tr>
+                            <td>{{ w.student.to_link | safe }}</td>
+                            <td>{{ w.to_link | safe }}</td>
+                            <td>{{ w.mark | default_if_none:'?' }}</td>
+                        </tr>
+                        {% endfor %}
+                        </table>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% else %}
+            <div class="panel panel-warning">
+                <div class="panel-heading">Как так?</div>
+                <div class="panel-body">
+                    Нет ни одной завершённой работы.
+                </div>
+            </div>
+            {% endif %}
+{% endblock %}

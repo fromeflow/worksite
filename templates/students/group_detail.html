@@ -1,0 +1,26 @@
+{% extends "students/base.html" %}
+
+{% block title %}{{ group }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+            <li><a href="{% url 'students.views.group_detail' group_id=group.id %}">{{ group }}</a></li>
+{% endblock %}
+
+{% block content %}
+        <h1>{{ group }}</h1>
+
+        <ol>
+        {% for student in students %}
+        <li>
+            {% if student.sent_down %}
+            <del>
+            {% endif %}
+            {{ student.to_link | safe }}
+            {% if student.sent_down %}
+            </del>
+            {% endif %}
+        </li>
+        {% endfor %}
+        </ol>
+{% endblock %}

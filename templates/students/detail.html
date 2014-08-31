@@ -1,0 +1,37 @@
+{% extends "students/base.html" %}
+
+{% block title %}{{ student.surname_initials }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+            <li><a href="{% url 'students.views.detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
+{% endblock %}
+
+{% block content %}
+        <h1>
+            {{ student.surname }} {{ student.name }} {{ student.patronymic }}
+            <!--FIXME: check permissions-->
+
+            <small><a href="{% url 'students.views.edit' student_id=student.id %}"><span class="glyphicon glyphicon-edit"></span></a></small>
+        </h1>
+        <p>Группа: {{ student.group.to_link | safe }}</p>
+
+        {% if courseworks %}
+        <h2>Курсовые работы</h2>
+        <ul class="list-unstyled">
+        {% for cw in courseworks %}
+            <li>{{ cw.to_link | safe }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if diplomaworks %}
+        <h2>Квалификационная работа</h2>
+        <ul class="list-unstyled">
+        {% for dw in diplomaworks %}
+            <li>{{ dw.to_link | safe }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+{% endblock %}

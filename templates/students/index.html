@@ -1,0 +1,11 @@
+{% extends "students/base.html" %}
+
+{% block title %}Группы{% endblock %}
+
+{% block content %}
+        <ul>
+        {% for group in groups %}
+            <li>{{ group.to_link | safe }}</li>
+        {% endfor %}
+        </ul>
+{% endblock %}

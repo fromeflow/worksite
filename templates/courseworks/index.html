@@ -1,0 +1,32 @@
+{% extends "courseworks/base.html" %}
+
+{% block content %}
+        <h1>Курсовые работы</h1>
+
+        <!--<p><a href="all">Полный список курсовых работ</a></p>-->
+        <p><a href="{% url 'courseworks.views.finished' %}">Завершённые работы</a></p>
+        <!--<p><a href="current">Текущие работы</a></p>-->
+        <p><a href="{% url 'courseworks.views.open' %}">Открытые темы</a></p>
+
+        <h2>Текущие темы</h2>
+        {% if works_current %}
+            {% regroup works_current by course as works_by_course%}
+            {% for wc in works_by_course %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ wc.grouper }}</div>
+                    <table class="table table-hover">
+                    <tr>
+                        <th class="col-md-2">Студент</th>
+                        <th class="col-md-6">Тема</th>
+                    </tr>
+                    {% for w in wc.list %}
+                    <tr>
+                        <td>{{ w.student.to_link | safe }}</td>
+                        <td>{{ w.to_link | safe }}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+        {% endif %}
+{% endblock %}
