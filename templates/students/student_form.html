@@ -10,10 +10,12 @@
 {% block content %}
 <div class="row">
     <div class="col-md-6">
-        <form action="{% url 'students-edit' student_id=student.id %}"
+        <form action="{% url 'students-edit' pk=student.id %}"
               method="post" role="form">
             {% csrf_token %}
-            {{ form.as_table}}
+            <table>
+                {{ form.as_table}}
+            </table>
             <button type="submit" class="btn btn-default">Отправить</button>
         </form>
     </div>

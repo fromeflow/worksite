@@ -1,15 +1,13 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.core.context_processors import csrf
+from django.http import Http404
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from courseworks.models import CourseWork
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
-from students.forms import StudentForm
-import students
 
 
 def index(request):
@@ -36,26 +34,21 @@ def detail(request, student_id):
 
 
 # FIXME: check permissions
-def edit(request, student_id):
-    try:
-        student = Student.objects.get(pk=student_id)
-    except ObjectDoesNotExist:
-        raise Http404
-    if request.method == 'POST':
-        form = StudentForm(request.POST, instance=student)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse(students.views.detail, kwargs={'student_id': student_id}))
-    else:
-        form = StudentForm(instance=student)
-    ctx = {
-        'student': student,
-        'form': form
-    }
-    ctx.update(csrf(request))
-    return render_to_response('students/edit.html', ctx,
-                              context_instance=RequestContext(request))
+class StudentCreate(CreateView):
+    model = Student
+    # fields = ['name']
 
+
+# FIXME: check permissions
+class StudentUpdate(UpdateView):
+    model = Student
+    # fields = ['name']
+
+
+# FIXME: check permissions
+class StudentDelete(DeleteView):
+    model = Student
+    success_url = reverse_lazy('students-index')
 
 def group_detail(request, group_id):
     try:
