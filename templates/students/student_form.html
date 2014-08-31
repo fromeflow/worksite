@@ -1,16 +1,26 @@
 {% extends "students/base.html" %}
 
-{% block title %}{{ student.surname_initials }} [Правка]{% endblock %}
+{% block title %}
+{% if object %}
+{{ object.surname_initials }} [Правка]
+{% else %}
+Новый студент
+{% endif %}
+{% endblock %}
 
 {% block breadcrumb %}
 {{ block.super }}
-<li><a href="{% url 'students-detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
+{% if student %}
+<li><a href="{% url 'students-detail' student_id=student.id %}">{{ object.surname_initials }}</a></li>
+{% else %}
+<li><a href="{% url 'students-create' %}">Новый студент</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-6">
-        <form action="{% url 'students-edit' pk=student.id %}"
+        <form action=""
               method="post" role="form">
             {% csrf_token %}
             <table>
