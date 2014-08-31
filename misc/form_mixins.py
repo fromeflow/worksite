@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 
 
 class UserCheckMixin(object):
-    user_check_failure_path = ''  # can be path, url name or reverse_lazy
+    user_check_failure_path = reverse_lazy('account-login')  # can be path, url name or reverse_lazy
 
     def check_user(self, user):
         return True
@@ -18,15 +18,17 @@ class UserCheckMixin(object):
 
 
 class PermissionRequiredMixin(UserCheckMixin):
-    user_check_failure_path = reverse_lazy('account-login')
     permission_required = None
 
     def check_user(self, user):
         return user.has_perm(self.permission_required)
 
 
-class SuperuserRequiredMixin(UserCheckMixin):
-    user_check_failure_path = reverse_lazy('account-login')
+class LoginRequiredMixin(UserCheckMixin):
+    def check_user(self, user):
+        return not user.is_anonymous() and user.is_active
 
+
+class SuperuserRequiredMixin(UserCheckMixin):
     def check_user(self, user):
         return user.is_superuser
