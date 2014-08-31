@@ -11,8 +11,8 @@
 {% block breadcrumb %}
 {{ block.super }}
 <li>
-    {% if student %}
-    <a href="{% url 'students-detail' student_id=student.id %}">{{ object.surname_initials }}</a>
+    {% if object %}
+    <a href="{% url 'students-detail' pk=object.pk %}">{{ object.surname_initials }}</a>
     {% else %}
     <a href="{% url 'students-create' %}">Новый студент</a>
     {% endif %}

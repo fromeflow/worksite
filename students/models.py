@@ -112,7 +112,7 @@ class Student(models.Model):
     def to_link(self):
         return '<span class="{cls}"></span>&nbsp;<a href="{link}">{text}</a>' \
             .format(
-            link=reverse(students.views.detail, kwargs={'student_id': self.id}),
+            link=reverse('students-detail', kwargs={'pk': self.id}),
             text=self.surname_initials,
             cls='text-muted glyphicon glyphicon-user'
         )
@@ -123,7 +123,7 @@ class Student(models.Model):
         return s
 
     def get_absolute_url(self):
-        return reverse('students-detail', kwargs={'student_id': self.id})
+        return reverse('students-detail', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['group', 'surname']

@@ -1,24 +1,23 @@
 {% extends "students/base.html" %}
 
-{% block title %}{{ student.surname_initials }}{% endblock %}
+{% block title %}{{ object.surname_initials }}{% endblock %}
 
 {% block breadcrumb %}
 {{ block.super }}
-<li><a href="{% url 'students-detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
+<li><a href="{% url 'students-detail' pk=object.pk %}">{{ object.surname_initials }}</a></li>
 {% endblock %}
 
 {% block content %}
         <h1>
-            {{ student.surname }} {{ student.name }} {{ student.patronymic }}
-            <!--FIXME: check permissions-->
+            {{ object.surname }} {{ object.name }} {{ object.patronymic }}
             {% if not user.is_anonymous and user.is_superuser %}
-            <small><a href="{% url 'students-edit' pk=student.id %}"><span
+            <small><a href="{% url 'students-edit' pk=object.pk %}"><span
                     class="glyphicon glyphicon-edit"></span></a></small>
-            <small><a href="{% url 'students-delete' pk=student.id %}"><span
+            <small><a href="{% url 'students-delete' pk=object.pk %}"><span
                     class="glyphicon glyphicon-trash"></span></a></small>
             {% endif %}
         </h1>
-        <p>Группа: {{ student.group.to_link | safe }}</p>
+<p>Группа: {{ object.group.to_link | safe }}</p>
 
         {% if courseworks %}
         <h2>Курсовые работы</h2>
@@ -37,5 +36,4 @@
         {% endfor %}
         </ul>
         {% endif %}
-
 {% endblock %}
