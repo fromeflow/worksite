@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from courseworks.models import CourseWork
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
+from misc.form_mixins import SuperuserRequiredMixin
 
 
 def index(request):
@@ -32,21 +33,17 @@ def detail(request, student_id):
                               },
                               context_instance=RequestContext(request))
 
-
-# FIXME: check permissions
-class StudentCreate(CreateView):
+class StudentCreate(SuperuserRequiredMixin, CreateView):
     model = Student
     # fields = ['name']
 
 
-# FIXME: check permissions
-class StudentUpdate(UpdateView):
+class StudentUpdate(SuperuserRequiredMixin, UpdateView):
     model = Student
     # fields = ['name']
 
 
-# FIXME: check permissions
-class StudentDelete(DeleteView):
+class StudentDelete(SuperuserRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('students-index')
 
