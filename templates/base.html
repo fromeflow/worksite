@@ -51,11 +51,11 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Учёба <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/courses/">*Дисциплины</a></li>
-                                <li><a href="{% url 'courseworks.views.index' %}">Курсовые работы</a></li>
+                                <li><a href="{% url 'courseworks-index' %}">Курсовые работы</a></li>
                                 <li><a href="/textbook/">*Методические пособия</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header">Старшекурсникам</li>
-                                <li><a href="{% url 'diplomaworks.views.index' %}">Квалификационные работы</a></li>
+                                <li><a href="{% url 'diplomaworks-index' %}">Квалификационные работы</a></li>
                                 <li><a href="/finalexam/">*Государственные экзамены</a></li>
                             </ul>
                         </li>
@@ -81,7 +81,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/documents/">*Документы и положения</a></li>
                                 <li><a href="/speciality/">*Специальности</a></li>
-                                <li><a href="{% url 'students.views.index' %}">Группы</a></li>
+                                <li><a href="{% url 'students-index' %}">Группы</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/about/">*О сайте</a></li>
                             </ul>
@@ -91,8 +91,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_anonymous %}
                         <li>
-                            <a href="{% url 'account.views.login_view' %}">
-                                <span class="glyphicon glyphicon-log-in"></span>&nbsp;Вход
+                            <a href="{% url 'account-login' %}">
+                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;Вход
                             </a>
                         </li>
                         {% else %}
@@ -107,8 +107,8 @@
                             <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{% url 'account.views.logout_view' %}">
-                                        <span class="glyphicon glyphicon-off"></span>&nbsp;Выход
+                                    <a href="{% url 'account-logout' %}">
+                                    <span class="glyphicon glyphicon-off"></span>&nbsp;Выход
                                     </a>
                                 </li>
                             </ul>

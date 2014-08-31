@@ -4,7 +4,7 @@
 
 {% block breadcrumb %}
 {{ block.super }}
-            <li><a href="{% url 'students.views.detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
+<li><a href="{% url 'students-detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,8 @@
             {{ student.surname }} {{ student.name }} {{ student.patronymic }}
             <!--FIXME: check permissions-->
 
-            <small><a href="{% url 'students.views.edit' student_id=student.id %}"><span class="glyphicon glyphicon-edit"></span></a></small>
+            <small><a href="{% url 'students-edit' student_id=student.id %}"><span
+                    class="glyphicon glyphicon-edit"></span></a></small>
         </h1>
         <p>Группа: {{ student.group.to_link | safe }}</p>
 

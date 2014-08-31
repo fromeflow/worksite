@@ -6,12 +6,12 @@
 
 {% block breadcrumb %}
 {{ block.super }}
-            <li><a href="{% url 'students.views.detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
+<li><a href="{% url 'students-detail' student_id=student.id %}">{{ student.surname_initials }}</a></li>
 {% endblock %}
 
 {% block content %}
         <div class="row"><div class="col-md-6">
-        <form   action="{% url 'students.views.edit' student_id=student.id %}"
+            <form action="{% url 'students-edit' student_id=student.id %}"
                 method="post" role="form">
             {% csrf_token %}
             {{ form.as_table}}

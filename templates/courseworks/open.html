@@ -4,22 +4,22 @@
 
 {% block breadcrumb %}
 {{ block.super }}
-            <li><a href="{% url 'courseworks.views.finished' %}">Свободные темы</a></li>
+<li><a href="{% url 'courseworks-index-finished' %}">Свободные темы</a></li>
 {% endblock %}
 
 {% block content %}
-            <h1>Открытые темы</h1>
-            {% if works_wo_student %}
-            {% regroup works_wo_student by course as wbc %}
-            {% for wl in wbc %}
-                <h2>{{ wl.grouper | default:'Прочее' }}</h2>
-                <ol>
-                {% for w in wl.list %}
-                <li>{{ w.to_link | safe }}</li>
-                {% endfor %}
-                </ol>
-            {% endfor %}
-            {% else %}
-            <p>Не знаю, что вам предложить…</p>
-            {% endif%}
+<h1>Открытые темы</h1>
+{% if works_wo_student %}
+{% regroup works_wo_student by course as wbc %}
+{% for wl in wbc %}
+<h2>{{ wl.grouper | default:'Прочее' }}</h2>
+<ol>
+    {% for w in wl.list %}
+    <li>{{ w.to_link | safe }}</li>
+    {% endfor %}
+</ol>
+{% endfor %}
+{% else %}
+<p>Не знаю, что вам предложить…</p>
+{% endif%}
 {% endblock %}
