@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'account',
     'misc',
+    'seminars',
     'students',
     'courseworks',
     'diplomaworks',
