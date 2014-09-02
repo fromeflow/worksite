@@ -50,43 +50,71 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Учёба <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/courses/">*Дисциплины</a></li>
+                                <li><a href="/courses/">
+                                    <del>Дисциплины</del>
+                                </a></li>
                                 <li><a href="{% url 'courseworks-index' %}">Курсовые работы</a></li>
-                                <li><a href="/textbook/">*Методические пособия</a></li>
+                                <li><a href="/textbook/">
+                                    <del>Методические пособия</del>
+                                </a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header">Старшекурсникам</li>
                                 <li><a href="{% url 'diplomaworks-index' %}">Квалификационные работы</a></li>
-                                <li><a href="/finalexam/">*Государственные экзамены</a></li>
+                                <li><a href="/finalexam/">
+                                    <del>Государственные экзамены</del>
+                                </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дополнительно <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/seminar/">*Семинар</a></li>
-                                <li><a href="/society/">*Кружок</a></li>
-                                <li><a href="/conference/">*Студенческая конференция</a></li>
-                                <li><a href="/digest/">*Кафедральный сборник</a></li>
+                                <li><a href="/seminar/">
+                                    <del>Семинар</del>
+                                </a></li>
+                                <li><a href="/society/">
+                                    <del>Кружок</del>
+                                </a></li>
+                                <li><a href="/conference/">
+                                    <del>Студенческая конференция</del>
+                                </a></li>
+                                <li><a href="/digest/">
+                                    <del>Кафедральный сборник</del>
+                                </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Мероприятия <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/contest/">*Олимпиада</a></li>
-                                <li><a href="/marathon/">*Марафон программирования</a></li>
-                                <li><a href="/csday/">*День информатики</a></li>
+                                <li><a href="/contest/">
+                                    <del>Олимпиада</del>
+                                </a></li>
+                                <li><a href="/marathon/">
+                                    <del>Марафон программирования</del>
+                                </a></li>
+                                <li><a href="/csday/">
+                                    <del>День информатики</del>
+                                </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Информация <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/documents/">*Документы и положения</a></li>
-                                <li><a href="/speciality/">*Специальности</a></li>
+                                <li><a href="/documents/">
+                                    <del>Документы и положения</del>
+                                </a></li>
+                                <li><a href="/speciality/">
+                                    <del>Специальности</del>
+                                </a></li>
                                 <li><a href="{% url 'students-index' %}">Группы</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/about/">*О сайте</a></li>
+                                <li><a href="/about/">
+                                    <del>О сайте</del>
+                                </a></li>
                             </ul>
                         </li>
-                        <li><a href="/forum/">*Форум</a></li>
+                        <li><a href="/forum/">
+                            <del>Форум</del>
+                        </a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_anonymous %}
