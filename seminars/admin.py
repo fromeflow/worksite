@@ -4,7 +4,7 @@ from seminars.models import Seminar, SeminarMaterials
 
 
 class SeminarAdmin(admin.ModelAdmin):
-    list_display = ['date', 'title']
+    list_display = ['title', 'date']
 
 
 admin.site.register(Seminar, SeminarAdmin)

@@ -14,12 +14,16 @@ class Seminar(models.Model):
                                max_length=50, blank=True)
     speaker_user = models.ForeignKey(verbose_name='Связанный пользователь',
                                      to=User, blank=True, null=True)
-    date = models.DateTimeField(verbose_name='Дата проведения')
+    date = models.DateTimeField(verbose_name='Дата проведения',
+                                blank=True, null=True)
     venue = models.CharField(verbose_name='Место проведения',
-                             max_length=100)
+                             max_length=100,
+                             blank=True, null=True)
     description = models.TextField(verbose_name='Описание семинара')
 
     def __str__(self):
+        if self.date is None:
+            return self.title
         return '{title} ({date})'.format(
             title=self.title,
             date=self.date.strftime('%d.%m.%Y')
