@@ -1,0 +1,67 @@
+{% extends "seminars/base.html" %}
+{% load markdown %}
+{% load fa_filetype %}
+
+{% block title %}{{ seminar.title }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li><a href="{{ seminar.get_absolute_url }}">{{ seminar }}</a></li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ seminar.title }}<br>
+    <small>{{ seminar.date | date:'d.m.Y' }}</small>
+</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <table class="table table-bordered">
+            <tr>
+                <th>Докладчик</th>
+                <td>
+                    {% if seminar.speaker_user %}
+                    {% if seminar.speaker_user.student %}
+                    <span class="text-muted glyphicon glyphicon-user"></span>&nbsp;<a
+                        href="{{ seminar.speaker_user.student.get_absolute_url }}">
+                    {{ seminar.speaker_user.student.surname_initials }}
+                </a>
+                    {% else %}
+                    {{ seminar.speaker_user.first_name }} {{ seminar.speaker_user.last_name }}
+                    {% endif %}
+                    {% else %}
+                    {{ seminar.speaker }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Дата</th>
+                <td>{{ seminar.date | date:'d M Y' }}</td>
+            </tr>
+            <tr>
+                <th>Время</th>
+                <td>{{ seminar.date | date:'H' }}<sup>{{ seminar.date | date:'i' }}</sup></td>
+            </tr>
+            <tr>
+                <th>Место</th>
+                <td>{{ seminar.venue }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{{ seminar.description | markdown }}
+
+<h1>Материалы</h1>
+{% if materials %}
+<ol>
+    {% for material in materials %}
+    <li>
+        <p><span class="fa {{ material.file | fa_filetype }} fa-lg"></span>
+            <a href="{{ material.file.url }}">{{ material.title }}</a></p>
+        {{ material.description | markdown }}
+    </li>
+    {% endfor %}
+</ol>
+{% endif %}
+
+{% endblock %}

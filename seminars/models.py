@@ -2,7 +2,7 @@ from os.path import join
 
 from django.db import models
 from django.contrib.auth.models import User
-# from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 
 SEMINARS_FOLDER = 'seminars'
 
@@ -25,8 +25,8 @@ class Seminar(models.Model):
             date=self.date.strftime('%d.%m.%Y')
         )
 
-    # def get_absolute_url(self):
-    # return reverse('seminars-detail', kwargs={'seminar_id': self.id})
+    def get_absolute_url(self):
+        return reverse('seminars-detail', kwargs={'seminar_id': self.id})
 
     class Meta:
         ordering = ['-date']
