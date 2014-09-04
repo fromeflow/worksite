@@ -41,7 +41,7 @@ class Seminar(models.Model):
 class SeminarMaterials(models.Model):
     title = models.CharField(verbose_name='Название',
                              max_length=100)
-    file = models.FileField(verbose_name='Текст',
+    file = models.FileField(verbose_name='Материалы',
                             upload_to=lambda s, fn: join(SEMINARS_FOLDER, str(s.seminar.id), fn))
     description = models.TextField(verbose_name='Описание',
                                    blank=True)
