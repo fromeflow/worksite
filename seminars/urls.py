@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from seminars.views import SeminarListView, SeminarDetail
+from seminars.views import SeminarListView, SeminarDetail, SeminarMaterialsCreate
 
 urlpatterns = \
     patterns('',
@@ -9,4 +9,6 @@ urlpatterns = \
              # url(r'^(?P<pk>\d+)-edit$', SeminarUpdate.as_view(), name='seminars-edit'),
              # url(r'^create$', SeminarCreate.as_view(), name='seminars-create'),
              # url(r'^(?P<pk>\d+)-delete$', SeminarDelete.as_view(), name='seminars-delete'),
+             url(r'^(?P<seminar_id>\d+)-add-material$', SeminarMaterialsCreate.as_view(),
+                 name='seminars-materials-add'),
     )
