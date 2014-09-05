@@ -23,19 +23,15 @@
             <tr>
                 <th>Докладчик</th>
                 <td>
-                    {% if seminar.speaker_user or seminar.speaker %}
-                    {% if seminar.speaker_user %}
                     {% if seminar.speaker_user.student %}
                     <span class="text-muted glyphicon glyphicon-user"></span>&nbsp;<a
                         href="{{ seminar.speaker_user.student.get_absolute_url }}">
                     {{ seminar.speaker_user.student.surname_initials }}
                 </a>
-                    {% else %}
+                    {% elif seminar.speaker_user %}
                     {{ seminar.speaker_user.first_name }} {{ seminar.speaker_user.last_name }}
-                    {% endif %}
-                    {% else %}
+                    {% elif seminar.speaker %}
                     {{ seminar.speaker }}
-                    {% endif %}
                     {% else %}
                     —
                     {% endif %}
