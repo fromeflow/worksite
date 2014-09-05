@@ -19,7 +19,8 @@ class Seminar(models.Model):
     venue = models.CharField(verbose_name='Место проведения',
                              max_length=100,
                              blank=True, null=True)
-    description = models.TextField(verbose_name='Описание семинара')
+    description = models.TextField(verbose_name='Описание семинара',
+                                   blank=True)
 
     def __str__(self):
         if self.date is None:
