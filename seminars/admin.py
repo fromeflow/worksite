@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from seminars.models import Seminar, SeminarMaterials
+from seminars.models import Seminar, SeminarFile
 
 
 class SeminarAdmin(admin.ModelAdmin):
@@ -14,4 +14,4 @@ class SeminarMaterialsAdmin(admin.ModelAdmin):
     list_display = ['seminar', 'title', 'file']
 
 
-admin.site.register(SeminarMaterials, SeminarMaterialsAdmin)
+admin.site.register(SeminarFile, SeminarMaterialsAdmin)

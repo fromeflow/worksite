@@ -4,8 +4,9 @@ from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 
-from seminars.models import Seminar, SeminarMaterials
+from seminars.models import Seminar, SeminarFile
 from misc.form_mixins import SuperuserRequiredMixin
+
 
 
 # Семинар =======================================
@@ -19,17 +20,17 @@ class SeminarDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(SeminarDetail, self).get_context_data(**kwargs)
-        context['materials'] = SeminarMaterials.objects.filter(seminar=self.object)
+        context['materials'] = SeminarFile.objects.filter(seminar=self.object)
         return context
 
 
 # Материалы семинара ============================
-class SeminarMaterialsCreate(SuperuserRequiredMixin, CreateView):
-    model = SeminarMaterials
+class SeminarFileCreate(SuperuserRequiredMixin, CreateView):
+    model = SeminarFile
     fields = ['title', 'description', 'file']
 
     def get_context_data(self, **kwargs):
-        context = super(SeminarMaterialsCreate, self).get_context_data(**kwargs)
+        context = super(SeminarFileCreate, self).get_context_data(**kwargs)
         context['seminar'] = get_object_or_404(Seminar, id=self.kwargs['seminar_id'])
         return context
 
@@ -37,4 +38,4 @@ class SeminarMaterialsCreate(SuperuserRequiredMixin, CreateView):
         self.success_url = reverse_lazy('seminars-detail',
                                         kwargs={'seminar_id': self.kwargs['seminar_id']})
         form.instance.seminar = get_object_or_404(Seminar, id=self.kwargs['seminar_id'])
-        return super(SeminarMaterialsCreate, self).form_valid(form)
+        return super(SeminarFileCreate, self).form_valid(form)

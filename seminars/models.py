@@ -38,7 +38,7 @@ class Seminar(models.Model):
         verbose_name_plural = 'семинары'
 
 
-class SeminarMaterials(models.Model):
+class SeminarFile(models.Model):
     title = models.CharField(verbose_name='Название',
                              max_length=100)
     file = models.FileField(verbose_name='Материалы',
