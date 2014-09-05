@@ -102,7 +102,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates/')
+    os.path.join(BASE_DIR, 'templates/'),
 )
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
