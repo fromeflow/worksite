@@ -1,0 +1,35 @@
+{% extends "seminars/base.html" %}
+
+{% block title %}
+{% if seminar %}
+{{ seminar }} [Правка]
+{% else %}
+Добавление семинара
+{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li>
+    {% if seminar %}
+    <a href="{% url 'seminars-detail' seminar_id=seminar.id %}">{{ seminar }}</a>
+    {% else %}
+    <a href="{% url 'seminars-create' %}">Новый семинар</a>
+    {% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <form action="" method="post" role="form"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table}}
+            </table>
+            <button type="submit" class="btn btn-default">Отправить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

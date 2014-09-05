@@ -9,8 +9,13 @@ from misc.form_mixins import SuperuserRequiredMixin
 
 
 
+
 # Семинар =======================================
 class SeminarListView(ListView):
+    model = Seminar
+
+
+class SeminarCreate(SuperuserRequiredMixin, CreateView):
     model = Seminar
 
 
