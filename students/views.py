@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 
 from courseworks.models import CourseWork
+from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
 from misc.form_mixins import SuperuserRequiredMixin
 
@@ -25,7 +26,7 @@ class StudentDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(StudentDetail, self).get_context_data(**kwargs)
         context['courseworks'] = CourseWork.objects.filter(student=self.object)
-        context['diplomaworks'] = CourseWork.objects.filter(student=self.object)
+        context['diplomaworks'] = DiplomaWork.objects.filter(student=self.object)
         return context
 
 
