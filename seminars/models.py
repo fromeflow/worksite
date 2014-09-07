@@ -7,6 +7,9 @@ from django.core.urlresolvers import reverse
 SEMINARS_FOLDER = 'seminars'
 
 
+def UPLOAD_TO(s, fn):
+    return join(SEMINARS_FOLDER, str(s.seminar.id), fn)
+
 class Seminar(models.Model):
     title = models.CharField(verbose_name='Тема',
                              max_length=100)
@@ -43,7 +46,7 @@ class SeminarFile(models.Model):
     title = models.CharField(verbose_name='Название',
                              max_length=100)
     file = models.FileField(verbose_name='Материалы',
-                            upload_to=lambda s, fn: join(SEMINARS_FOLDER, str(s.seminar.id), fn))
+                            upload_to=UPLOAD_TO)
     description = models.TextField(verbose_name='Описание',
                                    blank=True)
     seminar = models.ForeignKey(verbose_name='Семинар',

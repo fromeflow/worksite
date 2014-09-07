@@ -9,6 +9,27 @@ from misc.validators import work_year_validator, mark5_validator
 
 DIPLOMAWORKS_FOLDER = 'diplomaworks'
 
+
+def UPLOAD_TO(s, fn):
+    return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn)
+
+
+def UPLOAD_TO_SLIDES(s, fn):
+    return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='слайды')
+
+
+def UPLOAD_TO_MATERIALS(s, fn):
+    return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='материалы')
+
+
+def UPLOAD_TO_REVIEW(s, fn):
+    return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='материалы')
+
+
+def UPLOAD_TO_REVIEW_EXTERNAL(s, fn):
+    return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='материалы')
+
+
 class DiplomaWork(models.Model):
     title = models.CharField(verbose_name='Тема', max_length=100)
     description = models.TextField(verbose_name='Описание',
@@ -24,19 +45,19 @@ class DiplomaWork(models.Model):
                                validators=mark5_validator)
     completed = models.BooleanField(verbose_name='Завершена', default=False)
     slides = models.FileField(verbose_name='Слайды',
-                              upload_to=lambda s, fn: upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='слайды'),
+                              upload_to=UPLOAD_TO_SLIDES,
                               blank=True, null=True)
     text = models.FileField(verbose_name='Текст',
-                            upload_to=lambda s, fn: upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn),
+                            upload_to=UPLOAD_TO,
                             blank=True, null=True)
     review = models.FileField(verbose_name='Отзыв руководителя',
-                            upload_to=lambda s, fn: upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='отзыв'),
+                              upload_to=UPLOAD_TO_REVIEW,
                             blank=True, null=True)
     review_external = models.FileField(verbose_name='Внешняя рецензия',
-                            upload_to=lambda s, fn: upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='рецензия'),
+                                       upload_to=UPLOAD_TO_REVIEW_EXTERNAL,
                             blank=True, null=True)
     materials = models.FileField(verbose_name='Материалы',
-                                 upload_to=lambda s, fn: upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='материалы'),
+                                 upload_to=UPLOAD_TO_MATERIALS,
                                  blank=True, null=True)
 
 

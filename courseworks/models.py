@@ -10,6 +10,18 @@ from misc.validators import mark5_validator, work_year_validator
 
 COURSEWORKS_FOLDER = 'courserworks'
 
+
+def UPLOAD_TO(s, fn):
+    return upload_student_work_to(s, COURSEWORKS_FOLDER, fn)
+
+
+def UPLOAD_TO_SLIDES(s, fn):
+    return upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='слайды')
+
+
+def UPLOAD_TO_MATERIALS(s, fn):
+    return upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='материалы')
+
 class CourseWork(models.Model):
     title = models.CharField(verbose_name='Тема', max_length=100)
     description = models.TextField(verbose_name='Описание',
@@ -31,13 +43,13 @@ class CourseWork(models.Model):
                                validators=mark5_validator)
     completed = models.BooleanField(verbose_name='Завершена', default=False)
     slides = models.FileField(verbose_name='Слайды',
-                              upload_to=lambda s, fn: upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='слайды'),
+                              upload_to=UPLOAD_TO_SLIDES,
                               blank=True, null=True)
     text = models.FileField(verbose_name='Текст',
-                            upload_to=lambda s, fn: upload_student_work_to(s, COURSEWORKS_FOLDER, fn),
+                            upload_to=UPLOAD_TO,
                             blank=True, null=True)
     materials = models.FileField(verbose_name='Материалы',
-                                 upload_to=lambda s, fn: upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='материалы'),
+                                 upload_to=UPLOAD_TO_MATERIALS,
                                  blank=True, null=True)
     # abstract
 
