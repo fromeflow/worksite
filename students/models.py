@@ -42,18 +42,13 @@ class Group(models.Model):
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
     distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
 
-    # FIXME: Проверять, закончился ли учебный год (граница — июль)
     @property
     def name(self):
-        finished = ''
-        diff = datetime.now().year - self.year
-        if diff > self.max_course:
-            diff = self.max_course
-            finished = '*'
-        return '{course}{suffix}{finished}'.format(
-            course=diff,
+        finished = self.finished()
+        return '{course}{suffix}{finished_suffix}'.format(
+            course=datetime.now().year - self.year if not finished else self.max_course,
             suffix=self.suffix,
-            finished=finished)
+            finished_suffix='*' if finished else '')
 
     @property
     def years(self):
@@ -61,6 +56,11 @@ class Group(models.Model):
             begin=self.year,
             end=self.year + self.max_course
         )
+
+    # FIXME: Проверять, закончился ли учебный год (граница — июль)
+    def finished(self):
+        diff = datetime.now().year - self.year
+        return diff > self.max_course
 
     # FIXME: Добавить метаданные в класс и тэг to_link
     def to_link(self):
