@@ -4,7 +4,7 @@
 
 {% block content %}
         <ul>
-        {% for group in groups %}
+            {% for group in group_list %}
             <li>{{ group.to_link | safe }}</li>
         {% endfor %}
         </ul>
