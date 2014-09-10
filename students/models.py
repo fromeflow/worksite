@@ -54,8 +54,12 @@ class Group(models.Model):
     def years(self):
         return "{begin}—{end}".format(
             begin=self.year,
-            end=self.year + self.max_course
+            end=self.last_year
         )
+
+    @property
+    def last_year(self):
+        return self.year + self.max_course
 
     # FIXME: Проверять, закончился ли учебный год (граница — июль)
     def finished(self):

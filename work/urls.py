@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                        url(r'^account/', include('account.urls')),
                        url(r'^courseworks/', include('courseworks.urls')),
                        url(r'^diplomaworks/', include('diplomaworks.urls')),
+                       url(r'^finalexams/', include('finalexams.urls')),
                        url(r'^seminar/', include('seminars.urls')),
                        url(r'^student/', include('students.urls')),
                        # FIXME

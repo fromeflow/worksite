@@ -1,0 +1,15 @@
+{% extends "finalexams/base.html" %}
+
+{% block content %}
+<h1>Государственные экзамены</h1>
+
+<ul>
+    {% for finalexam in finalexam_list %}
+    <li><a href="{% url 'finalexams-detail' finalexam_id=finalexam.id %}">{{ finalexam }}</a></li>
+    {% empty %}
+    <li>Пока пусто</li>
+    {% endfor %}
+
+</ul>
+
+{% endblock %}

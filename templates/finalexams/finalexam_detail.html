@@ -1,0 +1,16 @@
+{% extends "finalexams/base.html" %}
+
+{% block title %}{{ finalexam }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li><a href="{% url 'finalexams-detail' finalexam_id=finalexam.id %}">{{ finalexam }}</a></li>
+{% endblock %}
+
+{% block content %}
+<p>Название: {{ finalexam.title }}</p>
+<p>Дата: {{ finalexam.date }} </p>
+<p>Группа: {{ finalexam.group }}</p>
+<p><a href="{{ finalexam.questions.url }}">Вопросы</a></p>
+
+{% endblock %}
