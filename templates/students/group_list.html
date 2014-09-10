@@ -3,9 +3,25 @@
 {% block title %}Группы{% endblock %}
 
 {% block content %}
+<h1>Студенческие группы</h1>
+
+<h2>Обучающиеся сейчас</h2>
+<ul>
+    {% for group in group_list %}
+    {% if not group.finished %}
+    <li>{{ group.to_link | safe }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% if group_list %}
+<h2>Закончившие обучение</h2>
         <ul>
             {% for group in group_list %}
+            {% if group.finished %}
             <li>{{ group.to_link | safe }}</li>
-        {% endfor %}
+            {% endif %}
+            {% endfor %}
         </ul>
+{% endif %}
 {% endblock %}
