@@ -1,0 +1,18 @@
+{% extends "textbooks/base.html" %}
+{% load markdown %}
+{% load fa_filetype %}
+
+{% block title %}{{ textbook.title }}{% endblock %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li>
+    <a href="{{ textbook.get_absolute_url }}">{{ textbook }}</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ textbook.title }}</h1>
+
+
+{% endblock %}

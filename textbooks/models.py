@@ -1,6 +1,7 @@
 from os.path import join
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 from courses.models import Course
 from misc.validators import work_year_validator
@@ -30,6 +31,9 @@ class Textbook(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('textbooks-detail', kwargs={'textbook_id': self.id})
 
     class Meta:
         ordering = ['title']

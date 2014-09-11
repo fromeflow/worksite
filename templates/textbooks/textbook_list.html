@@ -1,0 +1,12 @@
+{% extends "textbooks/base.html" %}
+
+{% block content %}
+<h1>Учебные пособия</h1>
+
+<ol>
+    {% for textbook in textbook_list %}
+    <li>{{ textbook }}</li>
+    {% endfor %}
+</ol>
+
+{% endblock %}
