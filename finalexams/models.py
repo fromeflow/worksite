@@ -35,3 +35,8 @@ class Finalexam(models.Model):
 
     def get_absolute_url(self):
         return reverse('finalexams-detail', kwargs={'finalexam_id': self.id})
+
+    class Meta:
+        ordering = ['-date', 'title']
+        verbose_name = 'государственный экзамен'
+        verbose_name_plural = 'государственные экзамены'
