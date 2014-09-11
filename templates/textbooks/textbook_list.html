@@ -5,7 +5,7 @@
 
 <ol>
     {% for textbook in textbook_list %}
-    <li>{{ textbook }}</li>
+    <li><a href="{{ textbook.get_absolute_url }}">{{ textbook }}</a></li>
     {% endfor %}
 </ol>
 
