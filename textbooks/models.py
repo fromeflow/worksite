@@ -13,6 +13,7 @@ def UPLOAD_TO(s, fn):
     return join(TEXTBOOKS_FOLDER, str(s.textbook.title), fn)
 
 
+# TODO Добавить вывод полной информации о книге
 class Textbook(models.Model):
     authors = models.CharField(verbose_name='Авторы',
                                max_length=200,
@@ -46,6 +47,7 @@ class Textbook(models.Model):
         unique_together = (('title',),)
 
 
+# TODO Проверить работу order_with_respect_to
 class TextbookMaterial(models.Model):
     title = models.CharField(verbose_name='Название',
                              max_length=100)
