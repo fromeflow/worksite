@@ -28,6 +28,9 @@ class Textbook(models.Model):
     description = models.TextField(verbose_name='Описание',
                                    blank=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         ordering = ['title']
         verbose_name = 'пособие'
