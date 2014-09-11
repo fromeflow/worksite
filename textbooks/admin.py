@@ -1,13 +1,6 @@
 from django.contrib import admin
 
-from textbooks.models import Author, Textbook, TextbookMaterial
-
-
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['surname', 'user']
-
-
-admin.site.register(Author, AuthorAdmin)
+from textbooks.models import Textbook, TextbookMaterial
 
 
 class TextbookAdmin(admin.ModelAdmin):

@@ -1,6 +1,5 @@
 from os.path import join
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from courses.models import Course
@@ -15,6 +14,11 @@ def UPLOAD_TO(s, fn):
 
 
 class Textbook(models.Model):
+    authors = models.CharField(verbose_name='Авторы',
+                               max_length=200,
+                               default='Великодный В. И.')
+    compiler = models.BooleanField(verbose_name='Составитель',
+                                   default=False)
     title = models.CharField(verbose_name='Название',
                              max_length=200)
     publisher = models.CharField(verbose_name='Издательство',
@@ -40,33 +44,6 @@ class Textbook(models.Model):
         verbose_name = 'пособие'
         verbose_name_plural = 'пособия'
         unique_together = (('title',),)
-
-
-class Author(models.Model):
-    surname = models.CharField(verbose_name='Фамилия',
-                               max_length=50)
-    name = models.CharField(verbose_name='Имя',
-                            max_length=20)
-    patronymic = models.CharField(verbose_name='Отчество',
-                                  max_length=20)
-    user = models.OneToOneField(verbose_name='Пользователь',
-                                to=User,
-                                blank=True, null=True)
-    textbooks = models.ManyToManyField(verbose_name='Авторы',
-                                       to=Textbook)
-
-    def __str__(self):
-        return '{surname} {n}. {p}.'.format(
-            surname=self.surname,
-            n=self.name[0],
-            p=self.patronymic[0]
-        )
-
-    class Meta:
-        ordering = ['surname', 'name', 'patronymic']
-        verbose_name = 'автор'
-        verbose_name_plural = 'авторы'
-        order_with_respect_to = 'textbooks'
 
 
 class TextbookMaterial(models.Model):
