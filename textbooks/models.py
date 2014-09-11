@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from courses.models import Course
 from misc.validators import work_year_validator
 
+
 TEXTBOOKS_FOLDER = 'textbooks'
 
 
@@ -79,6 +80,6 @@ class TextbookMaterial(models.Model):
 
     class Meta:
         ordering = ['title']
-        verbose_name = 'материал семинара'
-        verbose_name_plural = 'материалы семинара'
+        verbose_name = 'материал пособия'
+        verbose_name_plural = 'материалы пособия'
         order_with_respect_to = 'textbook'
