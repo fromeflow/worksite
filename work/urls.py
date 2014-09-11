@@ -19,6 +19,7 @@ urlpatterns = patterns('',
                        url(r'^finalexams/', include('finalexams.urls')),
                        url(r'^seminar/', include('seminars.urls')),
                        url(r'^student/', include('students.urls')),
+                       url(r'^textbook/', include('textbooks.urls')),
                        # FIXME
                        url(r'^$', lambda r: render_to_response('base.html', context_instance=RequestContext(r)) ),
 )
