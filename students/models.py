@@ -61,10 +61,10 @@ class Group(models.Model):
     def last_year(self):
         return self.year + self.max_course
 
-    # FIXME: Проверять, закончился ли учебный год (граница — июль)
     def finished(self):
         diff = datetime.now().year - self.year
-        return diff > self.max_course
+        month = datetime.now().month
+        return (diff > self.max_course) or (diff == self.max_course and month > 6)
 
     # FIXME: Добавить метаданные в класс и тэг to_link
     def to_link(self):
