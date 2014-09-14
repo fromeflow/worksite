@@ -35,8 +35,10 @@ class Speciality(models.Model):
 class Group(models.Model):
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
+    # FIXME Переименовать (entrance_year?)
     year = models.IntegerField(verbose_name='Год поступления',
                                validators=[MinValueValidator(1930), MaxValueValidator(2100)])
+    #FIXME Переименовать (max_level?)
     max_course = models.IntegerField(verbose_name='Старший курс', default=4,
                                      validators=[MinValueValidator(1), MaxValueValidator(7)])
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
@@ -44,11 +46,11 @@ class Group(models.Model):
 
     @property
     def name(self):
-        finished = self.finished()
-        return '{course}{suffix}{finished_suffix}'.format(
-            course=datetime.now().year - self.year if not finished else self.max_course,
-            suffix=self.suffix,
-            finished_suffix='*' if finished else '')
+        return '{level}{suffix}'.format(
+            level=datetime.now().year - self.year if not self.finished else self.max_course,
+            suffix=self.suffix)
+
+    #TODO свойство graduation_year
 
     @property
     def years(self):
@@ -61,6 +63,7 @@ class Group(models.Model):
     def last_year(self):
         return self.year + self.max_course
 
+    @property
     def finished(self):
         diff = datetime.now().year - self.year
         month = datetime.now().month
@@ -76,10 +79,13 @@ class Group(models.Model):
         )
 
     def __str__(self):
-        return '{name} (’{year})'.format(
-            name=self.name,
-            year=self.year + self.max_course
-        )
+        name = self.name  # FIXME дважды вычисляется finished. Проблема ли?
+        if self.finished:
+            name += ' (’{year})'.format(
+                name=self.name,
+                year=self.year + self.max_course
+            )
+        return name
 
     def get_absolute_url(self):
         return reverse('students-group-detail', kwargs={'group_id': self.id})
