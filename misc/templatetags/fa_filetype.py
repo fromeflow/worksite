@@ -21,6 +21,6 @@ register = template.Library()
 
 
 @register.filter(name='fa_filetype')
-def to_markdown(value):
+def fa_filetype(value):
     ext = splitext(str(value))[1].lower()
     return ext_type.get(ext, default_filetype)
