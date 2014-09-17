@@ -70,7 +70,7 @@ class Group(models.Model, ToLinkMixin):
         month = datetime.now().month
         return (diff > self.max_course) or (diff == self.max_course and month > 6)
 
-    link_icon_class = 'fa-group'
+    # link_icon_class = 'fa-group'
 
     def __str__(self):
         name = self.name  # FIXME дважды вычисляется finished. Проблема ли?
