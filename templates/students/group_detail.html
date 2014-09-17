@@ -1,4 +1,5 @@
 {% extends "students/base.html" %}
+{% load html %}
 
 {% block title %}{{ group }}{% endblock %}
 
@@ -16,7 +17,7 @@
             {% if student.sent_down %}
             <del>
             {% endif %}
-            {{ student.to_link | safe }}
+                {{ student | to_link }}
             {% if student.sent_down %}
             </del>
             {% endif %}

@@ -1,4 +1,5 @@
 {% extends "students/base.html" %}
+{% load html %}
 
 {% block title %}{{ object.surname_initials }}{% endblock %}
 
@@ -17,7 +18,7 @@
                     class="glyphicon glyphicon-trash"></span></a></small>
             {% endif %}
         </h1>
-<p>Группа: {{ object.group.to_link | safe }}</p>
+<p>Группа: {{ object.group | to_link }}</p>
 
         {% if courseworks %}
         <h2>Курсовые работы</h2>

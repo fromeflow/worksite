@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-import students
+from misc.model_mixins import ToLinkMixin
 
 
 class Speciality(models.Model):
@@ -32,13 +32,13 @@ class Speciality(models.Model):
         unique_together = (('code', 'standard_generation', 'type'),)
 
 
-class Group(models.Model):
+class Group(models.Model, ToLinkMixin):
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
     # FIXME Переименовать (entrance_year?)
     year = models.IntegerField(verbose_name='Год поступления',
                                validators=[MinValueValidator(1930), MaxValueValidator(2100)])
-    #FIXME Переименовать (max_level?)
+    # FIXME Переименовать (max_level?)
     max_course = models.IntegerField(verbose_name='Старший курс', default=4,
                                      validators=[MinValueValidator(1), MaxValueValidator(7)])
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
@@ -69,14 +69,7 @@ class Group(models.Model):
         month = datetime.now().month
         return (diff > self.max_course) or (diff == self.max_course and month > 6)
 
-    # FIXME: Добавить метаданные в класс и тэг to_link
-    def to_link(self):
-        return '<span class="{cls}"></span>&nbsp;<a href="{link}">{text}</a>' \
-            .format(
-            link=reverse(students.views.group_detail, kwargs={'group_id': self.id}),
-            text=str(self),
-            cls='text-muted fa-group'
-        )
+    link_icon_class = 'fa-group'
 
     def __str__(self):
         name = self.name  # FIXME дважды вычисляется finished. Проблема ли?
@@ -97,7 +90,7 @@ class Group(models.Model):
         unique_together = (('code', 'year'),)
 
 
-class Student(models.Model):
+class Student(models.Model, ToLinkMixin):
     surname = models.CharField(verbose_name='Фамилия', max_length=20)
     name = models.CharField(verbose_name='Имя', max_length=20,
                             blank=True)
@@ -119,13 +112,10 @@ class Student(models.Model):
         if self.patronymic: s += ' {p}.'.format(p=self.patronymic[0].upper())
         return s
 
-    def to_link(self):
-        return '<span class="{cls}"></span>&nbsp;<a href="{link}">{text}</a>' \
-            .format(
-            link=reverse('students-detail', kwargs={'pk': self.id}),
-            text=self.surname_initials,
-            cls='text-muted glyphicon glyphicon-user'
-        )
+    link_icon_class = 'glyphicon glyphicon-user'
+
+    def link_str(self):
+        return self.surname_initials
 
     def __str__(self):
         s = self.surname_initials
