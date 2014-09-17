@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from misc.model_mixins import ToLinkMixin
-
+from misc.validators import work_year_validator
 
 class Speciality(models.Model):
     code = models.CharField(verbose_name='Шифр', max_length=8)
@@ -35,10 +35,9 @@ class Speciality(models.Model):
 class Group(models.Model, ToLinkMixin):
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
-    # FIXME Переименовать (entrance_year?)
-    year = models.IntegerField(verbose_name='Год поступления',
-                               validators=[MinValueValidator(1930), MaxValueValidator(2100)])
-    # FIXME Переименовать (max_level?)
+    entrance_year = models.IntegerField(verbose_name='Год поступления',
+                                        validators=work_year_validator)
+    # FIXME Переименовать (max_course → max_level?)
     max_course = models.IntegerField(verbose_name='Старший курс', default=4,
                                      validators=[MinValueValidator(1), MaxValueValidator(7)])
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
@@ -47,7 +46,7 @@ class Group(models.Model, ToLinkMixin):
     @property
     def name(self):
         return '{level}{suffix}'.format(
-            level=datetime.now().year - self.year if not self.finished else self.max_course,
+            level=datetime.now().year - self.entrance_year if not self.finished else self.max_course,
             suffix=self.suffix)
 
     #TODO свойство graduation_year
@@ -55,17 +54,17 @@ class Group(models.Model, ToLinkMixin):
     @property
     def years(self):
         return "{begin}—{end}".format(
-            begin=self.year,
+            begin=self.entrance_year,
             end=self.last_year
         )
 
     @property
     def last_year(self):
-        return self.year + self.max_course
+        return self.entrance_year + self.max_course
 
     @property
     def finished(self):
-        diff = datetime.now().year - self.year
+        diff = datetime.now().year - self.entrance_year
         month = datetime.now().month
         return (diff > self.max_course) or (diff == self.max_course and month > 6)
 
@@ -76,7 +75,7 @@ class Group(models.Model, ToLinkMixin):
         if self.finished:
             name += ' (’{year})'.format(
                 name=self.name,
-                year=self.year + self.max_course
+                year=self.entrance_year + self.max_course
             )
         return name
 
@@ -84,10 +83,10 @@ class Group(models.Model, ToLinkMixin):
         return reverse('students-group-detail', kwargs={'group_id': self.id})
 
     class Meta:
-        ordering = ['-year', 'suffix']
+        ordering = ['-entrance_year', 'suffix']
         verbose_name = 'группа'
         verbose_name_plural = 'группы'
-        unique_together = (('code', 'year'),)
+        unique_together = (('code', 'entrance_year'),)
 
 
 class Student(models.Model, ToLinkMixin):

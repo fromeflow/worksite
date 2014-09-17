@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from students.models import Speciality, Group, Student
 
 
@@ -18,7 +19,7 @@ class GroupAdmin(admin.ModelAdmin):
     send_down.short_description = 'Расформировать группу'
 
     list_display = ['name', 'speciality', 'years']
-    list_filter = ['year', 'speciality']
+    list_filter = ['entrance_year', 'speciality']
     actions = [send_down]
 
 
@@ -32,7 +33,7 @@ class StudentAdmin(admin.ModelAdmin):
     send_down.short_description = 'Отчислить студента'
 
     list_display = ['surname', 'name', 'patronymic', 'group', 'user']
-    list_filter = ['group__year', 'group']
+    list_filter = ['group__entrance_year', 'group']
     search_fields = ['surname']
     actions = [send_down]
 
