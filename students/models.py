@@ -8,7 +8,9 @@ from django.contrib.auth.models import User
 from misc.model_mixins import ToLinkMixin
 from misc.validators import work_year_validator
 
+
 class Speciality(models.Model):
+    "Специальность"
     code = models.CharField(verbose_name='Шифр', max_length=8)
     name = models.CharField(verbose_name='Название', max_length=100)
     specialization = models.CharField(verbose_name='Специализация', max_length=200,
@@ -31,8 +33,8 @@ class Speciality(models.Model):
         verbose_name_plural = 'специальности'
         unique_together = (('code', 'standard_generation', 'type'),)
 
-
 class Group(models.Model, ToLinkMixin):
+    "Академическая группа"
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
     entrance_year = models.IntegerField(verbose_name='Год поступления',
@@ -90,6 +92,7 @@ class Group(models.Model, ToLinkMixin):
 
 
 class Student(models.Model, ToLinkMixin):
+    "Студент"
     surname = models.CharField(verbose_name='Фамилия', max_length=20)
     name = models.CharField(verbose_name='Имя', max_length=20,
                             blank=True)
