@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 import diplomaworks
 from students.models import Student
 from misc.utils import upload_student_work_to
-from misc.validators import work_year_validator, mark5_validator
+from misc.validators import year_validator, mark5_validator
 
 
 DIPLOMAWORKS_FOLDER = 'diplomaworks'
@@ -39,7 +39,7 @@ class DiplomaWork(models.Model):
                                 blank=True, null=True)
     year = models.IntegerField(verbose_name='Учебный год',
                                blank=True, null=True,
-                               validators=work_year_validator)
+                               validators=year_validator)
     mark = models.IntegerField(verbose_name='Оценка', default=None,
                                blank=True, null=True,
                                validators=mark5_validator)
@@ -52,10 +52,10 @@ class DiplomaWork(models.Model):
                             blank=True, null=True)
     review = models.FileField(verbose_name='Отзыв руководителя',
                               upload_to=UPLOAD_TO_REVIEW,
-                            blank=True, null=True)
+                              blank=True, null=True)
     review_external = models.FileField(verbose_name='Внешняя рецензия',
                                        upload_to=UPLOAD_TO_REVIEW_EXTERNAL,
-                            blank=True, null=True)
+                                       blank=True, null=True)
     materials = models.FileField(verbose_name='Материалы',
                                  upload_to=UPLOAD_TO_MATERIALS,
                                  blank=True, null=True)
@@ -68,6 +68,7 @@ class DiplomaWork(models.Model):
             year1=self.year,
             year2=self.year + 1
         )
+
     academic_year.short_description = 'Учебный год'
 
     def to_link(self):

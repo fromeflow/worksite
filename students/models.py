@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from misc.model_mixins import ToLinkMixin
-from misc.validators import work_year_validator
+from misc.validators import year_validator
 
 
 class Speciality(models.Model):
@@ -38,7 +38,7 @@ class Group(models.Model, ToLinkMixin):
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
     entrance_year = models.IntegerField(verbose_name='Год поступления',
-                                        validators=work_year_validator)
+                                        validators=year_validator)
     # FIXME Переименовать (max_course → max_level?)
     max_course = models.IntegerField(verbose_name='Старший курс', default=4,
                                      validators=[MinValueValidator(1), MaxValueValidator(7)])

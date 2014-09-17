@@ -5,7 +5,7 @@ from students.models import Student
 from courses.models import Course
 import courseworks
 from misc.utils import upload_student_work_to
-from misc.validators import mark5_validator, work_year_validator
+from misc.validators import mark5_validator, year_validator
 
 
 COURSEWORKS_FOLDER = 'courserworks'
@@ -22,6 +22,7 @@ def UPLOAD_TO_SLIDES(s, fn):
 def UPLOAD_TO_MATERIALS(s, fn):
     return upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='материалы')
 
+
 class CourseWork(models.Model):
     title = models.CharField(verbose_name='Тема', max_length=100)
     description = models.TextField(verbose_name='Описание',
@@ -34,7 +35,7 @@ class CourseWork(models.Model):
                                 blank=True, null=True)
     year = models.IntegerField(verbose_name='Учебный год',
                                blank=True, null=True,
-                               validators=work_year_validator)
+                               validators=year_validator)
     semester = models.CharField(verbose_name='Семестр', max_length=1,
                                 choices=(('1', 1), ('2', 2)),
                                 blank=True)

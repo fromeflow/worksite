@@ -3,7 +3,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from courses.models import Course
-from misc.validators import work_year_validator
+from misc.validators import year_validator
 
 
 TEXTBOOKS_FOLDER = 'textbooks'
@@ -26,7 +26,7 @@ class Textbook(models.Model):
                                  max_length=100,
                                  blank=True, null=True)
     year = models.IntegerField(verbose_name='Год издания',
-                               validators=[work_year_validator],
+                               validators=[year_validator],
                                blank=True, null=True)
     course = models.ManyToManyField(verbose_name='Дисциплина',
                                     to=Course,
