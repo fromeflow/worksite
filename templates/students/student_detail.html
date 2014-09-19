@@ -24,8 +24,8 @@
         <h2>Курсовые работы</h2>
         <ul class="list-unstyled">
         {% for cw in courseworks %}
-            <li>{{ cw.to_link | safe }}</li>
-        {% endfor %}
+            <li>{{ cw | to_link }}</li>
+            {% endfor %}
         </ul>
         {% endif %}
 
@@ -33,8 +33,8 @@
         <h2>Квалификационная работа</h2>
         <ul class="list-unstyled">
         {% for dw in diplomaworks %}
-            <li>{{ dw.to_link | safe }}</li>
-        {% endfor %}
+            <li>{{ dw | to_link }}</li>
+            {% endfor %}
         </ul>
         {% endif %}
 {% endblock %}

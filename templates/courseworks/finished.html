@@ -1,4 +1,5 @@
 {% extends "courseworks/base.html" %}
+{% load html %}
 
 {% block title %}Завершённые{% endblock %}
 
@@ -29,8 +30,8 @@
         </tr>
         {% for w in wc.list %}
         <tr>
-            <td>{{ w.student.to_link | safe }}</td>
-            <td>{{ w.to_link | safe }}</td>
+            <td>{{ w.student | to_link }}</td>
+            <td>{{ w | to_link }}</td>
             <td>{{ w.mark | default_if_none:'?' }}</td>
         </tr>
         {% endfor %}

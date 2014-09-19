@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-import diplomaworks
 from students.models import Student
 from misc.utils import upload_student_work_to
 from misc.validators import year_validator, mark5_validator
@@ -71,13 +70,10 @@ class DiplomaWork(models.Model):
 
     academic_year.short_description = 'Учебный год'
 
-    def to_link(self):
-        return '<span class="{cls}"></span>&nbsp;<a href="{link}">{text}</a>' \
-            .format(
-            link=reverse(diplomaworks.views.detail, kwargs={'diplomawork_id': self.id}),
-            text='«' + self.title + '»',
-            cls='text-muted glyphicon glyphicon-file'
-        )
+    link_icon_class = 'glyphicon glyphicon-file'
+
+    def link_str(self):
+        return '«' + self.title + '»'
 
     def __str__(self):
         s = self.title

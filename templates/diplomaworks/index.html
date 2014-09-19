@@ -1,6 +1,6 @@
 {% extends "diplomaworks/base.html" %}
-
 {% load text %}
+{% load html %}
 
 {% block content %}
         <h1>Квалификационные работы</h1>
@@ -17,9 +17,9 @@
             </tr>
             {% for w in works_current %}
             <tr>
-                <td>{{ w.student.to_link | safe }}</td>
-                <td>{{ w.student.group.to_link | safe }}</td>
-                <td>{{ w.to_link | safe }}</td>
+                <td>{{ w.student | to_link }}</td>
+                <td>{{ w.student.group | to_link }}</td>
+                <td>{{ w | to_link }}</td>
             </tr>
             {% endfor %}
             </table>
@@ -38,9 +38,9 @@
             {% for w in works_finished %}
             <tr>
                 <td>{{ w.year }}</td>
-                <td>{{ w.student.to_link | safe }}</td>
-                <td>{{ w.student.group.to_link | safe }}</td>
-                <td>{{ w.to_link | safe }}</td>
+                <td>{{ w.student | to_link }}</td>
+                <td>{{ w.student.group | to_link }}</td>
+                <td>{{ w | to_link }}</td>
                 <td>{{ w.mark | default:'—' }}</td>
             </tr>
             {% endfor %}

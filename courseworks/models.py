@@ -3,9 +3,9 @@ from django.core.urlresolvers import reverse
 
 from students.models import Student
 from courses.models import Course
-import courseworks
 from misc.utils import upload_student_work_to
 from misc.validators import mark5_validator, year_validator
+from misc.model_mixins import ToLinkMixin
 
 
 COURSEWORKS_FOLDER = 'courserworks'
@@ -23,7 +23,7 @@ def UPLOAD_TO_MATERIALS(s, fn):
     return upload_student_work_to(s, COURSEWORKS_FOLDER, fn, info='материалы')
 
 
-class CourseWork(models.Model):
+class CourseWork(models.Model, ToLinkMixin):
     title = models.CharField(verbose_name='Тема', max_length=100)
     description = models.TextField(verbose_name='Описание',
                                    blank=True)
@@ -64,13 +64,10 @@ class CourseWork(models.Model):
 
     academic_year.short_description = 'Учебный год'
 
-    def to_link(self):
-        return '<span class="{cls}"></span>&nbsp;<a href="{link}">{text}</a>' \
-            .format(
-            link=reverse(courseworks.views.detail, kwargs={'coursework_id': self.id}),
-            text='«' + self.title + '»',
-            cls='text-muted glyphicon glyphicon-file'
-        )
+    link_icon_class = 'glyphicon glyphicon-file'
+
+    def link_str(self):
+        return '«' + self.title + '»'
 
     def __str__(self):
         s = self.title

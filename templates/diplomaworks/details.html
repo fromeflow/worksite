@@ -1,8 +1,8 @@
 {% extends "diplomaworks/base.html" %}
-
 {% load markdown %}
 {% load fa_filetype %}
 {% load text %}
+{% load html %}
 
 {% block title %}{{ work.title }}{% endblock %}
 
@@ -30,11 +30,11 @@
                 {% if work.student %}
                 <tr>
                     <th>Выполнил</th>
-                    <td>{{ work.student.to_link | safe }}</td>
+                    <td>{{ work.student | to_link }}</td>
                 </tr>
                 <tr>
                     <th>Группа</th>
-                    <td>{{ work.student.group.to_link | safe }}</td>
+                    <td>{{ work.student.group | to_link }}</td>
                 </tr>
                 {% endif %}
                 {% if work.course %}

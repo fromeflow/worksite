@@ -1,4 +1,5 @@
 {% extends "courseworks/base.html" %}
+{% load html %}
 
 {% block title %}Открытые темы{% endblock %}
 
@@ -15,7 +16,7 @@
 <h2>{{ wl.grouper | default:'Прочее' }}</h2>
 <ol>
     {% for w in wl.list %}
-    <li>{{ w.to_link | safe }}</li>
+    <li>{{ w | to_link }}</li>
     {% endfor %}
 </ol>
 {% endfor %}
