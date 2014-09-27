@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from misc.model_mixins import ToLinkMixin
-from misc.validators import year_validator
+from misc.validators import year_validator, level_validator
 
 
 class Speciality(models.Model):
@@ -40,7 +40,7 @@ class Group(models.Model, ToLinkMixin):
     entrance_year = models.IntegerField(verbose_name='Год поступления',
                                         validators=year_validator)
     max_level = models.IntegerField(verbose_name='Старший курс', default=4,
-                                     validators=[MinValueValidator(1), MaxValueValidator(7)])
+                                    validators=level_validator)
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
     distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
 
