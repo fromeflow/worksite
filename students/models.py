@@ -39,8 +39,7 @@ class Group(models.Model, ToLinkMixin):
     speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
     entrance_year = models.IntegerField(verbose_name='Год поступления',
                                         validators=year_validator)
-    # FIXME Переименовать (max_course → max_level?)
-    max_course = models.IntegerField(verbose_name='Старший курс', default=4,
+    max_level = models.IntegerField(verbose_name='Старший курс', default=4,
                                      validators=[MinValueValidator(1), MaxValueValidator(7)])
     code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
     distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
@@ -48,7 +47,7 @@ class Group(models.Model, ToLinkMixin):
     @property
     def name(self):
         return '{level}{suffix}'.format(
-            level=datetime.now().year - self.entrance_year if not self.finished else self.max_course,
+            level=datetime.now().year - self.entrance_year if not self.finished else self.max_level,
             suffix=self.suffix)
 
     #TODO свойство graduation_year
@@ -62,13 +61,13 @@ class Group(models.Model, ToLinkMixin):
 
     @property
     def last_year(self):
-        return self.entrance_year + self.max_course
+        return self.entrance_year + self.max_level
 
     @property
     def finished(self):
         diff = datetime.now().year - self.entrance_year
         month = datetime.now().month
-        return (diff > self.max_course) or (diff == self.max_course and month > 6)
+        return (diff > self.max_level) or (diff == self.max_level and month > 6)
 
     link_icon_class = 'fa-group'
 
@@ -77,7 +76,7 @@ class Group(models.Model, ToLinkMixin):
         if self.finished:
             name += ' (’{year})'.format(
                 name=self.name,
-                year=self.entrance_year + self.max_course
+                year=self.entrance_year + self.max_level
             )
         return name
 
