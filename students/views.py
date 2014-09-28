@@ -1,8 +1,4 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render_to_response
-from django.template import RequestContext
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -11,6 +7,7 @@ from courseworks.models import CourseWork
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
 from misc.form_mixins import SuperuserRequiredMixin
+
 
 
 # Студент =======================================
@@ -42,16 +39,11 @@ class GroupListView(ListView):
     model = Group
 
 
-def group_detail(request, group_id):
-    try:
-        group = Group.objects.select_related('speciality').get(id=group_id)
-    except ObjectDoesNotExist:
-        raise Http404
-    students = group.student_set.order_by('surname', 'name').all()
-    return render_to_response('students/group_detail.html',
-                              {
-                                  'group': group,
-                                  'students': students
-                              },
-                              context_instance=RequestContext(request))
+class GroupDetail(DetailView):
+    queryset = Group.objects.select_related('speciality').all()
+    pk_url_kwarg = 'group_id'
 
+    def get_context_data(self, **kwargs):
+        context = super(GroupDetail, self).get_context_data(**kwargs)
+        context['students'] = self.object.student_set.order_by('surname', 'name').all()
+        return context
