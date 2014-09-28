@@ -6,6 +6,9 @@ urlpatterns = \
     patterns('',
              url(r'^$', GroupListView.as_view(), name='students-group-index'),
              url(r'^group-(?P<group_id>\d+)$', GroupDetail.as_view(), name='students-group-detail'),
+             # url(r'^group-create$', GroupDetail.as_view(), name='students-group-create'),
+             # url(r'^group-(?P<group_id>\d+)-edit$', GroupDetail.as_view(), name='students-group-update'),
+             # url(r'^group-(?P<group_id>\d+)-delete$', GroupDetail.as_view(), name='students-group-delete'),
 
              url(r'^(?P<pk>\d+)$', StudentDetail.as_view(), name='students-detail'),
              url(r'^(?P<pk>\d+)-edit$', StudentUpdate.as_view(), name='students-edit'),
