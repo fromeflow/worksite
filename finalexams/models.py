@@ -12,7 +12,7 @@ FINALEXAMS_FOLDER = 'finalexams'
 def UPLOAD_TO(s, fn):
     return join(
         FINALEXAMS_FOLDER,
-        str(s.group.last_year),
+        str(s.group.graduation_year),
         fn)
 
 
@@ -29,7 +29,7 @@ class Finalexam(models.Model):
 
     def __str__(self):
         return '{year} - {spec}'.format(
-            year=self.group.last_year,
+            year=self.group.graduation_year,
             spec=self.group.speciality
         )
 

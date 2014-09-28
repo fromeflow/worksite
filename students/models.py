@@ -50,17 +50,15 @@ class Group(models.Model, ToLinkMixin):
             level=datetime.now().year - self.entrance_year if not self.finished else self.max_level,
             suffix=self.suffix)
 
-    #TODO свойство graduation_year
-
     @property
     def years(self):
         return "{begin}—{end}".format(
             begin=self.entrance_year,
-            end=self.last_year
+            end=self.graduation_year
         )
 
     @property
-    def last_year(self):
+    def graduation_year(self):
         return self.entrance_year + self.max_level
 
     @property
