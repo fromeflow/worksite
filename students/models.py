@@ -9,16 +9,30 @@ from misc.model_mixins import ToLinkMixin
 from misc.validators import year_validator, level_validator
 
 
+SPECIALITY_TYPE_CHOICES = (('B', 'Бакалавр'), ('M', 'Магистр'), ('S', 'Специалист'))
+SEX_CHOICES = (('M', 'М'), ('F', 'Ж'))
+
+
 class Speciality(models.Model):
     "Специальность"
-    code = models.CharField(verbose_name='Шифр', max_length=8)
-    name = models.CharField(verbose_name='Название', max_length=100)
-    specialization = models.CharField(verbose_name='Специализация', max_length=200,
-                                      blank=True)
-    type = models.CharField(verbose_name='Квалификация', max_length=1,
-                            choices=(('B', 'Бакалавр'), ('M', 'Магистр'), ('S', 'Специалист')))
-    standard_generation = models.IntegerField(verbose_name='Поколение стандарта', default=3,
-                                              validators=[MinValueValidator(1), MaxValueValidator(9)])
+    code = models.CharField(
+        verbose_name='Шифр',
+        max_length=8)
+    name = models.CharField(
+        verbose_name='Название',
+        max_length=100)
+    specialization = models.CharField(
+        verbose_name='Специализация',
+        max_length=200,
+        blank=True)
+    type = models.CharField(
+        verbose_name='Квалификация',
+        max_length=1,
+        choices=SPECIALITY_TYPE_CHOICES)
+    standard_generation = models.IntegerField(
+        verbose_name='Поколение стандарта',
+        default=3,
+        validators=[MinValueValidator(1), MaxValueValidator(9)])
 
     def __str__(self):
         return '{code} {name} [ФГОС-{standard}]'.format(
@@ -35,14 +49,26 @@ class Speciality(models.Model):
 
 class Group(models.Model, ToLinkMixin):
     "Академическая группа"
-    suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
-    speciality = models.ForeignKey(verbose_name='Специальность', to=Speciality)
-    entrance_year = models.IntegerField(verbose_name='Год поступления',
-                                        validators=year_validator)
-    max_level = models.IntegerField(verbose_name='Старший курс', default=4,
-                                    validators=level_validator)
-    code = models.CharField(max_length=10, verbose_name='Шифр', blank=True)
-    distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
+    suffix = models.CharField(
+        verbose_name='Суффикс специальности',
+        max_length=2)
+    speciality = models.ForeignKey(
+        verbose_name='Специальность',
+        to=Speciality)
+    entrance_year = models.IntegerField(
+        verbose_name='Год поступления',
+        validators=year_validator)
+    max_level = models.IntegerField(
+        verbose_name='Старший курс',
+        default=4,
+        validators=level_validator)
+    code = models.CharField(
+        verbose_name='Шифр',
+        max_length=10,
+        blank=True)
+    distance_learning = models.BooleanField(
+        verbose_name='Заочное обучение',
+        default=False)
 
     @property
     def name(self):
@@ -90,19 +116,32 @@ class Group(models.Model, ToLinkMixin):
 
 class Student(models.Model, ToLinkMixin):
     "Студент"
-    surname = models.CharField(verbose_name='Фамилия', max_length=20)
-    name = models.CharField(verbose_name='Имя', max_length=20,
-                            blank=True)
-    patronymic = models.CharField(verbose_name='Отчество', max_length=20,
-                                  blank=True)
-    sex = models.CharField(verbose_name="Пол", max_length=1,
-                           choices=(('M', 'М'), ('F', 'Ж')))
-    group = models.ForeignKey(to=Group, verbose_name="Группа")
-    sent_down = models.BooleanField(verbose_name='Отчислен', default=False)
-    user = models.OneToOneField(verbose_name='Связан с пользователем',
-                                null=True, blank=True,
-                                to=User,
-                                default=None)
+    surname = models.CharField(
+        verbose_name='Фамилия',
+        max_length=20)
+    name = models.CharField(
+        verbose_name='Имя',
+        max_length=20,
+        blank=True)
+    patronymic = models.CharField(
+        verbose_name='Отчество',
+        max_length=20,
+        blank=True)
+    sex = models.CharField(
+        verbose_name="Пол",
+        max_length=1,
+        choices=SEX_CHOICES)
+    group = models.ForeignKey(
+        verbose_name="Группа",
+        to=Group)
+    sent_down = models.BooleanField(
+        verbose_name='Отчислен',
+        default=False)
+    user = models.OneToOneField(
+        verbose_name='Связан с пользователем',
+        to=User,
+        blank=True, null=True,
+        default=None)
 
     @property
     def surname_initials(self):
