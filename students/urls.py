@@ -10,8 +10,8 @@ urlpatterns = \
              # url(r'^group-(?P<group_id>\d+)-edit$', GroupDetail.as_view(), name='students-group-update'),
              # url(r'^group-(?P<group_id>\d+)-delete$', GroupDetail.as_view(), name='students-group-delete'),
 
-             url(r'^(?P<pk>\d+)$', StudentDetail.as_view(), name='students-detail'),
-             url(r'^(?P<pk>\d+)-edit$', StudentUpdate.as_view(), name='students-edit'),
+             url(r'^(?P<student_id>\d+)$', StudentDetail.as_view(), name='students-detail'),
+             url(r'^(?P<student_id>\d+)-edit$', StudentUpdate.as_view(), name='students-edit'),
              url(r'^create$', StudentCreate.as_view(), name='students-create'),
-             url(r'^(?P<pk>\d+)-delete$', StudentDelete.as_view(), name='students-delete'),
+             url(r'^(?P<student_id>\d+)-delete$', StudentDelete.as_view(), name='students-delete'),
     )

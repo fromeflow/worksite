@@ -161,7 +161,7 @@ class Student(models.Model, ToLinkMixin):
         return s
 
     def get_absolute_url(self):
-        return reverse('students-detail', kwargs={'pk': self.id})
+        return reverse('students-detail', kwargs={'student_id': self.id})
 
     class Meta:
         ordering = ['group', 'surname']

@@ -12,7 +12,7 @@
 {{ block.super }}
 <li>
     {% if object %}
-    <a href="{% url 'students-detail' pk=object.pk %}">{{ object.surname_initials }}</a>
+    <a href="{% url 'students-detail' student_id=object.pk %}">{{ object.surname_initials }}</a>
     {% else %}
     <a href="{% url 'students-create' %}">Новый студент</a>
     {% endif %}
@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-md-6">
         <form action="" method="post" role="form">
-        {% csrf_token %}
+            {% csrf_token %}
             <table>
                 {{ form.as_table}}
             </table>

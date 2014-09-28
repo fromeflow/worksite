@@ -5,36 +5,36 @@
 
 {% block breadcrumb %}
 {{ block.super }}
-<li><a href="{% url 'students-detail' pk=object.pk %}">{{ object.surname_initials }}</a></li>
+<li><a href="{% url 'students-detail' student_id=object.pk %}">{{ object.surname_initials }}</a></li>
 {% endblock %}
 
 {% block content %}
-        <h1>
-            {{ object.surname }} {{ object.name }} {{ object.patronymic }}
-            {% if not user.is_anonymous and user.is_superuser %}
-            <small><a href="{% url 'students-edit' pk=object.pk %}"><span
-                    class="glyphicon glyphicon-edit"></span></a></small>
-            <small><a href="{% url 'students-delete' pk=object.pk %}"><span
-                    class="glyphicon glyphicon-trash"></span></a></small>
-            {% endif %}
-        </h1>
+<h1>
+    {{ object.surname }} {{ object.name }} {{ object.patronymic }}
+    {% if not user.is_anonymous and user.is_superuser %}
+    <small><a href="{% url 'students-edit' student_id=object.pk %}"><span
+            class="glyphicon glyphicon-edit"></span></a></small>
+    <small><a href="{% url 'students-delete' student_id=object.pk %}"><span
+            class="glyphicon glyphicon-trash"></span></a></small>
+    {% endif %}
+</h1>
 <p>Группа: {{ object.group | to_link }}</p>
 
-        {% if courseworks %}
-        <h2>Курсовые работы</h2>
-        <ul class="list-unstyled">
-        {% for cw in courseworks %}
-            <li>{{ cw | to_link }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% if courseworks %}
+<h2>Курсовые работы</h2>
+<ul class="list-unstyled">
+    {% for cw in courseworks %}
+    <li>{{ cw | to_link }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
-        {% if diplomaworks %}
-        <h2>Квалификационная работа</h2>
-        <ul class="list-unstyled">
-        {% for dw in diplomaworks %}
-            <li>{{ dw | to_link }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% if diplomaworks %}
+<h2>Квалификационная работа</h2>
+<ul class="list-unstyled">
+    {% for dw in diplomaworks %}
+    <li>{{ dw | to_link }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

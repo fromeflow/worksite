@@ -1,18 +1,22 @@
 from django.core.urlresolvers import reverse_lazy
+
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from courseworks.models import CourseWork
+
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
 from misc.form_mixins import SuperuserRequiredMixin
 
 
 
+
 # Студент =======================================
 class StudentDetail(DetailView):
     model = Student
+    pk_url_kwarg = 'student_id'
 
     def get_context_data(self, **kwargs):
         context = super(StudentDetail, self).get_context_data(**kwargs)
@@ -27,10 +31,12 @@ class StudentCreate(SuperuserRequiredMixin, CreateView):
 
 class StudentUpdate(SuperuserRequiredMixin, UpdateView):
     model = Student
+    pk_url_kwarg = 'student_id'
 
 
 class StudentDelete(SuperuserRequiredMixin, DeleteView):
     model = Student
+    pk_url_kwarg = 'student_id'
     success_url = reverse_lazy('students-group-index')
 
 
