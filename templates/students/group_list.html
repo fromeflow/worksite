@@ -1,5 +1,6 @@
 {% extends "students/base.html" %}
 {% load html %}
+{% load text %}
 
 {% block title %}Группы{% endblock %}
 
@@ -9,13 +10,20 @@
 <p>Ниже перечислены группы, с которыми мне довелось работать. Списки могут быть
     неполны, так как иногда я работал только с некоторыми студентами из группы.</p>
 
-<p>Всего в базе в настоящее время {{ students_total }} студентов.</p>
+<p>
+    Всего в базе в настоящее время
+    {{ students_total }}
+    {{ students_total | plural_ru:"студент,студента,студентов"}}.
+</p>
 
 <h2>Обучающиеся сейчас</h2>
 <ul class="list-unstyled">
     {% for group in group_list %}
     {% if not group.finished %}
-    <li>{{ group | to_link }} — <i>{{ group.num_students }} студентов</i></li>
+    <li>
+        {{ group | to_link }} —
+        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+    </li>
     {% endif %}
     {% endfor %}
 </ul>
@@ -26,7 +34,10 @@
 <ul class="list-unstyled">
     {% for group in group_list %}
     {% if group.finished %}
-    <li>{{ group | to_link }} — <i>{{ group.num_students }} студентов</i></li>
+    <li>
+        {{ group | to_link }} —
+        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+    </li>
     {% endif %}
     {% endfor %}
 </ul>
