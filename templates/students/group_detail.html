@@ -1,11 +1,11 @@
 {% extends "students/base.html" %}
 {% load html %}
 
-{% block title %}{{ group }}{% endblock %}
+{% block title %}Группа {{ group }}{% endblock %}
 
 {% block breadcrumb %}
 {{ block.super }}
-<li><a href="{% url 'students-group-detail' group_id=group.id %}">{{ group }}</a></li>
+<li><a href="{% url 'students-group-detail' group_id=group.id %}">Группа {{ group }}</a></li>
 {% endblock %}
 
 {% block content %}
