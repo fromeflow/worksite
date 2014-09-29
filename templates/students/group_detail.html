@@ -10,7 +10,8 @@
 
 {% block content %}
 <h1>Группа {{ group.name }}
-    {% if group.distance_learning %}(заочное обучение) {% endif %}
+    {% if group.distance_learning %}({{ group.code }}) {% endif %}
+    {% if group.distance_learning %} — заочное обучение {% endif %}
 </h1>
 <p>Специальность: {{ group.speciality.code }} «{{ group.speciality.name }}»</p>
 <p>Годы обучения: {{ group.years }}</p>
