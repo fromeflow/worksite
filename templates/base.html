@@ -130,8 +130,15 @@
                             {% endif %}
                             <b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                {% if not user.is_anonymous and user.is_superuser %}
                                 <li>
-                                    <a href="{% url 'account-logout' %}">
+                                    <a href="/admin/">
+                                        <span class="fa fa-database"></span>&nbsp;Админка
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                <a href="{% url 'account-logout' %}">
                                     <span class="glyphicon glyphicon-off"></span>&nbsp;Выход
                                     </a>
                                 </li>
