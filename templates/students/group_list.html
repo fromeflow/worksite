@@ -6,23 +6,29 @@
 {% block content %}
 <h1>Студенческие группы</h1>
 
+<p>Ниже перечислены группы, с которыми мне довелось работать. Списки могут быть
+    неполны, так как иногда я работал только с некоторыми студентами из группы.</p>
+
+<p>Всего в базе в настоящее время {{ students_total }} студентов.</p>
+
 <h2>Обучающиеся сейчас</h2>
-<ul>
+<ul class="list-unstyled">
     {% for group in group_list %}
     {% if not group.finished %}
-    <li>{{ group | to_link }}</li>
+    <li>{{ group | to_link }} — <i>{{ group.num_students }} студентов</i></li>
     {% endif %}
     {% endfor %}
 </ul>
 
 {% if group_list %}
 <h2>Закончившие обучение</h2>
-        <ul>
-            {% for group in group_list %}
-            {% if group.finished %}
-            <li>{{ group | to_link }}</li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+<p>Многие группы уже закончили обучение. Они дополнительно отмечены годом выпуска.</p>
+<ul class="list-unstyled">
+    {% for group in group_list %}
+    {% if group.finished %}
+    <li>{{ group | to_link }} — <i>{{ group.num_students }} студентов</i></li>
+    {% endif %}
+    {% endfor %}
+</ul>
 {% endif %}
 {% endblock %}

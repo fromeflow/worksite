@@ -1,15 +1,13 @@
 from django.core.urlresolvers import reverse_lazy
-
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.db.models import Count
 
 from courseworks.models import CourseWork
-
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
 from misc.form_mixins import SuperuserRequiredMixin
-
 
 
 
@@ -42,7 +40,12 @@ class StudentDelete(SuperuserRequiredMixin, DeleteView):
 
 # Группа ========================================
 class GroupListView(ListView):
-    model = Group
+    queryset = Group.objects.annotate(num_students=Count('student'))
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupListView, self).get_context_data(**kwargs)
+        context['students_total'] = Student.objects.count()
+        return context
 
 
 class GroupDetail(DetailView):
