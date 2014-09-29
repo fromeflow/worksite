@@ -9,16 +9,21 @@
 {% endblock %}
 
 {% block content %}
-        <h1>{{ group }}</h1>
+<h1>Группа {{ group.name }}
+    {% if group.distance_learning %}(заочное обучение) {% endif %}
+</h1>
+<p>Специальность: {{ group.speciality.code }} «{{ group.speciality.name }}»</p>
+<p>Годы обучения: {{ group.years }}</p>
 
+<h2>Состав группы</h2>
         <ol>
         {% for student in students %}
         <li>
             {% if student.sent_down %}
             <del>
-            {% endif %}
+                {% endif %}
                 {{ student | to_link }}
-            {% if student.sent_down %}
+                {% if student.sent_down %}
             </del>
             {% endif %}
         </li>
