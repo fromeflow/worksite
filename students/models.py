@@ -71,9 +71,15 @@ class Group(models.Model, ToLinkMixin):
         default=False)
 
     @property
+    def level(self):
+        diff = datetime.now().year - self.entrance_year
+        month = datetime.now().month
+        return diff if month <= 6 else diff + 1
+
+    @property
     def name(self):
         return '{level}{suffix}'.format(
-            level=datetime.now().year - self.entrance_year if not self.finished else self.max_level,
+            level=min(self.level, self.max_level),
             suffix=self.suffix)
 
     @property
@@ -89,15 +95,13 @@ class Group(models.Model, ToLinkMixin):
 
     @property
     def finished(self):
-        diff = datetime.now().year - self.entrance_year
-        month = datetime.now().month
-        return (diff > self.max_level) or (diff == self.max_level and month > 6)
+        return self.level > self.max_level
 
     link_icon_class = 'fa-group'
 
     def __str__(self):
-        name = self.name  # FIXME дважды вычисляется finished. Проблема ли?
-        if self.finished:
+        name = self.name
+        if self.level > self.max_level:
             name += ' (’{year})'.format(
                 name=self.name,
                 year=self.entrance_year + self.max_level
