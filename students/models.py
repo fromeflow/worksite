@@ -42,7 +42,7 @@ class Speciality(models.Model):
         )
 
     class Meta:
-        ordering = ['standard_generation', 'code']
+        ordering = ['-standard_generation', 'code']
         verbose_name = 'специальность'
         verbose_name_plural = 'специальности'
         unique_together = (('code', 'standard_generation', 'type'),)
