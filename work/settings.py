@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'diplomaworks',
     'courses',
     'finalexams',
+    'forum',
     'textbooks',
 )
 
