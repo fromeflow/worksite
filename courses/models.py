@@ -30,7 +30,7 @@ class Course(models.Model):
 
         # # TODO сделать ссылку на него из coursework
         # class WorkYear:
-#     year = None
+        #     year = None
 #
 # # TODO
         # Версия курса (меняется от года к году), привязана к конкретной группе
@@ -54,8 +54,9 @@ class Course(models.Model):
 #
 # # TODO
 # Одна лабораторная работа
-        # class LabWork:
-#     course_semester = None
+        # class StudentWork:
+        # type = Home|Practice|Lab
+        #     course_semester = None
 #     number = None
 #     title = None
 #     start_time = None
@@ -63,36 +64,14 @@ class Course(models.Model):
 #     deadline = None
 #
 # # TODO
-# class PracticeWork:
-#     course_semester = None
-#     number = None
-#     title = None
+# class MarkWork:
+        #     student = None
+#     work = None
+        #     mark = None
 #
-# # TODO
-# class IndividualWork:
-#     course_semester = None
-#     number = None
-#     title = None
-#
-# # TODO
-# class MarkLabWork:
-#     student = None
-#     lab_work = None
-#     mark = None
-#
-# # TODO
-# class MarkIndividualWork:
-#     student = None
-#     lab_work = None
-#     mark = None
-#
-# # TODO
-# class MarkPracticeWork:
-#     student = None
-#     lab_work = None
-#     mark = None
-#
-# # TODO
+# TODO: класс для индивидуальных студенческих заданий
+        #
+        # # TODO
 # class Session:
 #     student = None
 #     course_semester = None
