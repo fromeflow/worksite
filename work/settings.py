@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'misc',
     'seminars',
     'students',
+    'conference',
     'courseworks',
     'diplomaworks',
     'courses',
