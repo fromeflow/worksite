@@ -5,10 +5,12 @@
 {% block title %}{{ textbook.title }}{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
 <li>
     <a href="{{ textbook.get_absolute_url }}">{{ textbook }}</a>
 </li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

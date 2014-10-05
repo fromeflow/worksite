@@ -3,6 +3,10 @@
 {% block title %}Вход{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'account-login' %}">Вход</a></li>
+<li>
+    <a href="{% url 'account-login' %}">Вход</a>
+</li>
+{% endspaceless %}
 {% endblock %}

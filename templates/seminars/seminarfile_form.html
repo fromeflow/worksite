@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
 <li>
     <a href="{% url 'seminars-detail' seminar_id=seminar.id %}">{{ seminar }}</a>
 </li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

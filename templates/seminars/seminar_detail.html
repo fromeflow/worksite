@@ -5,8 +5,10 @@
 {% block title %}{{ seminar.title }}{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
 <li><a href="{{ seminar.get_absolute_url }}">{{ seminar }}</a></li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}
@@ -62,7 +64,7 @@
 <h2>Материалы
     {% if user.is_superuser %}
     <small><a href="{% url 'seminars-file-add' seminar_id=seminar.id %}">
-    <span class="fa fa-plus"></span>
+        <span class="fa fa-plus"></span>
     </a></small>
     {% endif %}
 </h2>

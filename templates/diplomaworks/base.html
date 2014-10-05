@@ -3,6 +3,10 @@
 {% block title %}Квалификационные работы{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'diplomaworks-index' %}">Квалификационные работы</a></li>
+<li>
+    <a href="{% url 'diplomaworks-index' %}">Квалификационные работы</a>
+</li>
+{% endspaceless %}
 {% endblock %}

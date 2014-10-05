@@ -3,6 +3,10 @@
 {% block title %}Учебные пособия{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'textbooks-index' %}">Учебные пособия</a></li>
+<li>
+    <a href="{% url 'textbooks-index' %}">Учебные пособия</a>
+</li>
+{% endspaceless %}
 {% endblock %}

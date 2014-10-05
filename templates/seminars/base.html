@@ -3,6 +3,10 @@
 {% block title %}Семинар{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'seminars-index' %}">Семинар</a></li>
+<li>
+    <a href="{% url 'seminars-index' %}">Семинар</a>
+</li>
+{% endspaceless %}
 {% endblock %}

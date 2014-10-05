@@ -3,6 +3,10 @@
 {% block title %}Курсовые работы{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'courseworks-index' %}">Курсовые работы</a></li>
+<li>
+    <a href="{% url 'courseworks-index' %}">Курсовые работы</a>
+</li>
+{% endspaceless %}
 {% endblock %}

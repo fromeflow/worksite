@@ -3,6 +3,10 @@
 {% block title %}Студенты{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'students-group-index' %}">Студенты</a></li>
+<li>
+    <a href="{% url 'students-group-index' %}">Студенты</a>
+</li>
+{% endspaceless %}
 {% endblock %}

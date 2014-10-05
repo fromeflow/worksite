@@ -4,8 +4,12 @@
 {% block title %}Открытые темы{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'courseworks-index-finished' %}">Свободные темы</a></li>
+<li>
+    <a href="{% url 'courseworks-index-finished' %}">Свободные темы</a>
+</li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

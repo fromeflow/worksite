@@ -8,12 +8,14 @@
 {% block title %}{{ work.title }}{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
 <li>
     <a href="{% url 'courseworks-detail' coursework_id=work.id %}">
         {{ work.student.surname_initials }} «{{ work.title }}»
     </a>
 </li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

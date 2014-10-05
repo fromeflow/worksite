@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
 <li>
     {% if object %}
@@ -17,6 +18,7 @@
     <a href="{% url 'students-create' %}">Новый студент</a>
     {% endif %}
 </li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

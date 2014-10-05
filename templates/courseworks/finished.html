@@ -4,8 +4,12 @@
 {% block title %}Завершённые{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'courseworks-index-finished' %}">Завершённые работы</a></li>
+<li>
+    <a href="{% url 'courseworks-index-finished' %}">Завершённые работы</a>
+</li>
+{% endspaceless %}
 {% endblock %}
 
 {% block content %}

@@ -3,6 +3,10 @@
 {% block title %}Государственные экзамены{% endblock %}
 
 {% block breadcrumb %}
+{% spaceless %}
 {{ block.super }}
-<li><a href="{% url 'finalexams-index' %}">Государственные экзамены</a></li>
+<li>
+    <a href="{% url 'finalexams-index' %}">Государственные экзамены</a>
+</li>
+{% endspaceless %}
 {% endblock %}
