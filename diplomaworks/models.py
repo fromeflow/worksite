@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from students.models import Student
 from misc.utils import upload_student_work_to
 from misc.validators import year_validator, mark5_validator
+from misc.model_mixins import ToLinkMixin
 
 
 DIPLOMAWORKS_FOLDER = 'diplomaworks'
@@ -29,7 +30,7 @@ def UPLOAD_TO_REVIEW_EXTERNAL(s, fn):
     return upload_student_work_to(s, DIPLOMAWORKS_FOLDER, fn, info='материалы')
 
 
-class DiplomaWork(models.Model):
+class DiplomaWork(models.Model, ToLinkMixin):
     title = models.CharField(verbose_name='Тема', max_length=100)
     description = models.TextField(verbose_name='Описание',
                                    blank=True)
