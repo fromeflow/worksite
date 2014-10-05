@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
 
 from students.models import Student
+from courses.models import Chair
 from misc.validators import year_validator
 from misc.model_mixins import ToLinkMixin
 
@@ -22,9 +23,9 @@ class Report(models.Model, ToLinkMixin):
                                 to=Student)
     description = models.TextField(verbose_name='Описание работы',
                                    blank=True)
-    section = models.CharField(verbose_name='Секция',
-                               max_length=50,
-                               blank=True)
+    chair = models.ForeignKey(verbose_name='Кафедра',
+                              to=Chair,
+                              null=True)
     place = models.IntegerField(verbose_name='Место',
                                 validators=[MinValueValidator(1), MaxValueValidator(3)],
                                 blank=True, null=True)
