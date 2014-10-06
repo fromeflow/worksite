@@ -28,12 +28,21 @@
         </a>
     </small>
     {% endif %}
-
 </h1>
+
 <p>Специальность: {{ group.speciality.code }} «{{ group.speciality.name }}»</p>
 <p>Годы обучения: {{ group.years }}</p>
 
-<h2>Состав группы</h2>
+<h2>Состав группы
+    {% if user.is_superuser %}
+    <small>
+        <a href="{% url 'students-group-add-student' group_id=group.id %}">
+            <span class="fa fa-plus"></span>
+        </a>
+    </small>
+    {% endif %}
+</h2>
+
 <ol>
     {% for student in students %}
     <li>

@@ -3,11 +3,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 
 from courseworks.models import CourseWork
 from diplomaworks.models import DiplomaWork
 from students.models import Student, Group
 from misc.form_mixins import SuperuserRequiredMixin
+
 
 
 
@@ -26,6 +28,22 @@ class StudentDetail(DetailView):
 
 class StudentCreate(SuperuserRequiredMixin, CreateView):
     model = Student
+
+
+class GroupAddStudent(SuperuserRequiredMixin, CreateView):
+    model = Student
+    fields = ['surname', 'name', 'patronymic', 'sex', 'user']
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupAddStudent, self).get_context_data(**kwargs)
+        context['group'] = get_object_or_404(Group, id=self.kwargs['group_id'])
+        return context
+
+    def form_valid(self, form):
+        self.success_url = reverse_lazy('students-group-detail',
+                                        kwargs={'group_id': self.kwargs['group_id']})
+        form.instance.group = get_object_or_404(Group, id=self.kwargs['group_id'])
+        return super(GroupAddStudent, self).form_valid(form)
 
 
 class StudentUpdate(SuperuserRequiredMixin, UpdateView):
