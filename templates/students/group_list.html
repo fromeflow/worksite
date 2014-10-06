@@ -19,7 +19,13 @@
     {{ students_total | plural_ru:"студент,студента,студентов"}}.
 </p>
 
-<h2>Обучающиеся сейчас</h2>
+<h2>Обучающиеся сейчас
+    {% if user.is_superuser %}
+    <small><a href="{% url 'students-group-create' %}">
+        <span class="fa fa-plus"></span>
+    </a></small>
+    {% endif %}
+</h2>
 <ul class="list-unstyled">
     {% for group in group_list %}
     {% if not group.finished %}

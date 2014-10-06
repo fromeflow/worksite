@@ -11,6 +11,7 @@ from misc.form_mixins import SuperuserRequiredMixin
 
 
 
+
 # Студент =======================================
 class StudentDetail(DetailView):
     model = Student
@@ -56,3 +57,18 @@ class GroupDetail(DetailView):
         context = super(GroupDetail, self).get_context_data(**kwargs)
         context['students'] = self.object.student_set.order_by('surname', 'name').all()
         return context
+
+
+class GroupCreate(SuperuserRequiredMixin, CreateView):
+    model = Group
+
+
+class GroupUpdate(SuperuserRequiredMixin, UpdateView):
+    model = Group
+    pk_url_kwarg = 'group_id'
+
+
+class GroupDelete(SuperuserRequiredMixin, DeleteView):
+    model = Group
+    pk_url_kwarg = 'group_id'
+    success_url = reverse_lazy('students-group-index')

@@ -16,6 +16,19 @@
 <h1>Группа {{ group.name }}
     {% if group.code %}({{ group.code }}) {% endif %}
     {% if group.distance_learning %} — заочное обучение {% endif %}
+    {% if user.is_superuser %}
+    <small>
+        <a href="{% url 'students-group-edit' group_id=group.id %}">
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
+    </small>
+    <small>
+        <a href="{% url 'students-group-delete' group_id=group.id %}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </small>
+    {% endif %}
+
 </h1>
 <p>Специальность: {{ group.speciality.code }} «{{ group.speciality.name }}»</p>
 <p>Годы обучения: {{ group.years }}</p>
