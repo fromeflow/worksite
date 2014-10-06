@@ -1,28 +1,34 @@
 {% extends "students/base.html" %}
 {% load html %}
 
-{% block title %}{{ object.surname_initials }}{% endblock %}
+{% block title %}{{ student.surname_initials }}{% endblock %}
 
 {% block breadcrumb %}
 {% spaceless %}
 {{ block.super }}
 <li>
-    <a href="{% url 'students-detail' student_id=object.pk %}">{{ object.surname_initials }}</a>
+    <a href="{% url 'students-detail' student_id=student.id %}">{{ student.surname_initials }}</a>
 </li>
 {% endspaceless %}
 {% endblock %}
 
 {% block content %}
 <h1>
-    {{ object.surname }} {{ object.name }} {{ object.patronymic }}
+    {{ student.surname }} {{ student.name }} {{ student.patronymic }}
     {% if not user.is_anonymous and user.is_superuser %}
-    <small><a href="{% url 'students-edit' student_id=object.pk %}"><span
-            class="glyphicon glyphicon-edit"></span></a></small>
-    <small><a href="{% url 'students-delete' student_id=object.pk %}"><span
-            class="glyphicon glyphicon-trash"></span></a></small>
+    <small>
+        <a href="{% url 'students-edit' student_id=student.id %}">
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
+    </small>
+    <small>
+        <a href="{% url 'students-delete' student_id=student.id %}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </small>
     {% endif %}
 </h1>
-<p>Группа: {{ object.group | to_link }}</p>
+<p>Группа: {{ student.group | to_link }}</p>
 
 {% if courseworks %}
 <h2>Курсовые работы</h2>
