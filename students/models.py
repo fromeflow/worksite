@@ -115,7 +115,7 @@ class Group(models.Model, ToLinkMixin):
         ordering = ['-entrance_year', 'suffix']
         verbose_name = 'группа'
         verbose_name_plural = 'группы'
-        unique_together = (('code', 'entrance_year'), ('suffix', 'entrance_year'))
+        unique_together = (('suffix', 'entrance_year'),)
 
 
 class Student(models.Model, ToLinkMixin):
