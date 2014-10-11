@@ -97,7 +97,7 @@ class Group(models.Model, ToLinkMixin):
     def finished(self):
         return self.level > self.max_level
 
-    link_icon_class = 'fa-group'
+    link_icon_class = 'fa fa-group'
 
     def __str__(self):
         name = self.name
