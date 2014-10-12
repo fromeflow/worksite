@@ -73,7 +73,7 @@ class DiplomaWork(models.Model, ToLinkMixin):
 
     link_icon_class = 'glyphicon glyphicon-file'
 
-    def link_str(self):
+    def link_icon_str(self):
         return '«' + self.title + '»'
 
     def __str__(self):

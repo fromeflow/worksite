@@ -4,6 +4,9 @@ from django.template.loader import render_to_string
 class ToLinkMixin(object):
     link_icon_class = None
 
+    def link_icon_str(self):
+        return str(self)
+
     def link_str(self):
         return str(self)
 

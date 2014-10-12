@@ -47,6 +47,7 @@ class Speciality(models.Model):
         verbose_name_plural = 'специальности'
         unique_together = (('code', 'standard_generation', 'type'),)
 
+
 class Group(models.Model, ToLinkMixin):
     "Академическая группа"
     suffix = models.CharField(
@@ -156,7 +157,7 @@ class Student(models.Model, ToLinkMixin):
 
     link_icon_class = 'glyphicon glyphicon-user'
 
-    def link_str(self):
+    def link_icon_str(self):
         return self.surname_initials
 
     def __str__(self):
