@@ -34,8 +34,8 @@
         </tr>
         {% for w in wc.list %}
         <tr>
-            <td>{{ w.student | to_link }}</td>
-            <td>{{ w | to_link }}</td>
+            <td>{{ w.student | link_icon }}</td>
+            <td>{{ w | link_icon }}</td>
             <td>{{ w.mark | default_if_none:'?' }}</td>
         </tr>
         {% endfor %}

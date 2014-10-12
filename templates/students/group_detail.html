@@ -49,7 +49,7 @@
         {% if student.sent_down %}
         <del>
             {% endif %}
-            {{ student | to_link }}
+            {{ student | link_icon }}
             {% if student.sent_down %}
         </del>
         {% endif %}

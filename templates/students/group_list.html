@@ -30,7 +30,7 @@
     {% for group in group_list %}
     {% if not group.finished %}
     <li>
-        {{ group | to_link }} —
+        {{ group | link_icon }} —
         <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
     </li>
     {% endif %}
@@ -44,7 +44,7 @@
     {% for group in group_list %}
     {% if group.finished %}
     <li>
-        {{ group | to_link }} —
+        {{ group | link_icon }} —
         <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
     </li>
     {% endif %}

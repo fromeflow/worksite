@@ -28,13 +28,13 @@
     </small>
     {% endif %}
 </h1>
-<p>Группа: {{ student.group | to_link }}</p>
+<p>Группа: {{ student.group | link_icon }}</p>
 
 {% if courseworks %}
 <h2>Курсовые работы</h2>
 <ul class="list-unstyled">
     {% for cw in courseworks %}
-    <li>{{ cw | to_link }}</li>
+    <li>{{ cw | link_icon }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -43,7 +43,7 @@
 <h2>Квалификационная работа</h2>
 <ul class="list-unstyled">
     {% for dw in diplomaworks %}
-    <li>{{ dw | to_link }}</li>
+    <li>{{ dw | link_icon }}</li>
     {% endfor %}
 </ul>
 {% endif %}

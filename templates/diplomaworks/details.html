@@ -32,11 +32,11 @@
             {% if work.student %}
             <tr>
                 <th>Выполнил</th>
-                <td>{{ work.student | to_link }}</td>
+                <td>{{ work.student | link_icon }}</td>
             </tr>
             <tr>
                 <th>Группа</th>
-                <td>{{ work.student.group | to_link }}</td>
+                <td>{{ work.student.group | link_icon }}</td>
             </tr>
             {% endif %}
             {% if work.course %}

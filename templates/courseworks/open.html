@@ -20,7 +20,7 @@
 <h2>{{ wl.grouper | default:'Прочее' }}</h2>
 <ol>
     {% for w in wl.list %}
-    <li>{{ w | to_link }}</li>
+    <li>{{ w | link_icon }}</li>
     {% endfor %}
 </ol>
 {% endfor %}
