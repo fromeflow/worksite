@@ -100,6 +100,11 @@ class Group(models.Model, ToLinkMixin):
 
     link_icon_class = 'fa fa-group'
 
+    def link_str(self):
+        return 'Группа {name}'.format(
+            name=self.name
+        )
+
     def __str__(self):
         name = self.name
         if self.level > self.max_level:
