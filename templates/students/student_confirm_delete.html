@@ -1,5 +1,7 @@
 {% extends "students/base.html" %}
 
+{% load html %}
+
 {% block title %}
 {{ object.surname_initials }} [Удаление]
 {% endblock %}
@@ -8,7 +10,7 @@
 {% spaceless %}
 {{ block.super }}
 <li>
-    <a href="{% url 'students-detail' student_id=object.pk %}">{{ object.surname_initials }}</a>
+    {{ student | link }}
 </li>
 {% endspaceless %}
 {% endblock %}

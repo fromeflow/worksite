@@ -7,7 +7,7 @@
 {% spaceless %}
 {{ block.super }}
 <li>
-    <a href="{% url 'students-group-detail' group_id=group.id %}">Группа {{ group }}</a>
+    {{ group | link }}
 </li>
 {% endspaceless %}
 {% endblock %}

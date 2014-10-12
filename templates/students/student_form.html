@@ -1,5 +1,7 @@
 {% extends "students/base.html" %}
 
+{% load html %}
+
 {% block title %}
 {% if object %}
 {{ object.surname_initials }} [Правка]
@@ -12,8 +14,8 @@
 {% spaceless %}
 {{ block.super }}
 <li>
-    {% if object %}
-    <a href="{% url 'students-detail' student_id=object.pk %}">{{ object.surname_initials }}</a>
+    {% if student %}
+    {{ student | link }}
     {% else %}
     <a href="{% url 'students-create' %}">Новый студент</a>
     {% endif %}

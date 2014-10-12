@@ -1,5 +1,7 @@
 {% extends "students/base.html" %}
 
+{% load html %}
+
 {% block title %}
 {% if object %}
 {{ group }} [Правка]
@@ -13,7 +15,7 @@
 {{ block.super }}
 <li>
     {% if group %}
-    <a href="{% url 'students-group-detail' group_id=group.id %}">{{ group.name }}</a>
+    {{ group | link }}
     {% else %}
     <a href="{% url 'students-group-create' %}">Новая группа</a>
     {% endif %}
