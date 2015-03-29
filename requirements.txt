@@ -3,3 +3,4 @@ Markdown
 Pillow
 PyMySQL
 django-debug-toolbar
+gunicorn
