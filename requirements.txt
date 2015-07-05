@@ -1,1 +1,6 @@
 Django
+django-debug-toolbar
+django-braces
+
+gunicorn
+psycopg2
