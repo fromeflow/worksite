@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+    <head>
+        {% load staticfiles %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Великодный из ПГУ{% endblock %}</title>
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'apple-touch-icon.png' %}">
+        <link rel="stylesheet" href="{% static 'css/uikit.custom.min.css' %}">
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/uikit.min.js' %}"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+            <nav class="uk-navbar uk-margin-large-bottom">
+                <a class="uk-navbar-brand uk-hidden-small" href="/"><i class="uk-icon-justify uk-icon-graduation-cap"></i></a>
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li class="uk-parent" data-uk-dropdown>
+                        <a href="">Учёба <i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="#">Дисциплины</a></li>
+                                <li><a href="#">Курсовые работы</a></li>
+                                <li><a href="#">Учебные пособия</a></li>
+                                <li><a href="#">Тестирование</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li class="uk-nav-header">Старшекурсникам</li>
+                                <li><a href="#">Квалификационные работы</a></li>
+                                <li><a href="#">Государственные экзамены</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="uk-parent" data-uk-dropdown>
+                        <a href="">Дополнительно <i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="#">Семинар</a></li>
+                                <li><a href="#">Кружок</a></li>
+                                <li><a href="#">Студенческая конференция</a></li>
+                                <li><a href="#">Кафедральный сборник</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Самообразование</a></li>
+                                <li><a href="#">Книги</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="uk-parent" data-uk-dropdown>
+                        <a href="">Мероприятия <i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="#">Олимпиада</a></li>
+                                <li><a href="#">Марафон программирования</a></li>
+                                <li><a href="#">День информатики</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Календарь</a></li>
+                                <li><a href="#">Фотогалерея</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="uk-parent" data-uk-dropdown>
+                        <a href="">Информация <i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="#">Документы и положения</a></li>
+                                <li><a href="#">Специальности</a></li>
+                                <li><a href="#">Группы</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">О сайте</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href=""><i class="uk-icon-comments"></i> Форум</a>
+                    </li>
+                </ul>
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav uk-hidden-small">
+                        <li>
+                            <a href=""><i class="uk-icon-sign-in"></i> Вход</a>
+                        </li>
+                        </ul>
+                </div>
+
+                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><i class="uk-icon-justify uk-icon-graduation-cap"></i></div>
+            </nav>
+
+            {% block content %}{% endblock %}
+
+        </div>
+
+        <div id="offcanvas" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <ul class="uk-nav uk-nav-offcanvas">
+                    <li>
+                        <a href="#">Учёба</a>
+                    </li>
+                    <li>
+                        <a href="#">Дополнительно</a>
+                    </li>
+                    <li>
+                        <a href="#">Информация</a>
+                    </li>
+                    <li>
+                        <a href="#">Мероприятия</a>
+                    </li>
+                    <li>
+                        <a href="#">Форум</a>
+                    </li>
+                    <li>
+                        <a href="#">Вход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </body>
+</html>
