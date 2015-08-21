@@ -19,5 +19,8 @@ from django.shortcuts import render
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^account/', include('account.urls', namespace='account', app_name='account')),
+
     url(r'^$', lambda r: render(r, 'index.html'))
 ]

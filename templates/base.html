@@ -4,7 +4,7 @@
         {% load staticfiles %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Великодный из ПГУ{% endblock %}</title>
+        <title>{% block title %}Главная{% endblock %} — Великодный из ПГУ</title>
         <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="{% static 'apple-touch-icon.png' %}">
         <link rel="stylesheet" href="{% static 'css/uikit.custom.min.css' %}">
@@ -79,7 +79,11 @@
                 <div class="uk-navbar-flip">
                     <ul class="uk-navbar-nav uk-hidden-small">
                         <li>
-                            <a href=""><i class="uk-icon-sign-in"></i> Вход</a>
+                            {% if user.is_anonymous %}
+                            <a href="{% url 'account:login' %}"><i class="uk-icon-sign-in"></i> Вход</a>
+                            {% else %}
+                            <a href="{% url 'account:logout' %}"><i class="uk-icon-sign-out"></i> Выход</a>
+                            {% endif %}
                         </li>
                         </ul>
                 </div>
@@ -111,7 +115,7 @@
                         <a href="#">Форум</a>
                     </li>
                     <li>
-                        <a href="#">Вход</a>
+                        <a href="{% url 'account:login' %}">Вход</a>
                     </li>
                 </ul>
             </div>
