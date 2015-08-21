@@ -1,5 +1,11 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 from account.models import Person
+
+
+SPECIALTY_TYPE_CHOICES = (('B', 'Бакалавр'), ('M', 'Магистр'), ('S', 'Специалист'))
+SPECIALTY_TERM_CHOICES = (('S', 'Специальность|Специализация'), ('D', 'Направление|Профиль'))
 
 class Faculty(models.Model):
     "Факультет"
@@ -37,12 +43,56 @@ class Chair(models.Model):
         default=False)
 
     def __str__(self):
-        return self.name
+        return '{} [{}]'.format(self.name, self.faculty.short_name)
 
     class Meta:
         verbose_name = 'кафедра'
         verbose_name_plural = 'кафедры'
 
+class Specialty(models.Model):
+    "Специальность/направление"
+    code = models.CharField(
+        verbose_name='Шифр',
+        max_length=10)
+    name = models.CharField(
+        verbose_name='Название',
+        max_length=100)
+    specialization = models.CharField(
+        verbose_name='Профиль (специализация)',
+        max_length=200,
+        blank=True)
+    type = models.CharField(
+        verbose_name='Квалификация',
+        max_length=1,
+        choices=SPECIALTY_TYPE_CHOICES,
+        default='B')
+    term = models.CharField(
+        verbose_name='Термин',
+        max_length=1,
+        choices=SPECIALTY_TERM_CHOICES,
+        default='D')
+    standard_generation = models.CharField(
+        verbose_name='Поколение стандарта',
+        max_length=2,
+        default='3',
+        validators=[MinValueValidator('1'), MaxValueValidator('9')])
+    chair = models.ForeignKey(Chair,
+        verbose_name='Выпускающая кафедра',
+        blank=True,
+        null=True)
+
+    def __str__(self):
+        return '{code} {name} [ФГОС-{standard}]'.format(
+            code=self.code,
+            name=self.name,
+            standard=self.standard_generation
+        )
+
+    class Meta:
+        ordering = ['-standard_generation', 'code']
+        verbose_name = 'специальность'
+        verbose_name_plural = 'специальности'
+        unique_together = (('code', 'standard_generation', 'type'),)
 
 class Employee(Person):
     "Сотрудник"
