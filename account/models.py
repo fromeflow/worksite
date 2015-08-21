@@ -22,7 +22,9 @@ class Person(models.Model):
         max_length=1,
         choices=SEX_CHOICES)
     user = models.OneToOneField(User,
-        verbose_name='Пользователь')
+        verbose_name='Пользователь',
+        blank=True,
+        null=True)
 
     @property
     def surname_initials(self):
