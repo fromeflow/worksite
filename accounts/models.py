@@ -38,7 +38,6 @@ class Person(models.Model):
         return self.surname_initials
 
     class Meta:
-        abstract = True
         ordering = ['surname']
         verbose_name = 'человек'
         verbose_name_plural = 'люди'
