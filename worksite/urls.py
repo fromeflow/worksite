@@ -20,7 +20,7 @@ from django.shortcuts import render
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^account/', include('account.urls', namespace='account', app_name='account')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts', app_name='accounts')),
 
     url(r'^$', lambda r: render(r, 'index.html'))
 ]

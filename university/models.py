@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from account.models import Person
+from accounts.models import Person
 
 
 SPECIALTY_TYPE_CHOICES = (('B', 'Бакалавр'), ('M', 'Магистр'), ('S', 'Специалист'))

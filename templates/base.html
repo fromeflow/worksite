@@ -80,7 +80,7 @@
                     <ul class="uk-navbar-nav uk-hidden-small">
                         {% if user.is_anonymous %}
                         <li>
-                            <a href="{% url 'account:login' %}"><i class="uk-icon-sign-in"></i> Вход</a>
+                            <a href="{% url 'accounts:login' %}"><i class="uk-icon-sign-in"></i> Вход</a>
                         </li>
                         {% else %}
                         <li class="uk-parent" data-uk-dropdown>
@@ -90,7 +90,7 @@
                                     {% if user.is_staff %}
                                     <li><a href="{% url 'admin:index' %}"><i class="uk-icon-gears"></i> Админка</a></li>
                                     {% endif %}
-                                    <li><a href="{% url 'account:logout' %}"><i class="uk-icon-sign-out"></i> Выход</a></li>
+                                    <li><a href="{% url 'accounts:logout' %}"><i class="uk-icon-sign-out"></i> Выход</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -126,9 +126,9 @@
                     </li>
                     <li>
                         {% if user.is_anonymous %}
-                        <a href="{% url 'account:login' %}">Вход</a>
+                        <a href="{% url 'accounts:login' %}">Вход</a>
                         {% else %}
-                        <a href="{% url 'account:logout' %}">Выход</a>
+                        <a href="{% url 'accounts:logout' %}">Выход</a>
                         {% endif %}
                     </li>
                 </ul>
