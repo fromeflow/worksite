@@ -84,7 +84,9 @@
                         </li>
                         {% else %}
                         <li class="uk-parent" data-uk-dropdown>
-                            <a href=""><i class="uk-icon-user"></i> {{ user.employee }} <i class="uk-icon-caret-down"></i></a>
+                            <a href=""><i class="uk-icon-user"></i>
+                                {{ user.person | default:user }}
+                                <i class="uk-icon-caret-down"></i></a>
                             <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip uk-dropdown-small">
                                 <ul class="uk-nav uk-nav-navbar">
                                     {% if user.is_staff %}
