@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'accounts',
     'students',
     'university',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
