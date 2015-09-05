@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse_lazy
 
-from university.models import Specialty
+from university.models import Specialty, Employee
 from accounts.models import Person
 
 from utils.validators import year_validator, level_validator
@@ -29,6 +29,10 @@ class Group(ToLinkMixin, models.Model):
     distance_learning = models.BooleanField(
         verbose_name='Заочное обучение',
         default=False)
+    supervisor = models.ForeignKey(Employee,
+        verbose_name='Куратор',
+        null=True,
+        default=None)
 
     @property
     def level(self):
