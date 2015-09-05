@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from university.models import Specialty, Employee
 from accounts.models import Person
 
-from utils.validators import year_validator, level_validator
+from utils.validators import year_validator
 from utils.mixins import ToLinkMixin
 
 class Group(ToLinkMixin, models.Model):
@@ -18,10 +18,6 @@ class Group(ToLinkMixin, models.Model):
     entrance_year = models.IntegerField(
         verbose_name='Год поступления',
         validators=year_validator)
-    max_level = models.IntegerField(
-        verbose_name='Старший курс',
-        default=4,
-        validators=level_validator)
     code = models.CharField(
         verbose_name='Шифр',
         max_length=10,
@@ -44,8 +40,12 @@ class Group(ToLinkMixin, models.Model):
     @property
     def name(self):
         return '{level}{suffix}'.format(
-            level=min(self.level, self.max_level),
+            level=min(self.level, self.specialty.max_level),
             suffix=self.suffix)
+
+    @property
+    def full_name(self):
+        return str(self)
 
     @property
     def years(self):
@@ -56,18 +56,18 @@ class Group(ToLinkMixin, models.Model):
 
     @property
     def graduation_year(self):
-        return self.entrance_year + self.max_level
+        return self.entrance_year + self.specialty.max_level
 
     @property
     def finished(self):
-        return self.level > self.max_level
+        return self.level > self.specialty.max_level
 
     def __str__(self):
         name = self.name
-        if self.level > self.max_level:
+        if self.level > self.specialty.max_level:
             name += ' (’{year})'.format(
                 name=self.name,
-                year=self.entrance_year + self.max_level
+                year=self.entrance_year + self.specialty.max_level
             )
         return name
 

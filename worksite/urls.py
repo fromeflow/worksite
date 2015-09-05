@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/', include('accounts.urls', namespace='accounts', app_name='accounts')),
+    url(r'^student/', include('students.urls', namespace='students', app_name='students')),
 
     url(r'^$', lambda r: render(r, 'index.html'))
 ]

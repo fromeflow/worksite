@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from accounts.models import Person
+from utils.validators import year_validator, level_validator
 
 
 SPECIALTY_TYPE_CHOICES = (('B', 'Бакалавр'), ('M', 'Магистр'), ('S', 'Специалист'))
@@ -76,6 +77,10 @@ class Specialty(models.Model):
         max_length=2,
         default='3',
         validators=[MinValueValidator('1'), MaxValueValidator('9')])
+    max_level = models.IntegerField(
+        verbose_name='Старший курс',
+        default=4,
+        validators=level_validator)
     chair = models.ForeignKey(Chair,
         verbose_name='Выпускающая кафедра',
         blank=True,
