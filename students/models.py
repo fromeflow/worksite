@@ -32,6 +32,7 @@ class Group(ToLinkMixin, models.Model):
     supervisor = models.ForeignKey(Employee,
         verbose_name='Куратор',
         null=True,
+        blank=True,
         default=None)
 
     @property
