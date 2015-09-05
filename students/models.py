@@ -1,11 +1,14 @@
 from datetime import datetime
 from django.db import models
+from django.core.urlresolvers import reverse_lazy
+
 from university.models import Specialty
 from accounts.models import Person
+
 from utils.validators import year_validator, level_validator
+from utils.mixins import ToLinkMixin
 
-
-class Group(models.Model):
+class Group(ToLinkMixin, models.Model):
     "Академическая группа"
     suffix = models.CharField(
         verbose_name='Суффикс специальности',
@@ -63,8 +66,8 @@ class Group(models.Model):
             )
         return name
 
-    # def get_absolute_url(self):
-    #     return reverse('students-group-detail', kwargs={'group_id': self.id})
+    def get_absolute_url(self):
+        return reverse_lazy('students:group-detail', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['-entrance_year', 'suffix']
@@ -73,7 +76,7 @@ class Group(models.Model):
         unique_together = (('suffix', 'entrance_year'),)
 
 
-class Student(Person):
+class Student(ToLinkMixin, Person):
     "Студент"
     group = models.ForeignKey(
         verbose_name="Группа",
@@ -87,8 +90,8 @@ class Student(Person):
         s += ' [{group}]'.format(group=self.group)
         return s
 
-    # def get_absolute_url(self):
-    #     return reverse('students-detail', kwargs={'student_id': self.id})
+    def get_absolute_url(self):
+        return reverse_lazy('students:detail', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['group', 'surname']
