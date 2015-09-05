@@ -94,5 +94,7 @@ STATICFILES_DIRS = (
 STATIC_ROOT = config['Files']['static']
 
 
+LOGIN_URL = '/accounts/login'
+LOGOUT_URL = '/accounts/logout'
 LOGIN_REDIRECT_URL = '/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
