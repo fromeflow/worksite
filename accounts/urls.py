@@ -5,6 +5,6 @@ from django.core.urlresolvers import reverse_lazy
 urlpatterns = patterns('',
                        url(r'^login$', auth_views.login, {'template_name': 'accounts/login.html'},
                            name='login'),
-                       url(r'^logout$', auth_views.logout_then_login, {'login_url': reverse_lazy('accounts:login')},
+                       url(r'^logout$', auth_views.logout, {'next_page': '/'},
                            name='logout'),
 )
