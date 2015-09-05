@@ -9,7 +9,7 @@ class GroupAdmin(admin.ModelAdmin):
 
     send_down.short_description = 'Расформировать группу'
 
-    list_display = ['name', 'specialty', 'years']
+    list_display = ['full_name', 'specialty', 'years']
     list_filter = ['entrance_year', 'specialty']
     actions = [send_down]
 
