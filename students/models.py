@@ -10,26 +10,12 @@ from utils.mixins import ToLinkMixin
 
 class Group(ToLinkMixin, models.Model):
     "Академическая группа"
-    suffix = models.CharField(
-        verbose_name='Суффикс специальности',
-        max_length=2)
-    specialty = models.ForeignKey(Specialty,
-        verbose_name='Специальность')
-    entrance_year = models.IntegerField(
-        verbose_name='Год поступления',
-        validators=year_validator)
-    code = models.CharField(
-        verbose_name='Шифр',
-        max_length=10,
-        blank=True)
-    distance_learning = models.BooleanField(
-        verbose_name='Заочное обучение',
-        default=False)
-    supervisor = models.ForeignKey(Employee,
-        verbose_name='Куратор',
-        null=True,
-        blank=True,
-        default=None)
+    suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
+    specialty = models.ForeignKey(to=Specialty, verbose_name='Специальность')
+    entrance_year = models.IntegerField(verbose_name='Год поступления', validators=year_validator)
+    code = models.CharField(verbose_name='Шифр', max_length=10, blank=True)
+    distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
+    supervisor = models.ForeignKey(to=Employee, verbose_name='Куратор', null=True, blank=True, default=None)
 
     @property
     def level(self):
@@ -83,12 +69,8 @@ class Group(ToLinkMixin, models.Model):
 
 class Student(ToLinkMixin, Person):
     "Студент"
-    group = models.ForeignKey(
-        verbose_name="Группа",
-        to=Group)
-    sent_down = models.BooleanField(
-        verbose_name='Отчислен',
-        default=False)
+    group = models.ForeignKey(to=Group, verbose_name="Группа")
+    sent_down = models.BooleanField(verbose_name='Отчислен', default=False)
 
     def __str__(self):
         s = self.surname_initials

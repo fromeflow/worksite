@@ -10,16 +10,9 @@ SPECIALTY_TERM_CHOICES = (('S', 'Специальность|Специализа
 
 class Faculty(models.Model):
     "Факультет"
-    name = models.CharField(
-        verbose_name='Название факультета',
-        max_length=50)
-    short_name = models.CharField(
-        verbose_name='Сокращённое название',
-        max_length=8)
-    dean = models.OneToOneField('Employee',
-        verbose_name='Декан',
-        blank=True,
-        null=True)
+    name = models.CharField(verbose_name='Название факультета', max_length=50)
+    short_name = models.CharField(verbose_name='Сокращённое название', max_length=8)
+    dean = models.OneToOneField(to='Employee', verbose_name='Декан', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,17 +24,10 @@ class Faculty(models.Model):
 
 class Chair(models.Model):
     "Кафедра"
-    name = models.CharField(
-        verbose_name='Название кафедры',
-        max_length=50)
-    short_name = models.CharField(
-        verbose_name='Сокращённое название',
-        max_length=8)
-    faculty = models.ForeignKey(Faculty,
-        verbose_name='Факультет')
-    closed = models.BooleanField(
-        verbose_name='Закрыта',
-        default=False)
+    name = models.CharField(verbose_name='Название кафедры', max_length=50)
+    short_name = models.CharField(verbose_name='Сокращённое название', max_length=8)
+    faculty = models.ForeignKey(to=Faculty, verbose_name='Факультет')
+    closed = models.BooleanField(verbose_name='Закрыта', default=False)
 
     def __str__(self):
         return '{} [{}]'.format(self.name, self.faculty.short_name)
@@ -52,39 +38,15 @@ class Chair(models.Model):
 
 class Specialty(models.Model):
     "Специальность/направление"
-    code = models.CharField(
-        verbose_name='Шифр',
-        max_length=10)
-    name = models.CharField(
-        verbose_name='Название',
-        max_length=100)
-    specialization = models.CharField(
-        verbose_name='Профиль (специализация)',
-        max_length=200,
-        blank=True)
-    type = models.CharField(
-        verbose_name='Квалификация',
-        max_length=1,
-        choices=SPECIALTY_TYPE_CHOICES,
-        default='B')
-    term = models.CharField(
-        verbose_name='Термин',
-        max_length=1,
-        choices=SPECIALTY_TERM_CHOICES,
-        default='D')
-    standard_generation = models.CharField(
-        verbose_name='Поколение стандарта',
-        max_length=2,
-        default='3',
-        validators=[MinValueValidator('1'), MaxValueValidator('9')])
-    max_level = models.IntegerField(
-        verbose_name='Старший курс',
-        default=4,
-        validators=level_validator)
-    chair = models.ForeignKey(Chair,
-        verbose_name='Выпускающая кафедра',
-        blank=True,
-        null=True)
+    code = models.CharField(verbose_name='Шифр', max_length=10)
+    name = models.CharField(verbose_name='Название', max_length=100)
+    specialization = models.CharField(verbose_name='Профиль (специализация)', max_length=200, blank=True)
+    type = models.CharField(verbose_name='Квалификация', max_length=1, choices=SPECIALTY_TYPE_CHOICES, default='B')
+    term = models.CharField(verbose_name='Термин', max_length=1, choices=SPECIALTY_TERM_CHOICES, default='D')
+    standard_generation = models.CharField(verbose_name='Поколение стандарта', max_length=2, default='3',
+                                           validators=[MinValueValidator('1'), MaxValueValidator('9')])
+    max_level = models.IntegerField(verbose_name='Старший курс', default=4, validators=level_validator)
+    chair = models.ForeignKey(to=Chair, verbose_name='Выпускающая кафедра', blank=True, null=True)
 
     def __str__(self):
         return '{code} {name} [ФГОС-{standard}]'.format(
@@ -101,18 +63,9 @@ class Specialty(models.Model):
 
 class Employee(Person):
     "Сотрудник"
-    position = models.CharField(
-        verbose_name='Должность',
-        max_length=50,
-        blank=True)
-    degree = models.CharField(
-        verbose_name='Учёная степень',
-        max_length=20,
-        blank=True)
-    chair = models.ForeignKey(Chair,
-        verbose_name='Кафедра',
-        blank=True,
-        null=True)
+    position = models.CharField(verbose_name='Должность', max_length=50, blank=True)
+    degree = models.CharField(verbose_name='Учёная степень', max_length=20, blank=True)
+    chair = models.ForeignKey(to=Chair, verbose_name='Кафедра', blank=True, null=True)
 
     class Meta:
         verbose_name = 'сотрудник'

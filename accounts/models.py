@@ -6,25 +6,11 @@ SEX_CHOICES = (('M', 'М'), ('F', 'Ж'))
 
 class Person(models.Model):
     "Человек"
-    surname = models.CharField(
-        verbose_name='Фамилия',
-        max_length=30)
-    name = models.CharField(
-        verbose_name='Имя',
-        max_length=20,
-        blank=True)
-    patronymic = models.CharField(
-        verbose_name='Отчество',
-        max_length=20,
-        blank=True)
-    sex = models.CharField(
-        verbose_name='Пол',
-        max_length=1,
-        choices=SEX_CHOICES)
-    user = models.OneToOneField(User,
-        verbose_name='Пользователь',
-        blank=True,
-        null=True)
+    surname = models.CharField(verbose_name='Фамилия', max_length=30)
+    name = models.CharField(verbose_name='Имя', max_length=20, blank=True)
+    patronymic = models.CharField(verbose_name='Отчество', max_length=20, blank=True)
+    sex = models.CharField(verbose_name='Пол', max_length=1, choices=SEX_CHOICES)
+    user = models.OneToOneField(User, verbose_name='Пользователь', blank=True, null=True)
 
     @property
     def surname_initials(self):
