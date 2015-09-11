@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'utils',
     'accounts',
+    'projects',
     'students',
     'university',
     'debug_toolbar',
@@ -94,6 +95,8 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = config['Files']['static']
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = config['Files']['media']
 
 LOGIN_URL = '/accounts/login'
 LOGOUT_URL = '/accounts/logout'
