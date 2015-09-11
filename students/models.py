@@ -102,3 +102,6 @@ class Student(ToLinkMixin, Person):
         ordering = ['group', 'surname']
         verbose_name = 'студент'
         verbose_name_plural = 'студенты'
+
+    def link_str(self):
+        return self.surname_initials
