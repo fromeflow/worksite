@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load html %}
+{% load text %}
+
+{% block title %}Группы{% endblock %}
+
+{% block content %}
+<h1>Студенческие группы</h1>
+
+<p>
+    Ниже перечислены группы, с которыми мне довелось работать. Списки могут быть
+    неполны, так как иногда я работал только с некоторыми студентами из группы.
+    Или, наоборот, в списках могут быть студенты, которые были отчислены.
+</p>
+
+<p>
+    Всего в базе в настоящее время
+    {{ students_total }}
+    {{ students_total | plural_ru:"студент,студента,студентов"}}.
+</p>
+
+<h2>Обучающиеся сейчас
+    {% if user.is_superuser %}
+        <a href="{% url 'students:group-create' %}"><i class="uk-icon-plus"></i></a>
+    {% endif %}
+</h2>
+<ul class="list-unstyled">
+    {% for group in group_list %}
+    {% if not group.finished %}
+    <li>
+        {{ group | link_icon }} —
+        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+        {% if user.is_staff %}
+            <a href="{% url 'students:group-edit' pk=group.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+            <a href="{% url 'students:group-delete' pk=group.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% if group_list %}
+<h2>Закончившие обучение</h2>
+<p>Многие группы уже закончили обучение. Они дополнительно отмечены годом выпуска.</p>
+<ul class="list-unstyled">
+    {% for group in group_list %}
+    {% if group.finished %}
+    <li>
+        {{ group | link_icon }} —
+        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+        {% if user.is_staff %}
+            <a href="{% url 'students:group-edit' pk=group.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+            <a href="{% url 'students:group-delete' pk=group.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

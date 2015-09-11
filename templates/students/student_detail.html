@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load html %}
+
+{% block title %}{{ student.surname_initials }}{% endblock %}
+
+{% block content %}
+<h1 class="uk-h2">
+    {{ student.surname }} {{ student.name }} {{ student.patronymic }}
+    {% if not user.is_anonymous and user.is_superuser %}
+        <a href="{% url 'students:edit' pk=student.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+        <a href="{% url 'students:delete' pk=student.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
+    {% endif %}
+</h1>
+<p>Группа: {{ student.group | link_icon }}</p>
+
+{% endblock %}

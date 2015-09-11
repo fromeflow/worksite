@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load html %}
+
+{% block title %}
+{% if student %}
+    {{ student.surname_initials }} [Правка]
+{% else %}
+    Новый студент
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>{% if student %}
+        {{ student.surname_initials }} [Правка]
+    {% else %}
+        Новый студент
+    {% endif %}
+    {% if group %}
+    (группа {{ group | link }})
+    {% endif %}
+</h1>
+
+{% include "form.html" %}
+{% endblock %}

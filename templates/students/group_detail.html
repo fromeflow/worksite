@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load html %}
+
+{% block title %}Группа {{ group }}{% endblock %}
+
+{% block content %}
+<h1>Группа {{ group.name }}
+    {% if group.code %}({{ group.code }}) {% endif %}
+    {% if group.distance_learning %} — заочное обучение {% endif %}
+    {% if user.is_staff %}
+        <a href="{% url 'students:group-edit' pk=group.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+        <a href="{% url 'students:group-delete' pk=group.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
+    {% endif %}
+</h1>
+
+<p>Специальность: {{ group.specialty.code }} «{{ group.specialty.name }}»</p>
+<p>Годы обучения: {{ group.years }}</p>
+
+<h2>Состав группы
+    {% if user.is_staff %}
+        <a href="{% url 'students:group-add-student' pk=group.id %}"><i class="uk-icon-plus"></i></a>
+    {% endif %}
+</h2>
+
+<ol>
+    {% for student in students %}
+    <li>
+        {% if student.sent_down %}
+        <del>
+            {% endif %}
+            {{ student | link_icon }}
+            {% if student.sent_down %}
+        </del>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ol>
+{% endblock %}

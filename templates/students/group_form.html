@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load html %}
+
+{% block title %}
+{% if group %}
+{{ group }} [Правка]
+{% else %}
+Новая группа
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>{% if group %}Группа {{ group }} [Правка]{% else %}Новая группа{% endif %}</h1>
+    {% include "form.html" %}
+{% endblock %}
