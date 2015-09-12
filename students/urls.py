@@ -5,7 +5,7 @@ from students.views import *
 
 urlpatterns = \
     patterns('',
-             url(r'^$', GroupListView.as_view(), name='group-index'),
+             url(r'^$', GroupList.as_view(), name='group-index'),
              url(r'^group-(?P<pk>\d+)$', GroupDetail.as_view(), name='group-detail'),
              url(r'^group-create$', GroupCreate.as_view(), name='group-create'),
              url(r'^group-(?P<pk>\d+)-edit$', GroupUpdate.as_view(), name='group-edit'),

@@ -10,13 +10,13 @@ from students.models import Group, Student
 from projects.models import CourseProject, FinalProject
 
 # Группа ========================================
-class GroupListView(ListView):
+class GroupList(ListView):
     queryset = Group.objects\
         .prefetch_related('specialty')\
         .annotate(num_students=Count('student'))
 
     def get_context_data(self, **kwargs):
-        context = super(GroupListView, self).get_context_data(**kwargs)
+        context = super(GroupList, self).get_context_data(**kwargs)
         context['students_total'] = Student.objects.count()
         return context
 
