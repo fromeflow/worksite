@@ -83,14 +83,14 @@ class CourseProject(ToLinkMixin, GenericProject):
     academic_year.short_description = 'Учебный год'
 
     def get_absolute_url(self):
-        return reverse('courseworks-detail', kwargs={'coursework_id': self.id})
+        return ''#reverse('courseworks-detail', kwargs={'coursework_id': self.id})
 
     class Meta:
         ordering = ['-year', 'student__surname']
         verbose_name = 'курсовая работа'
         verbose_name_plural = 'курсовые работы'
 
-    def link_icon_str(self):
+    def link_str(self):
         return '«' + self.title + '»'
 
 class FinalProject(ToLinkMixin, GenericProject):
@@ -105,13 +105,13 @@ class FinalProject(ToLinkMixin, GenericProject):
     defence_year.short_description = 'Учебный год'
 
     def get_absolute_url(self):
-        return reverse('diplomaworks-detail', kwargs={'diplomawork_id': self.id})
+        return ''#reverse('diplomaworks-detail', kwargs={'diplomawork_id': self.id})
 
     class Meta:
         ordering = ['student__group', 'student__surname']
         verbose_name = 'квалификационная работа'
         verbose_name_plural = 'квалификационные работы'
 
-    def link_icon_str(self):
+    def link_str(self):
         return '«' + self.title + '»'
 
