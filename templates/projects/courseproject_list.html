@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load html text %}
+
+{% block title %}Курсовые работы{% endblock %}
+
+{% block content %}
+<h1>Курсовые работы</h1>
+
+<p><a href="{% url 'projects:open-index' %}">Открытые темы</a></p>
+
+<h2>Текущие работы</h2>
+<table class="uk-table uk-table-hover">
+    <tr>
+        <th class="uk-width-2-6">Студент</th>
+        <th class="uk-width-4-6">Тема</th>
+    </tr>
+    {% for cp in courseproject_list %}
+    {% if not cp.completed %}
+    <tr>
+        <td class="uk-width-2-6">{{ cp.student | link_icon }}</td>
+        <td class="uk-width-4-6">{{ cp | link_icon }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+<h2>Завершённые работы</h2>
+<table class="uk-table uk-table-hover">
+    <tr>
+        <th class="uk-width-2-6">Студент</th>
+        <th class="uk-width-3-6">Тема</th>
+        <th class="uk-width-1-6">Оценка</th>
+    </tr>
+    {% for cp in courseproject_list %}
+    {% if cp.completed %}
+    <tr>
+        <td class="uk-width-2-6">{{ cp.student | link_icon }}</td>
+        <td class="uk-width-3-6">{{ cp | link_icon }}</td>
+        <td class="uk-width-1-6">{{ cp.mark | mark_to_text }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

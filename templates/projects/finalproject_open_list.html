@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load html %}
+
+{% block title %}Квалификационные работы{% endblock %}
+
+{% block content %}
+<h1>Открытые темы</h1>
+
+<table class="uk-table uk-table-hover">
+    <tr>
+        <th>Тема</th>
+    </tr>
+    {% for fp in finalproject_list %}
+    <tr>
+        <td>{{ fp | link_icon }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

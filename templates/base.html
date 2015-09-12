@@ -23,12 +23,12 @@
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
                                 <li><a href="#">Дисциплины</a></li>
-                                <li><a href="#">Курсовые работы</a></li>
+                                <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
                                 <li><a href="#">Учебные пособия</a></li>
                                 <li><a href="#">Тестирование</a></li>
                                 <li class="uk-nav-divider"></li>
                                 <li class="uk-nav-header">Старшекурсникам</li>
-                                <li><a href="#">Квалификационные работы</a></li>
+                                <li><a href="{% url 'projects:final-index' %}">Квалификационные работы</a></li>
                                 <li><a href="#">Государственные экзамены</a></li>
                             </ul>
                         </div>

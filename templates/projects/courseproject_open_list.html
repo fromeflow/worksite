@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load html %}
+
+{% block title %}Курсовые работы{% endblock %}
+
+{% block content %}
+<h1>Открытые темы</h1>
+
+<table class="uk-table uk-table-hover">
+    <tr>
+        <th>Тема</th>
+    </tr>
+    {% for cp in courseproject_list %}
+    <tr>
+        <td>{{ cp | link_icon }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
