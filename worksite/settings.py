@@ -86,6 +86,11 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Debug Toolbar
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+}
 
 # Static files (CSS, JavaScript, Images)
 
