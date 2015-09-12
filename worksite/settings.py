@@ -10,7 +10,7 @@ config.read(os.path.join(BASE_DIR, 'worksite.ini'))
 SECRET_KEY = config['Settings']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config['Settings']['DEBUG']
+DEBUG = config['Settings']['DEBUG'] in ['True', 'true']
 
 ALLOWED_HOSTS = []
 
