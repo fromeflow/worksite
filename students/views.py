@@ -13,7 +13,8 @@ from projects.models import CourseProject, FinalProject
 class GroupList(ListView):
     queryset = Group.objects\
         .select_related('specialty')\
-        .annotate(num_students=Count('student'))
+        .annotate(num_students=Count('student'))\
+        .all()
 
     def get_context_data(self, **kwargs):
         context = super(GroupList, self).get_context_data(**kwargs)
@@ -22,7 +23,8 @@ class GroupList(ListView):
 
 
 class GroupDetail(LoginRequiredMixin, DetailView):
-    queryset = Group.objects.select_related('specialty').all()
+    queryset = Group.objects.select_related('specialty')\
+        .all()
 
     def get_context_data(self, **kwargs):
         context = super(GroupDetail, self).get_context_data(**kwargs)
