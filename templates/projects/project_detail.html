@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load text html file_icon %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ object.student.surname_initials }} «{{ object.title }}»
+    {% if object.year %}
+    <br>
+    <small>{{ object.academic_year }} уч. год{% if object.semester %}, {{ object.semester }} семестр{% endif %}</small>
+    {% endif %}
+</h1>
+
+<table class="uk-table">
+    {% if object.student %}
+    <tr>
+        <th class="uk-width-1-6">Выполнил</th>
+        <td>{{ object.student | link_icon }}</td>
+    </tr>
+    <tr>
+        <th class="uk-width-1-6">Группа</th>
+        <td>{{ object.student.group | link_icon }}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if object.mark %}
+<p>Работа была защищена на оценку «<em>{{ object.mark | mark_to_text }}</em>».</p>
+{% endif %}
+
+{% if object.slides %}
+<p>
+    {{ object.slides | file_icon }}
+    <a href="{{ object.slides.url }}">Слайды</a>
+</p>
+{% endif %}
+{% if object.text %}
+<p>
+    {{ object.text | file_icon }}
+    <a href="{{ object.text.url }}">Текст работы</a>
+</p>
+{% endif %}
+{% if object.materials %}
+<p>
+    {{ object.materials | file_icon }}
+    <a href="{{ object.materials.url }}">Дополнительные материалы</a>
+</p>
+{% endif %}
+{% if object.description %}
+<h2>Описание</h2>
+{{ object.description }}
+{% endif %}
+
+{% endblock %}
