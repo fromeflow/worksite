@@ -110,18 +110,47 @@
 
         <div id="offcanvas" class="uk-offcanvas">
             <div class="uk-offcanvas-bar">
-                <ul class="uk-nav uk-nav-offcanvas">
-                    <li>
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+                    <li class="uk-parent">
                         <a href="#">Учёба</a>
+                        <ul class="uk-nav-sub">
+                                <li><a href="#">Дисциплины</a></li>
+                                <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
+                                <li><a href="#">Учебные пособия</a></li>
+                                <li><a href="#">Тестирование</a></li>
+                                <li><a href="{% url 'projects:final-index' %}">Квалификационные работы</a></li>
+                                <li><a href="#">Государственные экзамены</a></li>
+                            </ul>
                     </li>
-                    <li>
+                    <li class="uk-parent">
                         <a href="#">Дополнительно</a>
+                        <ul class="uk-nav-sub">
+                                <li><a href="#">Семинар</a></li>
+                                <li><a href="#">Кружок</a></li>
+                                <li><a href="#">Студенческая конференция</a></li>
+                                <li><a href="#">Кафедральный сборник</a></li>
+                                <li><a href="#">Самообразование</a></li>
+                                <li><a href="#">Книги</a></li>
+                            </ul>
                     </li>
-                    <li>
-                        <a href="#">Информация</a>
-                    </li>
-                    <li>
+                    <li class="uk-parent">
                         <a href="#">Мероприятия</a>
+                        <ul class="uk-nav-sub">
+                                <li><a href="#">Олимпиада</a></li>
+                                <li><a href="#">Марафон программирования</a></li>
+                                <li><a href="#">День информатики</a></li>
+                                <li><a href="#">Календарь</a></li>
+                                <li><a href="#">Фотогалерея</a></li>
+                            </ul>
+                    </li>
+                    <li class="uk-parent">
+                        <a href="#">Информация</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="#">Документы и положения</a></li>
+                            <li><a href="#">Специальности</a></li>
+                            <li><a href="{% url 'students:group-index' %}">Группы</a></li>
+                            <li><a href="#">О сайте</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">Форум</a>
