@@ -11,7 +11,9 @@ from students.models import Group, Student
 
 # Группа ========================================
 class GroupListView(ListView):
-    queryset = Group.objects.annotate(num_students=Count('student'))
+    queryset = Group.objects\
+        .prefetch_related('specialty')\
+        .annotate(num_students=Count('student'))
 
     def get_context_data(self, **kwargs):
         context = super(GroupListView, self).get_context_data(**kwargs)
