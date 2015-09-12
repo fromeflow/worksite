@@ -12,7 +12,7 @@ SECRET_KEY = config['Settings']['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config['Settings']['DEBUG'] in ['True', 'true']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
