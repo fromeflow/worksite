@@ -18,7 +18,7 @@ def upload_project_to(self, filename, info=None):
         info = ' (' + info + ')'
     id = str(self.id)
     if self.student:
-        name = str(self.student.surname_initials) + ' - '
+        name = str(self.student.surname) + ' - '
     else:
         name = ''
     title = str(self.title)
