@@ -12,7 +12,7 @@ from projects.models import CourseProject, FinalProject
 # Группа ========================================
 class GroupList(ListView):
     queryset = Group.objects\
-        .prefetch_related('specialty')\
+        .select_related('specialty')\
         .annotate(num_students=Count('student'))
 
     def get_context_data(self, **kwargs):
