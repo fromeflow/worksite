@@ -16,7 +16,7 @@
 <p>
     Всего в базе в настоящее время
     {{ students_total }}
-    {{ students_total | plural_ru:"студент,студента,студентов"}}.
+    {{ students_total | pluralize_ru:"студент,студента,студентов"}}.
 </p>
 
 <h2>Обучающиеся сейчас
@@ -29,7 +29,7 @@
     {% if not group.finished %}
     <li>
         {{ group | link_icon }} —
-        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+        <i>{{ group.num_students }} {{ group.num_students | pluralize_ru:"студент,студента,студентов"}}</i>
         {% if user.is_staff %}
             <a href="{% url 'students:group-edit' pk=group.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
             <a href="{% url 'students:group-delete' pk=group.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
@@ -47,7 +47,7 @@
     {% if group.finished %}
     <li>
         {{ group | link_icon }} —
-        <i>{{ group.num_students }} {{ group.num_students | plural_ru:"студент,студента,студентов"}}</i>
+        <i>{{ group.num_students }} {{ group.num_students | pluralize_ru:"студент,студента,студентов"}}</i>
         {% if user.is_staff %}
             <a href="{% url 'students:group-edit' pk=group.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
             <a href="{% url 'students:group-delete' pk=group.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>

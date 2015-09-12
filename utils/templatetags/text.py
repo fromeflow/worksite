@@ -17,7 +17,7 @@ def mark_to_text(value):
 
 @register.filter
 @stringfilter
-def plural_ru(value, arg):
+def pluralize_ru(value, arg):
     try:
         name1, name2, name5, *_ = arg.split(',')
         value_int = int(value)
