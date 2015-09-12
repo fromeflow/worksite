@@ -13,4 +13,21 @@
 </h1>
 <p>Группа: {{ student.group | link_icon }}</p>
 
+{% if course_projects %}
+<h2>Курсовые работы</h2>
+<ul class="list-unstyled">
+    {% for cp in course_projects %}
+    <li>{{ cp | link_icon }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if final_projects %}
+<h2>Квалификационная работа</h2>
+<ul class="list-unstyled">
+    {% for fp in final_projects %}
+    <li>{{ fp | link_icon }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

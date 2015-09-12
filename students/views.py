@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin
 
 from students.models import Group, Student
-
+from projects.models import CourseProject, FinalProject
 
 # Группа ========================================
 class GroupListView(ListView):
@@ -50,8 +50,8 @@ class StudentDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentDetail, self).get_context_data(**kwargs)
-        # context['courseworks'] = CourseWork.objects.filter(student=self.object)
-        # context['diplomaworks'] = DiplomaWork.objects.filter(student=self.object)
+        context['course_projects'] = CourseProject.objects.filter(student=self.object)
+        context['final_projects'] = FinalProject.objects.filter(student=self.object)
         return context
 
 
