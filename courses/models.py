@@ -46,7 +46,7 @@ class CourseVersion(models.Model):
 
     class Meta:
         verbose_name = 'версия дисциплины'
-        verbose_name_plural = 'версии дисциплины'
+        verbose_name_plural = 'версии дисциплин'
         unique_together = (('course', 'version'),)
 
 
