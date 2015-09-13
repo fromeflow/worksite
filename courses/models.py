@@ -15,7 +15,7 @@ class Course(models.Model):
     specialty = models.ForeignKey(to=Specialty, verbose_name='Специальность')
     chair = models.ForeignKey(to=Chair, verbose_name='Кафедра')
     closed = models.BooleanField(verbose_name='Не преподаётся', default=False)
-    description = models.TextField(verbose_name="Общее описание курса")
+    description = models.TextField(verbose_name="Общее описание курса", blank=True)
 
     def __str__(self):
         return "{title} ({specialty})".format(
