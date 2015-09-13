@@ -65,7 +65,7 @@ class CourseSemester(models.Model):
     class Meta:
         verbose_name = 'семестр курса'
         verbose_name_plural = 'семестры курсов'
-
+        unique_together = (('course_version', 'number'),)
 
 class Exam(models.Model):
     'Экзамен/зачёт'
