@@ -46,10 +46,13 @@ class GenericProject(models.Model):
     mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True, default=None, validators=mark5_validator)
     completed = models.BooleanField(verbose_name='Завершена', default=False)
     text = models.FileField(verbose_name='Текст', blank=True, null=True,
+                            max_length=150,
                             upload_to=UPLOAD_PROJECT_TEXT)
     slides = models.FileField(verbose_name='Слайды', blank=True, null=True,
+                              max_length=150,
                               upload_to=UPLOAD_PROJECT_SLIDES)
     materials = models.FileField(verbose_name='Материалы', blank=True, null=True,
+                                 max_length=150,
                                  upload_to=UPLOAD_PROJECT_MATERIALS)
 
     def __str__(self):
