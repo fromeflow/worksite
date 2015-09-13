@@ -2,5 +2,7 @@ Django
 django-debug-toolbar
 django-braces
 
+markdown
+
 gunicorn
 psycopg2
