@@ -87,7 +87,7 @@ class Exam(models.Model):
 class ExamMark(models.Model):
     exam = models.ForeignKey(to=Exam, verbose_name='Промежуточный контроль')
     student = models.ForeignKey(to=Student, verbose_name='Студент')
-    mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True)
+    mark = models.PositiveIntegerField(verbose_name='Оценка', blank=True, null=True)
     passed = models.BooleanField(verbose_name='Зачтено', default=False)
 
     def __str__(self):
