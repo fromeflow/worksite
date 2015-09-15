@@ -33,9 +33,6 @@ class CourseVersion(models.Model):
     course = models.ForeignKey(to=Course, verbose_name='Курс')
     version = models.PositiveSmallIntegerField(verbose_name='Номер версии', default=1)
     version_description = models.TextField(verbose_name='Описание версии курса', blank=True)
-    lecture_time = models.PositiveSmallIntegerField(verbose_name='Лекционных часов')
-    practice_time = models.PositiveSmallIntegerField(verbose_name='Практических часов')
-    lab_time = models.PositiveSmallIntegerField(verbose_name='Лабораторных часов')
     # рабочая программа, материалы
 
     def __str__(self):
@@ -55,6 +52,9 @@ class CourseSemester(models.Model):
     course_version = models.ForeignKey(to=CourseVersion, verbose_name='Версия курса')
     number = models.PositiveSmallIntegerField(verbose_name='Номер семестра',
                                       validators=[MinValueValidator(1), MaxValueValidator(14)])
+    lecture_time = models.PositiveSmallIntegerField(verbose_name='Лекционных часов', default=0)
+    practice_time = models.PositiveSmallIntegerField(verbose_name='Практических часов', default=0)
+    lab_time = models.PositiveSmallIntegerField(verbose_name='Лабораторных часов', default=0)
 
     def __str__(self):
         return "{course_version} / {number)".format(
