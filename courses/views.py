@@ -22,3 +22,11 @@ class CourseLastVersionDetail(DetailView):
         except CourseVersion.DoesNotExist:
             return None
         return last_course_version
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseLastVersionDetail, self).get_context_data(**kwargs)
+        context['course'] = Course.objects.\
+            select_related('specialty', 'specialty__chair').\
+            get(id=self.kwargs['pk'])
+        context['courseversion'] = context['object']
+        return context

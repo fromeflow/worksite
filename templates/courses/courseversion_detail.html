@@ -1,34 +1,26 @@
 {% extends "base.html" %}
 {% load html %}
 
-{% block title %}
-{% if object %}
-    {{ object.course }}
-{% else %}
-    Дисциплина без версий
-{% endif %}
-
-{% endblock %}
+{% block title %}{{ course.title }}{% endblock %}
 
 {% block content %}
-{% if object %}
-
-<h1>{{ object.course.title }} - v{{ object.version }}
-{% if object.course.closed %}- Дисциплина не преподаётся{% endif %}
+<h1>{{ course.title }}
+{% if courseversion %}- v{{ courseversion.version }}{% endif %}
+{% if course.closed %}- Дисциплина не преподаётся{% endif %}
 </h1>
 
-<p>Краткое название: {{ object.course.abbreviation }}</p>
-<p>Специальность: {{ object.course.specialty }}</p>
-<p>Кафедра: {{ object.course.chair}}</p>
+<p>Краткое название: {{ course.abbreviation }}</p>
+<p>Специальность: {{ course.specialty }}</p>
+<p>Кафедра: {{ course.chair }}</p>
 
 <h2>Описание дисциплины</h2>
-{{ object.course.description | markdown }}
+{{ course.description | markdown }}
 
+{% if courseversion %}
 <h2>Описание версии</h2>
-{{ object.version_description | markdown }}
-
-
+{{ courseversion.version_description | markdown }}
 {% else %}
-<h1>У дисциплины нет версий</h1>
+<h2>У дисциплины нет версий</h2>
 {% endif %}
+
 {% endblock %}
