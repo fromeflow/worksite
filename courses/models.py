@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.urlresolvers import reverse_lazy
 
 from university.models import Specialty, Chair
 from students.models import Student
@@ -34,6 +35,9 @@ class CourseVersion(models.Model):
     version = models.PositiveSmallIntegerField(verbose_name='Номер версии', default=1)
     version_description = models.TextField(verbose_name='Описание версии курса', blank=True)
     # рабочая программа, материалы
+
+    def get_absolute_url(self):
+        return reverse_lazy('courses:course-version-detail', kwargs={'pk': self.id})
 
     def __str__(self):
         return "{course} - {version}".format(

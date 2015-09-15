@@ -22,7 +22,7 @@
                         <a href="">Учёба <i class="uk-icon-caret-down"></i></a>
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
-                                <li><a href="#"><del>Дисциплины</del></a></li>
+                                <li><a href="{% url 'courses:index' %}">Дисциплины</a></li>
                                 <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
                                 <li><a href="#"><del>Учебные пособия</del></a></li>
                                 <li><a href="#"><del>Тестирование</del></a></li>
@@ -114,7 +114,7 @@
                     <li class="uk-parent">
                         <a href="#">Учёба</a>
                         <ul class="uk-nav-sub">
-                                <li><a href="#">Дисциплины</a></li>
+                                <li><a href="{% url 'courses:index' %}">Дисциплины</a></li>
                                 <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
                                 <li><a href="#">Учебные пособия</a></li>
                                 <li><a href="#">Тестирование</a></li>

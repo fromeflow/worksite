@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load html %}
+{% load text %}
+
+{% block title %}Читаемые дисциплины{% endblock %}
+
+{% block content %}
+<h1>Читаемые дисциплины</h1>
+
+<ul>
+    {% for course in course_list %}
+    <li>
+        <a href="{% url 'courses:last-version-detail' pk=course.id %}">{{ course.title }}</a> — {{ course.specialty }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
