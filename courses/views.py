@@ -1,8 +1,8 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import RedirectView
 from django.db.models import Max
-from django.http import Http404
+from django.core.urlresolvers import reverse_lazy
 
 from .models import Course, CourseVersion
 
@@ -13,27 +13,23 @@ class CourseList(ListView):
         .filter(closed=False)\
         .all()
 
-class CourseLastVersionDetail(TemplateView):
+class CourseLastVersionRedirect(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        course_id = self.kwargs['pk']
+        max_version = CourseVersion.objects.filter(course=course_id)\
+            .aggregate(Max('version'))['version__max']
+        try:
+            courseversion = CourseVersion.objects.filter(course=course_id)\
+                .get(version=max_version)
+        except CourseVersion.DoesNotExist:
+            return reverse_lazy('courses:course-detail', kwargs={'pk': course_id})
+        return reverse_lazy('courses:course-version-detail', kwargs={'pk': courseversion.id})
+
+class CourseDetail(DetailView):
     template_name = 'courses/courseversion_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CourseLastVersionDetail, self).get_context_data(**kwargs)
-
-        versions = CourseVersion.objects.filter(course=self.kwargs['pk']).\
-            values('id', 'version')
-        try:
-            max_version_id = max(versions, key=lambda x: x['version'])['id']
-            context['courseversion'] = CourseVersion.objects.get(id=max_version_id)
-        except ValueError:
-            pass
-
-        try:
-            context['course'] = Course.objects.\
-                select_related('specialty', 'specialty__chair').\
-                get(id=self.kwargs['pk'])
-        except Course.DoesNotExist:
-            raise Http404()
-        return context
+    model = Course
 
 class CourseVersionDetail(DetailView):
     queryset = CourseVersion.objects.\
