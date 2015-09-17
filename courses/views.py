@@ -1,4 +1,5 @@
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.db.models import Max
 from django.http import Http404
@@ -32,4 +33,14 @@ class CourseLastVersionDetail(TemplateView):
                 get(id=self.kwargs['pk'])
         except Course.DoesNotExist:
             raise Http404()
+        return context
+
+class CourseVersionDetail(DetailView):
+    queryset = CourseVersion.objects.\
+        select_related('course', 'course__specialty').\
+        all()
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseVersionDetail, self).get_context_data(**kwargs)
+        context['course'] = context['courseversion'].course
         return context
