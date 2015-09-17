@@ -19,13 +19,14 @@ class CourseLastVersionDetail(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CourseLastVersionDetail, self).get_context_data(**kwargs)
 
-        max_version = CourseVersion.objects.filter(course=self.kwargs['pk'])\
-            .aggregate(Max('version'))['version__max']
+        versions = CourseVersion.objects.filter(course=self.kwargs['pk']).\
+            values('id', 'version')
         try:
-            context['courseversion'] = CourseVersion.objects\
-                .get(version=max_version)
-        except CourseVersion.DoesNotExist:
-            context['courseversion'] = None
+            max_version_id = max(versions, key=lambda x: x['version'])['id']
+            context['courseversion'] = CourseVersion.objects.get(id=max_version_id)
+            context['versions'] = versions
+        except ValueError:
+            pass
 
         try:
             context['course'] = Course.objects.\
@@ -43,4 +44,6 @@ class CourseVersionDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CourseVersionDetail, self).get_context_data(**kwargs)
         context['course'] = context['courseversion'].course
+        context['versions'] = CourseVersion.objects.filter(course=context['course'].id).\
+            values('id', 'version')
         return context

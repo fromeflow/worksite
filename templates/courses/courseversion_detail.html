@@ -12,6 +12,13 @@
 <p>Краткое название: {{ course.abbreviation }}</p>
 <p>Специальность: {{ course.specialty }}</p>
 <p>Кафедра: {{ course.chair }}</p>
+{% if versions %}
+<p>Версии:
+    {% for ver in versions %}
+        <a href="{% url 'courses:course-version-detail' pk=ver.id %}">v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
+    {% endfor %}
+</p>
+{% endif %}
 
 <h2>Описание дисциплины</h2>
 {{ course.description | markdown }}
