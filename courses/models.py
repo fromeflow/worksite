@@ -73,7 +73,7 @@ class CourseSemester(models.Model):
     lab_time = models.PositiveSmallIntegerField(verbose_name='Лабораторных часов', default=0)
 
     def __str__(self):
-        return "{course_version} / {number)".format(
+        return "{course_version} / {number}".format(
             course_version=self.course_version,
             number=self.number
         )
