@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse_lazy
 
+from utils.mixins import ToLinkMixin
+
 from university.models import Specialty, Chair
 from students.models import Student
 
@@ -9,7 +11,7 @@ from students.models import Student
 EXAM_TYPE_CHOICES = (('E', 'Экзамен'), ('T', 'Зачёт'))
 
 
-class Course(models.Model):
+class Course(ToLinkMixin, models.Model):
     'Курс'
     title = models.CharField(verbose_name='Название курса',max_length=100)
     abbreviation = models.CharField(verbose_name='Сокращённое название', max_length=10, db_index=True)
@@ -25,7 +27,7 @@ class Course(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse_lazy('courses:last-version-detail', kwargs={'pk': self.id})
+        return reverse_lazy('courses:course-last-version-detail', kwargs={'pk': self.id})
 
     class Meta:
         verbose_name = 'дисциплина'
