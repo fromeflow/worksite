@@ -20,6 +20,10 @@ class Course(ToLinkMixin, models.Model):
     closed = models.BooleanField(verbose_name='Не преподаётся', default=False)
     description = models.TextField(verbose_name="Общее описание курса", blank=True)
 
+    @property
+    def versions(self):
+        return CourseVersion.objects.filter(course=self.id).values('id', 'version')
+
     def __str__(self):
         return "{title} ({specialty})".format(
             title=self.title,

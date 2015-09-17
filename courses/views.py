@@ -24,7 +24,6 @@ class CourseLastVersionDetail(TemplateView):
         try:
             max_version_id = max(versions, key=lambda x: x['version'])['id']
             context['courseversion'] = CourseVersion.objects.get(id=max_version_id)
-            context['versions'] = versions
         except ValueError:
             pass
 
@@ -44,6 +43,4 @@ class CourseVersionDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CourseVersionDetail, self).get_context_data(**kwargs)
         context['course'] = context['courseversion'].course
-        context['versions'] = CourseVersion.objects.filter(course=context['course'].id).\
-            values('id', 'version')
         return context
