@@ -37,6 +37,9 @@ class Course(ToLinkMixin, models.Model):
         verbose_name = 'дисциплина'
         verbose_name_plural = 'дисциплины'
 
+    def link_str(self):
+        return self.title
+
 
 class CourseVersion(models.Model):
     'Версия курса'
