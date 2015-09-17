@@ -24,6 +24,9 @@ class Course(models.Model):
             specialty=self.specialty
         )
 
+    def get_absolute_url(self):
+        return reverse_lazy('courses:last-version-detail', kwargs={'pk': self.id})
+
     class Meta:
         verbose_name = 'дисциплина'
         verbose_name_plural = 'дисциплины'
