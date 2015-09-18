@@ -40,6 +40,12 @@
         <p>Практические занятия: {{ sem.practice_time }}</p>
         <p>Лабораторные работы: {{ sem.lab_time }}</p>
 
+        <h4>Лекции</h4>
+        {% for l in sem.lecture_set.all %}
+            <h5>{{ l.number }}. {{ l.title }}</h5>
+
+        {% endfor %}
+
     </div>
     {% endfor %}
 </div>
