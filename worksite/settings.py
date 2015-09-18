@@ -93,6 +93,10 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
 }
 
+# Private storage
+PRIVATE_INTERNAL_URL = config['PrivateStorage']['internal_url']
+PRIVATE_DIR = config['PrivateStorage']['dir']
+
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
