@@ -39,4 +39,5 @@ class CourseVersionDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CourseVersionDetail, self).get_context_data(**kwargs)
         context['course'] = context['courseversion'].course
+        context['semesters'] = context['courseversion'].coursesemester_set.all()
         return context

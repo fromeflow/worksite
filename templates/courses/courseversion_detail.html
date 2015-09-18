@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% load html %}
+{% load staticfiles html %}
 
+{% block head %}<script src="{% static 'js/components/accordion.js' %}"></script>{% endblock %}
 {% block title %}{{ course.title }}{% endblock %}
 
 {% block content %}
@@ -26,6 +27,21 @@
 {% if courseversion %}
 <h2>Описание версии</h2>
 {{ courseversion.version_description | markdown }}
+
+{% if semesters %}
+<div class="uk-accordion" data-uk-accordion>
+
+    {% for sem in semesters %}
+    <h3 class="uk-accordion-title">Семестр {{ sem.number }}</h3>
+    <div class="uk-accordion-content">
+        <p>Лекции: {{ sem.lecture_time }}</p>
+        <p>Практические занятия: {{ sem.practice_time }}</p>
+        <p>Лабораторные работы: {{ sem.lab_time }}</p>
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% else %}
 <h2>У дисциплины нет версий</h2>
 {% endif %}
