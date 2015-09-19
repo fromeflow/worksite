@@ -36,6 +36,7 @@ class Course(ToLinkMixin, models.Model):
     class Meta:
         verbose_name = 'дисциплина'
         verbose_name_plural = 'дисциплины'
+        ordering = ['specialty', 'title']
 
     def link_str(self):
         return self.title
@@ -61,6 +62,7 @@ class CourseVersion(models.Model):
         verbose_name = 'версия дисциплины'
         verbose_name_plural = 'версии дисциплин'
         unique_together = (('course', 'version'),)
+        ordering = ['version']
 
 
 class CourseSemester(models.Model):
@@ -82,6 +84,7 @@ class CourseSemester(models.Model):
         verbose_name = 'семестр курса'
         verbose_name_plural = 'семестры курсов'
         unique_together = (('course_version', 'number'),)
+        ordering = ['course_version', 'number']
 
 class Exam(models.Model):
     'Экзамен/зачёт'
@@ -98,6 +101,7 @@ class Exam(models.Model):
     class Meta:
         verbose_name = 'экзамен/зачёт'
         verbose_name_plural = 'экзамены/зачёты'
+        ordering = ['course_semester']
 
 
 class ExamMark(models.Model):
@@ -130,6 +134,7 @@ class Lecture(models.Model):
     class Meta:
         verbose_name = 'лекция'
         verbose_name_plural = 'лекции'
+        ordering = ['course_semester', 'number']
 
 ## Вынести в отдельное приложение?
 # class LabWork(models.Model):
