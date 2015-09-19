@@ -3,6 +3,7 @@ django-debug-toolbar
 django-braces
 
 markdown
+pygments
 
 gunicorn
 psycopg2
