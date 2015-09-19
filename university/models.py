@@ -48,6 +48,14 @@ class Specialty(models.Model):
     max_level = models.IntegerField(verbose_name='Старший курс', default=4, validators=level_validator)
     chair = models.ForeignKey(to=Chair, verbose_name='Выпускающая кафедра', blank=True, null=True)
 
+    @property
+    def term1(self):
+        return self.get_term_display().split('|')[0]
+
+    @property
+    def term2(self):
+        return self.get_term_display().split('|')[1]
+
     def __str__(self):
         return '{code} {name} [ФГОС-{standard}]'.format(
             code=self.code,
