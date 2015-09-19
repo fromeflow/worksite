@@ -13,8 +13,8 @@ EXAM_TYPE_CHOICES = (('E', 'Экзамен'), ('T', 'Зачёт'))
 
 class Course(ToLinkMixin, models.Model):
     'Курс'
-    title = models.CharField(verbose_name='Название курса',max_length=100)
-    abbreviation = models.CharField(verbose_name='Сокращённое название', max_length=10, db_index=True)
+    title = models.CharField(verbose_name='Название курса',max_length=200)
+    abbreviation = models.CharField(verbose_name='Сокращённое название', max_length=20, db_index=True)
     specialty = models.ForeignKey(to=Specialty, verbose_name='Специальность')
     chair = models.ForeignKey(to=Chair, verbose_name='Кафедра')
     closed = models.BooleanField(verbose_name='Не преподаётся', default=False)
