@@ -7,6 +7,7 @@ from students.models import Student
 from university.models import Employee
 from utils.validators import mark5_validator, year_validator
 from utils.mixins import ToLinkMixin
+from utils.private_storage.storage import private_storage
 
 
 PROJECTS_FOLDER = 'projects'
@@ -46,13 +47,13 @@ class GenericProject(models.Model):
     mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True, default=None, validators=mark5_validator)
     completed = models.BooleanField(verbose_name='Завершена', default=False)
     text = models.FileField(verbose_name='Текст', blank=True, null=True,
-                            max_length=150,
+                            max_length=150, storage=private_storage,
                             upload_to=UPLOAD_PROJECT_TEXT)
     slides = models.FileField(verbose_name='Слайды', blank=True, null=True,
-                              max_length=150,
+                              max_length=150, storage=private_storage,
                               upload_to=UPLOAD_PROJECT_SLIDES)
     materials = models.FileField(verbose_name='Материалы', blank=True, null=True,
-                                 max_length=150,
+                                 max_length=150, storage=private_storage,
                                  upload_to=UPLOAD_PROJECT_MATERIALS)
 
     def __str__(self):
