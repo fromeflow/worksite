@@ -1,56 +1,82 @@
 {% extends "base.html" %}
-{% load staticfiles html %}
+{% load html %}
 
-{% block head %}<script src="{% static 'js/components/accordion.js' %}"></script>{% endblock %}
 {% block title %}{{ course.title }}{% endblock %}
 
 {% block content %}
 <h1>{{ course.title }}
-{% if courseversion %}- v{{ courseversion.version }}{% endif %}
-{% if course.closed %}- Дисциплина не преподаётся{% endif %}
+{% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>{% endif %}
 </h1>
 
-<p>Краткое название: {{ course.abbreviation }}</p>
-<p>Специальность: {{ course.specialty }}</p>
-<p>Кафедра: {{ course.chair }}</p>
+<hr>
 
-{% if versions %}
-<p>Версии:
-    {% for ver in versions %}
-        <a href="{% url 'courses:course-version-detail' pk=ver.id %}">v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
-    {% endfor %}
-</p>
-{% endif %}
+<div class="uk-grid">
+    {% with versions|dictsort:'version'|last as maxver %}
+    <div class="uk-width-medium-1-3 uk-push-2-3">
+        <div class="uk-flex uk-flex-column">
+            <div class="uk-panel-box uk-margin">
+                <h2 class="uk-panel-title">Информация</h2>
+                    {% if course.closed %}
+                        <div class="uk-alert uk-alert-danger">Дисциплина больше не преподаётся или новой информации нет в базе</div>
+                    {% endif %}
+                    {% if maxver.version > courseversion.version %}
+                        <div class="uk-alert uk-alert-warning">Есть более новая версия курса</div>
+                    {% endif %}
 
-<h2>Описание дисциплины</h2>
-{{ course.description | markdown }}
+                <table class="uk-table-hover"><tbody>
+                <tr><th class="uk-text-left uk-text-top">Кратко:</th><td>{{ course.abbreviation }}</td></tr>
+                <tr><th class="uk-text-left uk-text-top">{{ course.specialty.term1 }}:</th><td>{{ course.specialty.name }}</td></tr>
+                <tr><th class="uk-text-left uk-text-top">Кафедра:</th><td>{{ course.chair.name }}</td></tr>
+                {% if versions %}
 
-{% if courseversion %}
-<h2>Описание версии</h2>
-{{ courseversion.version_description | markdown }}
 
-{% if semesters %}
-<h2>Семестры курса</h2>
-<div class="uk-accordion" data-uk-accordion>
+                <tr><th class="uk-text-left uk-text-top">Версии:</th>
+                    <td>{% for ver in versions %}
+                        <a href="{% url 'courses:course-version-detail' pk=ver.id %}"
+                           {% if ver.version != maxver.version %}class="uk-text-muted"{% endif %}>v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}</td>
+                </tr>
+                {% endif %}
+                </tbody></table>
+            </div>
 
-    {% for sem in semesters %}
-    <h3 class="uk-accordion-title">Семестр {{ sem.number }}</h3>
-    <div class="uk-accordion-content">
-        <p>Лекции: {{ sem.lecture_time }}</p>
-        <p>Практические занятия: {{ sem.practice_time }}</p>
-        <p>Лабораторные работы: {{ sem.lab_time }}</p>
+            <div class="uk-panel-box uk-margin">
+                <h2 class="uk-panel-title">Распределение времени</h2>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
 
-        <h4>Лекции</h4>
-        {% for l in sem.lecture_set.all %}
-            <h5>{{ l.number }}. {{ l.title }}</h5>
 
+    <div class="uk-width-medium-2-3 uk-pull-1-3">
+
+        <h2>Описание дисциплины</h2>
+        {{ course.description | markdown:3 }}
+
+        {% if courseversion %}
+        <h2>Описание версии</h2>
+        {{ courseversion.version_description | markdown:3 }}
+
+        {% for sem in semesters %}
+        <h2>Семестр {{ sem.number }}</h2>
+        <div class="uk-accordion-content">
+            <p>Лекции: {{ sem.lecture_time }}</p>
+            <p>Практические занятия: {{ sem.practice_time }}</p>
+            <p>Лабораторные работы: {{ sem.lab_time }}</p>
+
+            <h4>Лекции</h4>
+            {% for l in sem.lecture_set.all %}
+                <h5>{{ l.number }}. {{ l.title }}</h5>
+
+            {% endfor %}
+
+        </div>
         {% endfor %}
 
+        {% else %}
+        <h2>У дисциплины нет версий</h2>
+        {% endif %}
     </div>
-    {% endfor %}
+
 </div>
-{% endif %}
-{% else %}
-<h2>У дисциплины нет версий</h2>
-{% endif %}
 {% endblock %}
