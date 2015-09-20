@@ -11,7 +11,7 @@ from .models import Course, CourseVersion
 class CourseList(ListView):
     queryset = Course.objects\
         .select_related('specialty')\
-        .annotate(last_version_a=Max('courseversion'))\
+        .annotate(last_version_a=Max('courseversion__version'))\
         .all()
 
 class CourseLastVersionRedirect(RedirectView):
