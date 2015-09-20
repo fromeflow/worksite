@@ -112,7 +112,7 @@ class FinalProject(ToLinkMixin, GenericProject):
         return reverse('projects:final-detail', kwargs={'pk': self.id})
 
     class Meta:
-        ordering = ['student__group', 'student__surname']
+        ordering = ['student__group', 'student__surname', 'title']
         verbose_name = 'квалификационная работа'
         verbose_name_plural = 'квалификационные работы'
 
