@@ -4,14 +4,18 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 
-{% block content %}
-<h1>{{ object.student.surname_initials }} «{{ object.title }}»
+{% block content_head %}
+    {% if object.student %}
+    <small>{{ object.student.surname_initials }}</small><br>
+    {% endif %}
+    {{ object.title }}
     {% if object.year %}
     <br>
     <small>{{ object.academic_year }} уч. год{% if object.semester %}, {{ object.semester }} семестр{% endif %}</small>
     {% endif %}
-</h1>
+{% endblock %}
 
+{% block content_left %}
 <table class="uk-table">
     {% if object.student %}
     <tr>
@@ -29,27 +33,39 @@
 <p>Работа была защищена на оценку «<em>{{ object.mark | mark_to_text }}</em>».</p>
 {% endif %}
 
-{% if object.slides %}
-<p>
-    {{ object.slides | file_icon }}
-    <a href="{{ object.slides.url }}">Слайды</a>
-</p>
-{% endif %}
-{% if object.text %}
-<p>
-    {{ object.text | file_icon }}
-    <a href="{{ object.text.url }}">Текст работы</a>
-</p>
-{% endif %}
-{% if object.materials %}
-<p>
-    {{ object.materials | file_icon }}
-    <a href="{{ object.materials.url }}">Дополнительные материалы</a>
-</p>
-{% endif %}
 {% if object.description %}
 <h2>Описание</h2>
-{{ object.description | markdown }}
+{{ object.description | markdown:3 }}
 {% endif %}
+{% endblock %}
 
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Материалы</h2>
+    {% if object.slides or object.text or object.materials %}
+        {% if object.slides %}
+        <p>
+            {{ object.slides | file_icon }}
+            <a href="{{ object.slides.url }}">Слайды</a>
+            — {{ object.slides.size | filesizeformat }}
+        </p>
+        {% endif %}
+        {% if object.text %}
+        <p>
+            {{ object.text | file_icon }}
+            <a href="{{ object.text.url }}">Текст работы</a>
+            — {{ object.text.size | filesizeformat }}
+        </p>
+        {% endif %}
+        {% if object.materials %}
+        <p>
+            {{ object.materials | file_icon }}
+            <a href="{{ object.materials.url }}">Дополнительные материалы</a>
+            — {{ object.materials.size | filesizeformat }}
+        </p>
+        {% endif %}
+    {% else %}
+        Для этой работы нет загружаемых материалов.
+    {% endif %}
+</div>
 {% endblock %}
