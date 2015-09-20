@@ -24,6 +24,12 @@ class Group(ToLinkMixin, models.Model):
         return diff if month <= 8 else diff + 1
 
     @property
+    def semester(self):
+        diff = datetime.now().year - self.entrance_year
+        month = datetime.now().month
+        return diff if month > 8 else diff * 2 + 1
+
+    @property
     def name(self):
         return '{level}{suffix}'.format(
             level=min(self.level, self.specialty.max_level),
@@ -47,6 +53,9 @@ class Group(ToLinkMixin, models.Model):
     @property
     def finished(self):
         return self.level > self.specialty.max_level
+
+    def semester_to_year(self, semester):
+        return (semester - 1) // 2 + self.entrance_year
 
     def __str__(self):
         name = self.name
