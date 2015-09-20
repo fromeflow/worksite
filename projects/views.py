@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.db.models import Q
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -9,6 +9,7 @@ from projects.models import CourseProject, FinalProject
 class CourseProjectList(ListView):
     queryset = CourseProject.objects\
         .select_related('student')\
+        .filter(~Q(student=None))\
         .all()
 
 class OpenProjectList(ListView):
