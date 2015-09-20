@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import RedirectView
-from django.db.models import Max
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Course, CourseVersion
@@ -18,12 +18,8 @@ class CourseLastVersionRedirect(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         course_id = self.kwargs['pk']
-        max_version = CourseVersion.objects.filter(course=course_id)\
-            .aggregate(Max('version'))['version__max']
-        try:
-            courseversion = CourseVersion.objects.filter(course=course_id)\
-                .get(version=max_version)
-        except CourseVersion.DoesNotExist:
+        courseversion = get_object_or_404(Course, pk=course_id).last_version
+        if courseversion is None:
             return reverse_lazy('courses:course-detail', kwargs={'pk': course_id})
         return reverse_lazy('courses:course-version-detail', kwargs={'pk': courseversion.id})
 
