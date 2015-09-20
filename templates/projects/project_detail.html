@@ -9,10 +9,6 @@
     <small>{{ object.student.surname_initials }}</small><br>
     {% endif %}
     {{ object.title }}
-    {% if object.year %}
-    <br>
-    <small>{{ object.academic_year }} уч. год{% if object.semester %}, {{ object.semester }} семестр{% endif %}</small>
-    {% endif %}
 {% endblock %}
 
 {% block content_left %}

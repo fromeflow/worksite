@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 
 from students.models import Student
 from university.models import Employee
+from courses.models import CourseSemester
+
 from utils.validators import mark5_validator, year_validator
 from utils.mixins import ToLinkMixin
 from utils.private_storage.storage import private_storage
@@ -71,26 +73,14 @@ class GenericProject(models.Model):
 
 class CourseProject(ToLinkMixin, GenericProject):
     "Курсовая работа"
-    year = models.IntegerField(verbose_name='Учебный год', blank=True, null=True, validators=year_validator)
-    semester = models.CharField(verbose_name='Семестр', max_length=1, blank=True, null=True,
-                                choices=(('1', 1), ('2', 2)))
-    # course_semester = ссылка на семестр дисциплины, после добавления убрать year, semester
-
-    def academic_year(self):
-        if self.year is None:
-            return None
-        return '{year1}—{year2}'.format(
-            year1=self.year,
-            year2=self.year + 1
-        )
-
-    academic_year.short_description = 'Учебный год'
+    course_semester = models.ForeignKey(to=CourseSemester, verbose_name='Семестр курса',
+                                        blank=True, null=True, default=None)
 
     def get_absolute_url(self):
         return reverse('projects:detail', kwargs={'pk': self.id})
 
     class Meta:
-        ordering = ['-year', 'student__surname']
+        ordering = ['-course_semester__course_version', '-course_semester', 'student__surname']
         verbose_name = 'курсовая работа'
         verbose_name_plural = 'курсовые работы'
 

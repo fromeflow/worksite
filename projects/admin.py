@@ -14,7 +14,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class CourseProjectAdmin(ProjectAdmin):
-    list_display = ['title', 'student', 'academic_year', 'semester', 'completed']
+    list_display = ['title', 'student', 'completed']
 
 admin.site.register(CourseProject, CourseProjectAdmin)
 
