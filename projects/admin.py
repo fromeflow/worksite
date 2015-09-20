@@ -8,18 +8,17 @@ class ProjectAdmin(admin.ModelAdmin):
 
     complete.short_description = "Пометить как сданную"
 
-    list_filter = ['completed']
     search_fields = ['title', 'student__surname']
     actions = [complete]
 
 
 class CourseProjectAdmin(ProjectAdmin):
-    list_display = ['title', 'student', 'completed']
+    list_display = ['title', 'student']
 
 admin.site.register(CourseProject, CourseProjectAdmin)
 
 
 class FinalProjectAdmin(ProjectAdmin):
-    list_display = ['title', 'student', 'defence_year', 'completed']
+    list_display = ['title', 'student', 'defence_year']
 
 admin.site.register(FinalProject, FinalProjectAdmin)

@@ -47,7 +47,6 @@ class GenericProject(models.Model):
                                 limit_choices_to={'sent_down': False})
     supervisor = models.ForeignKey(to=Employee, verbose_name='Руководитель', blank=True, null=True, default=None)
     mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True, default=None, validators=mark5_validator)
-    completed = models.BooleanField(verbose_name='Завершена', default=False)
     text = models.FileField(verbose_name='Текст', blank=True, null=True,
                             max_length=150, storage=private_storage,
                             upload_to=UPLOAD_PROJECT_TEXT)
