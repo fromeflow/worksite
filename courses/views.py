@@ -11,7 +11,6 @@ from .models import Course, CourseVersion
 class CourseList(ListView):
     queryset = Course.objects\
         .select_related('specialty')\
-        .filter(closed=False)\
         .annotate(last_version_a=Max('courseversion'))\
         .all()
 
