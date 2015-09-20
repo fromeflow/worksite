@@ -86,4 +86,6 @@ class Student(ToLinkMixin, Person):
         verbose_name_plural = 'студенты'
 
     def link_str(self):
+        if self.sent_down:
+            return '<del>' + self.surname_initials + '</del>'
         return self.surname_initials
