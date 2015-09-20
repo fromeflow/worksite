@@ -6,12 +6,43 @@
 
 {% block content %}
 <h1>Читаемые дисциплины</h1>
+<hr>
 
-<ul>
-    {% for course in course_list %}
-    <li>
-        {{ course | link_icon }}
-    </li>
-    {% endfor %}
-</ul>
+<div class="uk-grid">
+    <div class="uk-width-2-3">
+        <p>Ниже перечислены курсы, читаемые мной в разное время. Список не полный,
+            для части курсов сведения на сайте отсутствует, но база постоянно пополняется.</p>
+        <p>Курсы со временем модифицируются, поэтому у многих курсов есть несколько версий.
+            Версии помечаются буквой «v» с номером после названия курса. Также некоторые
+            курсы отмечены как завершённые. Это означает, что либо курс больше
+            не преподаётся, либо его читает другой преподаватель.</p>
+
+        <ul>
+            {% for course in course_list %}
+            <li>
+                {{ course | link_icon }} —
+                {% if course.last_version_a %}
+                    {{ course.last_version_a }}
+                {% else %}
+                    Нет версий
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="uk-width-1-3">
+        <div class="uk-panel-box uk-margin">
+            <h2 class="uk-panel-title">Информация</h2>
+            <table class>
+                <tbody>
+                    <tr>
+                        <th>Всего:</th>
+                        <td>{{ course_list|length }} {{ course_list|length|pluralize_ru:'курс,курса,курсов' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

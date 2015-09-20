@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Max
 
 from .models import Course, CourseVersion
 
@@ -11,6 +12,7 @@ class CourseList(ListView):
     queryset = Course.objects\
         .select_related('specialty')\
         .filter(closed=False)\
+        .annotate(last_version_a=Max('courseversion'))\
         .all()
 
 class CourseLastVersionRedirect(RedirectView):
