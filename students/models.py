@@ -96,5 +96,5 @@ class Student(ToLinkMixin, Person):
 
     def link_str(self):
         if self.sent_down:
-            return '<del>' + self.surname_initials + '</del>'
+            return self.surname_initials
         return self.surname_initials
