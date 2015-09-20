@@ -3,42 +3,59 @@
 
 {% block title %}Курсовые работы{% endblock %}
 
-{% block content %}
-<h1>Курсовые работы</h1>
+{% block content_head %}Курсовые работы{% endblock %}
 
+{% block content_left %}
+<div class="uk-text-justify">
 <p><a href="{% url 'projects:open-index' %}">Открытые темы</a></p>
+</div>
 
-<h2>Текущие работы</h2>
-<table class="uk-table uk-table-hover">
-    <tr>
-        <th class="uk-width-2-6">Студент</th>
-        <th class="uk-width-4-6">Тема</th>
-    </tr>
-    {% for cp in courseproject_list %}
-    {% if not cp.completed %}
-    <tr>
-        <td class="uk-width-2-6">{{ cp.student | link_icon }}</td>
-        <td class="uk-width-4-6">{{ cp | link_icon }}</td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
+{% regroup courseproject_list by course_semester as projects_by_semester %}
+<h2>Список курсовых работ</h2>
+    {% for semester in projects_by_semester %}
+        <h3>{{ semester.grouper.course_version.course.title }}
+            <small class="uk-muted">v{{ semester.grouper.course_version.version }}</small>,
+            {{ semester.grouper.number }} семестр
+        </h3>
 
-<h2>Завершённые работы</h2>
-<table class="uk-table uk-table-hover">
-    <tr>
-        <th class="uk-width-2-6">Студент</th>
-        <th class="uk-width-3-6">Тема</th>
-        <th class="uk-width-1-6">Оценка</th>
-    </tr>
-    {% for cp in courseproject_list %}
-    {% if cp.completed %}
-    <tr>
-        <td class="uk-width-2-6">{{ cp.student | link_icon }}</td>
-        <td class="uk-width-3-6">{{ cp | link_icon }}</td>
-        <td class="uk-width-1-6">{{ cp.mark | mark_to_text }}</td>
-    </tr>
-    {% endif %}
+        {% regroup semester.list by student.group as projects_by_group %}
+
+        <table class="uk-table uk-table-hover">
+        {% for projects_in_group in projects_by_group %}
+            <tr>
+                <td colspan="3" class="uk-text-center uk-text-bold">Группа {{ projects_in_group.grouper }}</td>
+            </tr>
+            <tr>
+                <th class="uk-width-3-10">Студент</th>
+                <th class="uk-width-6-10">Тема</th>
+                <th class="uk-width-1-10">Оценка</th>
+            </tr>
+            {% for p in projects_in_group.list %}
+            <tr>
+                <td class="uk-width-3-10">{{ p.student | link_icon }}</td>
+                <td class="uk-width-6-10">{{ p | link_icon }}</td>
+                <td class="uk-width-1-10">{{ p.mark | default:'Не сдана' }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </table>
     {% endfor %}
-</table>
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Поиск</h2>
+</div>
+
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Всего:</th>
+            <td>{{ courseproject_list | length }} {{ courseproject_list | length | pluralize_ru:'работа,работы, работ' }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

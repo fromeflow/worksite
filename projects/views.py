@@ -8,8 +8,9 @@ from projects.models import CourseProject, FinalProject
 # Списки
 class CourseProjectList(ListView):
     queryset = CourseProject.objects\
-        .select_related('student')\
+        .select_related('student', 'student__group__specialty', 'course_semester__course_version')\
         .filter(~Q(student=None))\
+        .order_by('course_semester', 'student__group')\
         .all()
 
 class OpenProjectList(ListView):
