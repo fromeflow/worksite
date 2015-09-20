@@ -21,7 +21,7 @@ class Course(ToLinkMixin, models.Model):
     description = models.TextField(verbose_name="Общее описание курса", blank=True)
 
     @property
-    def versions(self):
+    def version_numbers(self):
         return CourseVersion.objects.filter(course=self.id).values('id', 'version')
 
     def __str__(self):
