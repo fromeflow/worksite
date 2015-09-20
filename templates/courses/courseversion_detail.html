@@ -46,11 +46,15 @@
 
 {% block content_left %}
     <h2>Описание дисциплины</h2>
-    {{ course.description | markdown:3 }}
+    <div class="uk-text-justify">
+        {{ course.description | markdown:3 }}
+    </div>
 
     {% if courseversion %}
     <h2>Описание версии</h2>
-    {{ courseversion.version_description | markdown:3 }}
+    <div class="uk-text-justify">
+        {{ courseversion.version_description | markdown:3 }}
+    </div>
 
     {% for sem in semesters %}
     <h2>Семестр {{ sem.number }}</h2>
