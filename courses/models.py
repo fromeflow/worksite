@@ -24,6 +24,14 @@ class Course(ToLinkMixin, models.Model):
     def version_numbers(self):
         return CourseVersion.objects.filter(course=self.id).values('id', 'version')
 
+    @property
+    def last_version(self):
+        try:
+            return CourseVersion.objects.filter(course=self.id)\
+                .select_related('course').latest('version')
+        except CourseVersion.DoesNotExist:
+            return None
+
     def __str__(self):
         return "{title} ({specialty})".format(
             title=self.title,
