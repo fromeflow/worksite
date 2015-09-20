@@ -2,10 +2,10 @@
 {% load html %}
 {% load text %}
 
-{% block title %}Читаемые дисциплины{% endblock %}
+{% block title %}Читаемые курсы{% endblock %}
 
 {% block content %}
-<h1>Читаемые дисциплины</h1>
+<h1>Читаемые курсы</h1>
 <hr>
 
 <div class="uk-grid">
@@ -17,18 +17,29 @@
             курсы отмечены как завершённые. Это означает, что либо курс больше
             не преподаётся, либо его читает другой преподаватель.</p>
 
-        <ul>
-            {% for course in course_list %}
-            <li>
-                {{ course | link_icon }} —
-                {% if course.last_version_a %}
-                    {{ course.last_version_a }}
-                {% else %}
-                    Нет версий
-                {% endif %}
-            </li>
+        <h2>Список курсов по специальностям</h2>
+        {% regroup course_list by specialty as courses %}
+        <table class="uk-table uk-table-hover">
+            <tbody>
+            {% for course in courses %}
+                <tr><td colspan="3" class="uk-text-center"><strong>{{ course.grouper }}</strong></td></tr>
+                <tr>
+                    <th>№</th>
+                    <th>Название курса</th>
+                </tr>
+                {% for c in course.list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ c | link_icon }}
+                        {% if c.last_version_a %}
+                            <span class="uk-text-muted">v{{ c.last_version_a }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
 
     <div class="uk-width-1-3">
