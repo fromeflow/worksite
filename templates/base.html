@@ -106,7 +106,18 @@
                 <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><i class="uk-icon-justify uk-icon-graduation-cap"></i></div>
             </nav>
 
-            {% block content %}{% endblock %}
+            {% block content %}
+            <h1>{% block content_head %}{% endblock %}</h1>
+            <hr>
+            <div class="uk-grid">
+                <div class="uk-width-medium-1-3 uk-push-2-3">
+                    {% block content_right %}{% endblock %}
+                </div>
+                <div class="uk-width-medium-2-3 uk-pull-1-3">
+                    {% block content_left %}{% endblock %}
+                </div>
+            </div>
+            {% endblock %}
 
         </div>
 
