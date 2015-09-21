@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="uk-vertical-align uk-text-center uk-height-1-1">
-        <div class="uk-vertical-align-middle" style="width: 250px;">
+        <div class="uk-vertical-align-middle">
             <h1 class="uk-h2">Вход</h1>
             <form class="uk-panel uk-panel-box uk-form"
                     action="{% url 'accounts:login' %}"
@@ -20,13 +20,25 @@
                     <button class="uk-width-1-1 uk-button uk-button-primary uk-button-large" type="submit">Вход</button>
                 </div>
                 <div class="uk-form-row uk-text-small">
-                    <a class="uk-float-left uk-link uk-link-muted" href="#">Нет учётной записи?</a>
+                    <a class="uk-float-left uk-link uk-link-muted" href="#reg-info" data-uk-modal>Нет учётной записи?</a>
                 </div>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
             {% if form.errors %}
                 <div class="uk-alert uk-alert-danger">Неверный логин или пароль</div>
             {% endif %}
+        </div>
+    </div>
+    <div id="reg-info" class="uk-modal">
+        <div class="uk-modal-dialog">
+            <a class="uk-modal-close uk-close"></a>
+            <p>Самостоятельно зарегистрироваться на сайте пока невозможно. Если вы студент ПГУ, то
+            для создания учётной записи лично обратитесь к В. И. Великодному на кафедру
+            прикладной математики и информатики. Или вы можете отправить ему электронное письмо
+            с просьбой прислать пароль.</p>
+            <p>Наличие учётной записи даёт дополнительные возможности. Например, вы сможете скачивать
+            материалы студенческих проектов, просматривать дополнительные сведения о курсах и мероприятиях,
+            а также отлеживать свои задания и результаты тестов.</p>
         </div>
     </div>
 {% endblock %}
