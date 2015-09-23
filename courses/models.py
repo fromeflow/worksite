@@ -72,6 +72,9 @@ class CourseVersion(models.Model):
         unique_together = (('course', 'version'),)
         ordering = ['version']
 
+    def link_str(self):
+        return self.title
+
 
 class CourseSemester(models.Model):
     'Один семестр курса'
