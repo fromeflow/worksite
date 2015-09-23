@@ -6,6 +6,9 @@
 {% block content_head %}
 {{ course.title }}
 {% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>{% endif %}
+{% if user.is_staff %}
+    <small><a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i></a></small>
+{% endif %}
 {% endblock %}
 
 <hr>

@@ -9,4 +9,6 @@ urlpatterns = \
              url(r'^c(?P<pk>\d+)$', CourseLastVersionRedirect.as_view(), name='course-last-version-redirect'),
              url(r'^d(?P<pk>\d+)$', CourseDetail.as_view(), name='course-detail'),
              url(r'^(?P<pk>\d+)$', CourseVersionDetail.as_view(), name='course-version-detail'),
+
+             url(r'^c(?P<pk>\d+)-edit$', CourseUpdate.as_view(), name='course-edit'),
     )

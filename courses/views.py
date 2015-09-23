@@ -1,11 +1,15 @@
 from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Max
 
+from braces.views import StaffuserRequiredMixin
+
 from .models import Course, CourseVersion
+from .form import CourseForm
 
 
 class CourseList(ListView):
@@ -39,3 +43,9 @@ class CourseVersionDetail(DetailView):
         context['versions'] = context['course'].version_numbers
         context['semesters'] = context['courseversion'].coursesemester_set.all()
         return context
+
+
+class CourseUpdate(StaffuserRequiredMixin, UpdateView):
+    model = Course
+    form_class = CourseForm
+    # template_name = 'courses/course_form.html'

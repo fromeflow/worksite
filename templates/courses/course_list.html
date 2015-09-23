@@ -33,6 +33,9 @@
                     {% if c.last_version_a %}
                         <span class="uk-text-muted">v{{ c.last_version_a }}</span>
                     {% endif %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'courses:course-edit' pk=c.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+                    {% endif %}
                     {% if c.closed %}
                         — <em>Завершён</em>
                     {% endif %}

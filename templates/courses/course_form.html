@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load html static %}
+
+{% block head %}{% include '_inc/editor_head.html' %}{% endblock %}
+
+{% block title %}
+{% if course %}
+    {{ course.title }} [Правка]
+{% else %}
+    Новый курс
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>
+    {% if course %}
+        {{ course.title }} [Правка]
+    {% else %}
+        Новый курс
+    {% endif %}
+</h1>
+
+{% include "form.html" %}
+{% endblock %}
