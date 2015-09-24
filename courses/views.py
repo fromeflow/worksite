@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
@@ -49,3 +49,8 @@ class CourseUpdate(StaffuserRequiredMixin, UpdateView):
     model = Course
     form_class = CourseForm
     # template_name = 'courses/course_form.html'
+
+
+class CourseDelete(StaffuserRequiredMixin, DeleteView):
+    model = Course
+    success_url = reverse_lazy('courses:index')

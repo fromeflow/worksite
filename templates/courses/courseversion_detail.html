@@ -7,7 +7,10 @@
 {{ course.title }}
 {% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>{% endif %}
 {% if user.is_staff %}
-    <small><a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i></a></small>
+    <small>
+        <a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+        <a href="{% url 'courses:course-delete' pk=course.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
+    </small>
 {% endif %}
 {% endblock %}
 

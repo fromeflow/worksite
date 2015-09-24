@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load html %}
+
+{% block title %}
+{{ course.title }} [Удаление]
+{% endblock %}
+
+{% block content %}
+<div class="col-md-offset-4 col-md-4">
+    <div class="uk-vertical-align uk-text-center uk-height-1-1">
+        <div class="uk-vertical-align-middle">
+            <h1 class="uk-h2">Удаление курса</h1>
+            <form class="uk-panel uk-panel-box uk-form"
+                    action=""
+                    method="post" role="form">
+                {% csrf_token %}
+                <div class="uk-form-row">
+                    Курс «{{ course.title }}» и связанные материалы будут удалены.
+                </div>
+                <div class="uk-form-row">
+                    <button class="uk-width-1-1 uk-button uk-button-danger uk-button-large" type="submit">Удалить</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
