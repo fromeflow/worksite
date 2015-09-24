@@ -16,7 +16,11 @@
         не преподаётся, либо его читает другой преподаватель.</p>
     </div>
 
-    <h2>Список курсов по специальностям</h2>
+    <h2>Список курсов по специальностям
+        {% if user.is_staff %}
+            <small><a href="{% url 'courses:course-create' %}"><i class="uk-icon-plus uk-text-primary"></i></a></small>
+        {% endif %}
+    </h2>
     {% regroup course_list by specialty as courses %}
     <table class="uk-table uk-table-hover">
         <tbody>
