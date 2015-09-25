@@ -52,9 +52,39 @@
             </tbody></table>
         </div>
 
+        {% if semesters %}
         <div class="uk-panel-box uk-margin">
             <h2 class="uk-panel-title">Распределение времени</h2>
+            <table class="uk-table uk-table-hover">
+                <thead>
+                    <tr>
+                        <th>Семестр</th>
+                        {% for sem in semesters %}
+                        <th>{{ sem.number }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Лекции</td>
+                    {% for sem in semesters %}
+                    <td>{{ sem.lecture_time }}&nbsp;ч.</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Практические занятия</td>
+                    {% for sem in semesters %}
+                    <td>{{ sem.practice_time }}&nbsp;ч.</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Лабораторные работы</td>
+                    {% for sem in semesters %}
+                    <td>{{ sem.lab_time }}&nbsp;ч.</td>
+                    {% endfor %}
+                </tr>
+            </table>
         </div>
+        {% endif %}
     {% endwith %}
 {% endblock %}
 
@@ -73,16 +103,10 @@
     {% for sem in semesters %}
     <h2>Семестр {{ sem.number }}</h2>
     <div class="uk-accordion-content">
-        <p>Лекции: {{ sem.lecture_time }}</p>
-        <p>Практические занятия: {{ sem.practice_time }}</p>
-        <p>Лабораторные работы: {{ sem.lab_time }}</p>
-
-        <h4>Лекции</h4>
+        <h3>Лекции</h3>
         {% for l in sem.lecture_set.all %}
-            <h5>{{ l.number }}. {{ l.title }}</h5>
-
+            <h4>{{ l.number }}. {{ l.title }}</h4>
         {% endfor %}
-
     </div>
     {% endfor %}
 
