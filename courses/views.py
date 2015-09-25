@@ -5,6 +5,7 @@ from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Max
+from django.db import IntegrityError
 
 from braces.views import StaffuserRequiredMixin
 
@@ -69,3 +70,18 @@ class CourseVersionDelete(StaffuserRequiredMixin, DeleteView):
     model = CourseVersion
     def get_success_url(self):
         return reverse_lazy('courses:course-last-version-redirect', kwargs={'pk': self.object.course_id})
+
+
+class CourseVersionCreate(StaffuserRequiredMixin, CreateView):
+    model = CourseVersion
+    form_class = CourseVersionForm
+
+    def form_valid(self, form):
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        self.object = form.save(commit=False)
+        self.object.course = course
+        try:
+            return super().form_valid(form)
+        except IntegrityError:
+            form.add_error('version', 'У версий не может быть одинаковых номеров')
+            return self.form_invalid(form)
