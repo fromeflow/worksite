@@ -9,7 +9,7 @@ from django.db.models import Max
 from braces.views import StaffuserRequiredMixin
 
 from .models import Course, CourseVersion
-from .form import CourseForm
+from .form import CourseForm, CourseVersionForm
 
 
 class CourseList(ListView):
@@ -58,3 +58,8 @@ class CourseDelete(StaffuserRequiredMixin, DeleteView):
 class CourseCreate(StaffuserRequiredMixin, CreateView):
     model = Course
     form_class = CourseForm
+
+
+class CourseVersionUpdate(StaffuserRequiredMixin, UpdateView):
+    model = CourseVersion
+    form_class = CourseVersionForm

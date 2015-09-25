@@ -13,4 +13,6 @@ urlpatterns = \
              url(r'^c(?P<pk>\d+)-edit$', CourseUpdate.as_view(), name='course-edit'),
              url(r'^c(?P<pk>\d+)-delete$', CourseDelete.as_view(), name='course-delete'),
              url(r'^create$', CourseCreate.as_view(), name='course-create'),
+
+             url(r'^v(?P<pk>\d+)-edit$', CourseVersionUpdate.as_view(), name='course-version-edit'),
     )
