@@ -63,3 +63,9 @@ class CourseCreate(StaffuserRequiredMixin, CreateView):
 class CourseVersionUpdate(StaffuserRequiredMixin, UpdateView):
     model = CourseVersion
     form_class = CourseVersionForm
+
+
+class CourseVersionDelete(StaffuserRequiredMixin, DeleteView):
+    model = CourseVersion
+    def get_success_url(self):
+        return reverse_lazy('courses:course-last-version-redirect', kwargs={'pk': self.object.course_id})

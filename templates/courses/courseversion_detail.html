@@ -15,6 +15,7 @@
     {% if user.is_staff %}
         <small>
             <a href="{% url 'courses:course-version-edit' pk=courseversion.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
+            <a href="{% url 'courses:course-version-delete' pk=courseversion.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
         </small>
     {% endif %}
 {% endif %}
