@@ -5,87 +5,91 @@
 
 {% block content_head %}
 {{ course.title }}
-{% if user.is_staff %}
-    <small>
-        <a href="{% url 'courses:course-version-create' pk=course.id %}"><i class="uk-icon-plus uk-text-primary"></i></a>
-        <a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
-        <a href="{% url 'courses:course-delete' pk=course.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
-    </small>
-{% endif %}
-{% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>
-    {% if user.is_staff %}
-        <small>
-            <a href="{% url 'courses:course-version-edit' pk=courseversion.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
-            <a href="{% url 'courses:course-version-delete' pk=courseversion.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
-        </small>
-    {% endif %}
-{% endif %}
+{% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>{% endif %}
 {% endblock %}
 
 <hr>
 
 {% block content_right %}
-    {% with versions|dictsort:'version'|last as maxver %}
-        <div class="uk-panel-box uk-margin">
-            <h2 class="uk-panel-title">Информация</h2>
-                {% if course.closed %}
-                    <div class="uk-alert uk-alert-danger">Дисциплина больше не преподаётся или новой информации нет в базе</div>
-                {% endif %}
-                {% if maxver.version > courseversion.version %}
-                    <div class="uk-alert uk-alert-warning">Есть более новая версия курса</div>
-                {% endif %}
-
-            <table class="uk-table-hover"><tbody>
-            <tr><th class="uk-text-left uk-text-top">Кратко:</th><td>{{ course.abbreviation }}</td></tr>
-            <tr><th class="uk-text-left uk-text-top">{{ course.specialty.term1 }}:</th><td>{{ course.specialty.name }}</td></tr>
-            <tr><th class="uk-text-left uk-text-top">Кафедра:</th><td>{{ course.chair.name }}</td></tr>
-            {% if versions %}
-
-
-            <tr><th class="uk-text-left uk-text-top">Версии:</th>
-                <td>{% for ver in versions %}
-                    <a href="{% url 'courses:course-version-detail' pk=ver.id %}"
-                       {% if ver.version != maxver.version %}class="uk-text-muted"{% endif %}>v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
-                {% endfor %}</td>
-            </tr>
+    {% if user.is_staff %}
+    <div class="uk-panel-box uk-margin">
+        <h2 class="uk-panel-title">Управление</h2>
+        <ul class="uk-list">
+            <li><a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i> Править курс</a></li>
+            <li><a href="{% url 'courses:course-delete' pk=course.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить курс</a></li>
+        </ul>
+        <hr>
+        <ul class="uk-list">
+            <li><a href="{% url 'courses:course-version-create' pk=course.id %}"><i class="uk-icon-plus uk-text-primary"></i> Добавить версию</a></li>
+            {% if courseversion %}
+            <li><a href="{% url 'courses:course-version-edit' pk=courseversion.id %}"><i class="uk-icon-edit uk-text-primary"></i>  Править версию</a></li>
+            <li><a href="{% url 'courses:course-version-delete' pk=courseversion.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить версию</a></li>
             {% endif %}
-            </tbody></table>
-        </div>
+        </ul>
+    </div>
+    {% endif %}
 
-        {% if semesters %}
-        <div class="uk-panel-box uk-margin">
-            <h2 class="uk-panel-title">Распределение времени</h2>
-            <table class="uk-table uk-table-hover">
-                <thead>
-                    <tr>
-                        <th>Семестр</th>
-                        {% for sem in semesters %}
-                        <th>{{ sem.number }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tr>
-                    <td>Лекции</td>
-                    {% for sem in semesters %}
-                    <td>{{ sem.lecture_time }}&nbsp;ч.</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>Практические занятия</td>
-                    {% for sem in semesters %}
-                    <td>{{ sem.practice_time }}&nbsp;ч.</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>Лабораторные работы</td>
-                    {% for sem in semesters %}
-                    <td>{{ sem.lab_time }}&nbsp;ч.</td>
-                    {% endfor %}
-                </tr>
-            </table>
-        </div>
+    {% with versions|dictsort:'version'|last as maxver %}
+    <div class="uk-panel-box uk-margin">
+        <h2 class="uk-panel-title">Информация</h2>
+            {% if course.closed %}
+                <div class="uk-alert uk-alert-danger">Дисциплина больше не преподаётся или новой информации нет в базе</div>
+            {% endif %}
+            {% if maxver.version > courseversion.version %}
+                <div class="uk-alert uk-alert-warning">Есть более новая версия курса</div>
+            {% endif %}
+
+        <table class="uk-table-hover"><tbody>
+        <tr><th class="uk-text-left uk-text-top">Кратко:</th><td>{{ course.abbreviation }}</td></tr>
+        <tr><th class="uk-text-left uk-text-top">{{ course.specialty.term1 }}:</th><td>{{ course.specialty.name }}</td></tr>
+        <tr><th class="uk-text-left uk-text-top">Кафедра:</th><td>{{ course.chair.name }}</td></tr>
+        {% if versions %}
+
+
+        <tr><th class="uk-text-left uk-text-top">Версии:</th>
+            <td>{% for ver in versions %}
+                <a href="{% url 'courses:course-version-detail' pk=ver.id %}"
+                   {% if ver.version != maxver.version %}class="uk-text-muted"{% endif %}>v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}</td>
+        </tr>
         {% endif %}
+        </tbody></table>
+    </div>
     {% endwith %}
+
+    {% if semesters %}
+    <div class="uk-panel-box uk-margin">
+        <h2 class="uk-panel-title">Распределение времени</h2>
+        <table class="uk-table uk-table-hover">
+            <thead>
+                <tr>
+                    <th>Семестр</th>
+                    {% for sem in semesters %}
+                    <th>{{ sem.number }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tr>
+                <td>Лекции</td>
+                {% for sem in semesters %}
+                <td>{{ sem.lecture_time }}&nbsp;ч.</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Практические занятия</td>
+                {% for sem in semesters %}
+                <td>{{ sem.practice_time }}&nbsp;ч.</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Лабораторные работы</td>
+                {% for sem in semesters %}
+                <td>{{ sem.lab_time }}&nbsp;ч.</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block content_left %}
