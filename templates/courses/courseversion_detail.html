@@ -65,26 +65,44 @@
                 <tr>
                     <th>Семестр</th>
                     {% for sem in semesters %}
-                    <th>{{ sem.number }}</th>
+                    <th class="uk-text-center">{{ sem.number }}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tr>
                 <td>Лекции</td>
                 {% for sem in semesters %}
-                <td>{{ sem.lecture_time }}&nbsp;ч.</td>
+                <td class="uk-text-center">
+                {% if sem.lecture_time %}
+                    {{ sem.lecture_time }}&nbsp;ч.
+                {% else %}
+                    —
+                {% endif %}
+                </td>
                 {% endfor %}
             </tr>
             <tr>
                 <td>Практические занятия</td>
                 {% for sem in semesters %}
-                <td>{{ sem.practice_time }}&nbsp;ч.</td>
+                <td class="uk-text-center">
+                {% if sem.practice_time %}
+                    {{ sem.practice_time }}&nbsp;ч.
+                {% else %}
+                    —
+                {% endif %}
+                </td>
                 {% endfor %}
             </tr>
             <tr>
                 <td>Лабораторные работы</td>
                 {% for sem in semesters %}
-                <td>{{ sem.lab_time }}&nbsp;ч.</td>
+                <td class="uk-text-center">
+                {% if sem.lab_time %}
+                    {{ sem.lab_time }}&nbsp;ч.
+                {% else %}
+                    —
+                {% endif %}
+                </td>
                 {% endfor %}
             </tr>
         </table>
