@@ -3,21 +3,36 @@
 
 {% block title %}Квалификационные работы{% endblock %}
 
-{% block content %}
-<h1>Квалификационные работы</h1>
+{% block content_head %}Квалификационные работы{% endblock %}
 
+{% block content_left %}
 <p><a href="{% url 'projects:open-final-index' %}">Открытые темы</a></p>
 
+<h2>Список работ</h2>
 <table class="uk-table uk-table-hover">
-    <tr>
-        <th class="uk-width-2-6">Студент</th>
-        <th class="uk-width-4-6">Тема</th>
-    </tr>
-    {% for fp in finalproject_list %}
-    <tr>
-        <td class="uk-width-2-6">{{ fp.student | link_icon }}</td>
-        <td class="uk-width-4-6">{{ fp | link_icon }}</td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th class="uk-width-1-10">Год</th>
+            <th class="uk-width-2-10">Студент</th>
+            <th class="uk-width-7-10">Тема</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fp in finalproject_list %}
+        <tr>
+            <td class="uk-width-1-10">{{ fp.student.group.graduation_year }}</td>
+            <td class="uk-width-2-10">{{ fp.student | link_icon }}</td>
+            <td class="uk-width-7-10">{{ fp | link_icon }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+    <strong>Всего:</strong>
+    {{ finalproject_list | length }} {{ finalproject_list | length | pluralize_ru:'работа,работы,работ' }}
+</div>
 {% endblock %}

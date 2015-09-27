@@ -21,7 +21,7 @@ class OpenProjectList(ListView):
 
 class FinalProjectList(ListView):
     queryset = FinalProject.objects\
-        .select_related('student')\
+        .select_related('student__group__specialty')\
         .all()
 
 class OpenFinalProjectList(ListView):
