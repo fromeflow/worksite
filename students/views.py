@@ -59,11 +59,11 @@ class StudentDetail(LoginRequiredMixin, DetailView):
 
 class StudentCreate(StaffuserRequiredMixin, CreateView):
     model = Student
-
+    fields = '__all__'
 
 class GroupAddStudent(StaffuserRequiredMixin, CreateView):
     model = Student
-    fields = ['surname', 'name', 'patronymic', 'sex', 'user']
+    fields = ['surname', 'name', 'patronymic', 'sex', 'sent_down', 'user']
 
     def get_context_data(self, **kwargs):
         context = super(GroupAddStudent, self).get_context_data(**kwargs)
@@ -79,7 +79,7 @@ class GroupAddStudent(StaffuserRequiredMixin, CreateView):
 
 class StudentUpdate(StaffuserRequiredMixin, UpdateView):
     model = Student
-
+    fields = '__all__'
 
 class StudentDelete(StaffuserRequiredMixin, DeleteView):
     model = Student
