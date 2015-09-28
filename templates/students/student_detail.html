@@ -3,16 +3,15 @@
 
 {% block title %}{{ student.surname_initials }}{% endblock %}
 
-{% block content %}
-<h1 class="uk-h2">
+{% block content_head %}
     {{ student.surname }} {{ student.name }} {{ student.patronymic }}
     {% if not user.is_anonymous and user.is_superuser %}
         <a href="{% url 'students:edit' pk=student.id %}"><i class="uk-icon-edit uk-text-primary"></i></a>
         <a href="{% url 'students:delete' pk=student.id %}"><i class="uk-icon-trash uk-text-danger"></i></a>
     {% endif %}
-</h1>
-<p>Группа: {{ student.group | link_icon }}</p>
+{% endblock %}
 
+{% block content_left %}
 {% if course_projects %}
 <h2>Курсовые работы</h2>
 <ul class="list-unstyled">
@@ -30,4 +29,11 @@
     {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+    <p>Группа: {{ student.group | link_icon }}</p>
+</div>
 {% endblock %}
