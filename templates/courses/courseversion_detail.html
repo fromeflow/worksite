@@ -15,16 +15,17 @@
     <div class="uk-panel-box uk-margin">
         <h2 class="uk-panel-title">Управление</h2>
         <ul class="uk-list">
-            <li><a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i> Править курс</a></li>
-            <li><a href="{% url 'courses:course-delete' pk=course.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить курс</a></li>
-        </ul>
-        <hr>
-        <ul class="uk-list">
-            <li><a href="{% url 'courses:course-version-create' pk=course.id %}"><i class="uk-icon-plus uk-text-primary"></i> Добавить версию</a></li>
-            {% if courseversion %}
-            <li><a href="{% url 'courses:course-version-edit' pk=courseversion.id %}"><i class="uk-icon-edit uk-text-primary"></i>  Править версию</a></li>
-            <li><a href="{% url 'courses:course-version-delete' pk=courseversion.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить версию</a></li>
-            {% endif %}
+            <li>Курс:
+                <a href="{% url 'courses:course-edit' pk=course.id %}"><i class="uk-icon-edit uk-text-primary"></i> Править</a>
+                <a href="{% url 'courses:course-delete' pk=course.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить</a>
+            </li>
+            <li>Версия:
+                <a href="{% url 'courses:course-version-create' pk=course.id %}"><i class="uk-icon-plus uk-text-primary"></i> Добавить</a>
+                {% if courseversion %}
+                    <a href="{% url 'courses:course-version-edit' pk=courseversion.id %}"><i class="uk-icon-edit uk-text-primary"></i>  Править</a>
+                    <a href="{% url 'courses:course-version-delete' pk=courseversion.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить</a>
+                {% endif %}
+            </li>
         </ul>
     </div>
     {% endif %}
