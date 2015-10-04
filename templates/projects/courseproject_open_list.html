@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% load html %}
+{% load html text %}
 
-{% block title %}Курсовые работы{% endblock %}
+{% block title %}Курсовые работы — Открытые темы{% endblock %}
 
-{% block content %}
-<h1>Открытые темы</h1>
+{% block content_head %}Открытые темы{% endblock %}
 
+{% block content_left %}
 <table class="uk-table uk-table-hover">
     <tr>
         <th>Тема</th>
@@ -16,4 +16,18 @@
     </tr>
     {% endfor %}
 </table>
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Всего:</th>
+            <td>{{ courseproject_list | length }} {{ courseproject_list | length | pluralize_ru:'тема,темы,тем' }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
