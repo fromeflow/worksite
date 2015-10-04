@@ -21,8 +21,8 @@
         {% for fp in finalproject_list %}
         <tr>
             <td class="uk-width-1-10">{{ fp.student.group.graduation_year }}</td>
-            <td class="uk-width-2-10">{{ fp.student | link_icon }}</td>
-            <td class="uk-width-7-10">{{ fp | link_icon }}</td>
+            <td class="uk-width-3-10">{{ fp.student | link_icon }}</td>
+            <td class="uk-width-6-10">{{ fp | link_icon }}</td>
         </tr>
         {% endfor %}
     </tbody>
