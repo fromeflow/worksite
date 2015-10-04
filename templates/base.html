@@ -15,7 +15,6 @@
     </head>
 
     <body>
-
         <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
             <nav class="uk-navbar uk-margin-large-bottom">
                 <a class="uk-navbar-brand uk-hidden-small" href="/"><i class="uk-icon-justify uk-icon-graduation-cap"></i></a>
@@ -106,6 +105,7 @@
                 <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><i class="uk-icon-justify uk-icon-graduation-cap"></i></div>
             </nav>
 
+            <div style="box-shadow: 0px 4mm 8mm -5mm #000000; padding:25mm 10mm 10mm 10mm; margin: -30mm 0 0 0;">
             {% block content %}
             <h1>{% block content_head %}{% endblock %}</h1>
             <hr>
@@ -118,6 +118,7 @@
                 </div>
             </div>
             {% endblock %}
+            </div>
 
         </div>
 
