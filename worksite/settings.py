@@ -13,7 +13,7 @@ SECRET_KEY = config['Settings']['SECRET_KEY']
 DEBUG = config['Settings']['DEBUG'] in ['True', 'true']
 
 ALLOWED_HOSTS = ['*']
-
+SITE_ID = 1
 
 # Application definition
 
@@ -24,6 +24,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'utils',
     'accounts',
     'courses',

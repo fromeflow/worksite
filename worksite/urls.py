@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.shortcuts import render
+from django.contrib.flatpages import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -27,4 +28,6 @@ urlpatterns = [
     url(r'^student/', include('students.urls', namespace='students', app_name='students')),
 
     url(r'^$', lambda r: render(r, 'index.html')),
+
+    url(r'^about/$', views.flatpage, {'url': '/about/'}, name='about'),
 ]
