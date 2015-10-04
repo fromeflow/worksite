@@ -34,7 +34,7 @@
             <tr>
                 <td class="uk-width-3-10">{{ p.student | link_icon }}</td>
                 <td class="uk-width-6-10">{{ p | link_icon }}</td>
-                <td class="uk-width-1-10">{{ p.mark | default:'Не сдана' }}</td>
+                <td class="uk-width-1-10">{{ p.mark | default:'—' }}</td>
             </tr>
             {% endfor %}
         {% endfor %}
