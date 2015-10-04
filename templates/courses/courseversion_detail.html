@@ -105,6 +105,18 @@
                 </td>
                 {% endfor %}
             </tr>
+            <tr>
+                <td>Курсовая работа</td>
+                {% for sem in semesters %}
+                <td class="uk-text-center">
+                {% if sem.course_project %}
+                    <i class="uk-icon-check" ></i>
+                {% else %}
+                    —
+                {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
         </table>
     </div>
     {% endif %}

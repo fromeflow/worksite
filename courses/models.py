@@ -84,6 +84,7 @@ class CourseSemester(models.Model):
     lecture_time = models.PositiveSmallIntegerField(verbose_name='Лекционных часов', default=0)
     practice_time = models.PositiveSmallIntegerField(verbose_name='Практических часов', default=0)
     lab_time = models.PositiveSmallIntegerField(verbose_name='Лабораторных часов', default=0)
+    course_project = models.BooleanField(verbose_name='Курсовая работа', default=False)
 
     def __str__(self):
         return "{course_version} / {number}".format(
