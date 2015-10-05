@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import \
     Course, CourseVersion, CourseSemester, \
-    Exam, ExamMark, Lecture
+    Exam, ExamMark, Lecture, LabWork, PracticeWork
 
 class CourseAdmin(admin.ModelAdmin):
     pass
@@ -38,3 +38,13 @@ class LectureAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(Lecture, LectureAdmin)
+
+class LabWorkAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(LabWork, LabWorkAdmin)
+
+class PracticeWorkAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(PracticeWork, PracticeWorkAdmin)

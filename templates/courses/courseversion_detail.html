@@ -137,12 +137,22 @@
 
     {% for sem in semesters %}
     <h2>Семестр {{ sem.number }}</h2>
-    <div class="uk-accordion-content">
+
         <h3>Лекции</h3>
-        {% for l in sem.lecture_set.all %}
-            <h4>{{ l.number }}. {{ l.title }}</h4>
-        {% endfor %}
-    </div>
+        {% for cw in sem.classwork_set.all %}{% if cw.lecture %}
+            <h4>{{ cw.lecture.number }}. {{ cw.lecture.title }}</h4>
+        {% endif %}{% endfor %}
+
+        <h3>Лабораторные работы</h3>
+        {% for cw in sem.classwork_set.all %}{% if cw.labwork %}
+            <h4>{{ cw.labwork.number }}. {{ cw.labwork.title }}</h4>
+        {% endif %}{% endfor %}
+
+        <h3>Практические занятия</h3>
+        {% for cw in sem.classwork_set.all %}{% if cw.practicework %}
+            <h4>{{ cw.practicework.number }}. {{ cw.practicework.title }}</h4>
+        {% endif %}{% endfor %}
+
     {% endfor %}
 
     {% else %}

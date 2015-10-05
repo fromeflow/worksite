@@ -132,31 +132,62 @@ class ExamMark(models.Model):
         verbose_name_plural = 'экз. оценка'
 
 
-class Lecture(models.Model):
-    course_semester = models.ForeignKey(to=CourseSemester, verbose_name='Семестр курса')
+class ClassWork(models.Model):
+    course_semester = models.ForeignKey(to=CourseSemester, verbose_name='Семестр курса',
+                                        related_name='%(class)s_set')
     number = models.IntegerField(verbose_name='Номер')
     title = models.CharField(verbose_name='Тема',
                              max_length=100)
-    description = models.TextField(verbose_name='Заметки к лекции', blank=True)
-
+    description = models.TextField(verbose_name='Заметки к занятию', blank=True)
 
     def __str__(self):
-        return "Лекция: {course_semester}".format(
+        return "Занятие: {course_semester}".format(
+            course_semester=self.course_semester
+        )
+
+    class Meta:
+        verbose_name = 'занятие'
+        verbose_name_plural = 'занятия'
+        ordering = ['course_semester', 'number']
+
+
+class Lecture(ClassWork):
+    def __str__(self):
+        return "Лекция {number}: {course_semester}".format(
+            number=self.number,
             course_semester=self.course_semester
         )
 
     class Meta:
         verbose_name = 'лекция'
         verbose_name_plural = 'лекции'
-        ordering = ['course_semester', 'number']
+
+
+class LabWork(ClassWork):
+    def __str__(self):
+        return "Лабораторная работа {number}: {course_semester}".format(
+            number=self.number,
+            course_semester=self.course_semester
+        )
+
+    class Meta:
+        verbose_name = 'лабораторная работа'
+        verbose_name_plural = 'лабораторные работы'
+
+
+class PracticeWork(ClassWork):
+    def __str__(self):
+        return "Практическая работа {number}: {course_semester}".format(
+            number=self.number,
+            course_semester=self.course_semester
+        )
+
+    class Meta:
+        verbose_name = 'практическое занятие'
+        verbose_name_plural = 'практические занятия'
+
 
 ## Вынести в отдельное приложение?
-# class LabWork(models.Model):
-#     pass
-#
-# class PracticeWork(models.Work):
-#     pass
-#
 # class StudentWork(models.Model):
 # # type = Home|Practice|Lab
 #     course_semester = None
