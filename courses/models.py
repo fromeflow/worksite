@@ -54,7 +54,7 @@ class CourseVersion(models.Model):
     'Версия курса'
     course = models.ForeignKey(to=Course, verbose_name='Курс')
     version = models.PositiveSmallIntegerField(verbose_name='Номер версии', default=1)
-    version_description = models.TextField(verbose_name='Описание версии курса', blank=True)
+    description = models.TextField(verbose_name='Описание версии курса', blank=True)
     # рабочая программа, материалы
 
     def get_absolute_url(self):

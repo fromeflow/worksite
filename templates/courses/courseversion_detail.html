@@ -132,7 +132,7 @@
     {% if courseversion %}
     <h2>Описание версии</h2>
     <div class="uk-text-justify">
-        {{ courseversion.version_description | markdown:3 }}
+        {{ courseversion.description | markdown:3 }}
     </div>
 
     {% for sem in semesters %}

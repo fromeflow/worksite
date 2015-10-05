@@ -15,7 +15,7 @@ class CourseForm(ModelForm):
 class CourseVersionForm(ModelForm):
     class Meta:
         model = CourseVersion
-        fields = ['version', 'version_description']
+        fields = ['version', 'description']
         widgets = {
-            'version_description': Textarea(attrs={'data-uk-htmleditor': '{markdown:true}'}),
+            'description': Textarea(attrs={'data-uk-htmleditor': '{markdown:true}'}),
         }
