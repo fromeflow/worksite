@@ -137,6 +137,8 @@ class Lecture(models.Model):
     number = models.IntegerField(verbose_name='Номер')
     title = models.CharField(verbose_name='Тема',
                              max_length=100)
+    description = models.TextField(verbose_name='Заметки к лекции', blank=True)
+
 
     def __str__(self):
         return "Лекция: {course_semester}".format(
