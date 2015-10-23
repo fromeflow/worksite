@@ -10,13 +10,14 @@
         <link rel="stylesheet" href="{% static 'css/uikit.custom.min.css' %}">
         <script src="{% static 'js/jquery.min.js' %}"></script>
         <script src="{% static 'js/uikit.min.js' %}"></script>
+        <script src="{% static 'js/components/sticky.js' %}"></script>
         {% block head %}{% endblock %}
         <link rel="stylesheet" href="{% static 'pygments.css' %}">
     </head>
 
     <body>
         <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-            <nav class="uk-navbar uk-margin-large-bottom">
+            <nav class="uk-navbar uk-margin-large-bottom" data-uk-sticky>
                 <a class="uk-navbar-brand uk-hidden-small" href="/"><i class="uk-icon-justify uk-icon-graduation-cap"></i></a>
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li class="uk-parent" data-uk-dropdown>
@@ -106,7 +107,8 @@
                 <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><i class="uk-icon-justify uk-icon-graduation-cap"></i></div>
             </nav>
 
-            <div style="box-shadow: 0px 5px 10px -5px #000000; padding:100px 50px 50px; margin: -92px 0 0 0;">
+            <div style="box-shadow: 0px 5px 10px -5px #000000; padding: 50px 50px 50px; margin: 40px 0 0 0;
+                border-style: solid; border-width:1px; border-color: #aaa;">
             {% block content %}
             <h1>{% block content_head %}{% endblock %}</h1>
             <hr>
