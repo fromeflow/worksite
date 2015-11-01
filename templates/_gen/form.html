@@ -1,5 +1,5 @@
 <form class="uk-form uk-form-horizontal"
-      action="" method="post" role="form">
+      action="" method="post" role="form" enctype="multipart/form-data">
     {% csrf_token %}
     {% for hidden in form.hidden_fields %}
         {{ hidden }}

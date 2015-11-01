@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load html %}
+{% load html file_icon %}
 
 {% block title %}{{ course.title }}{% endblock %}
 
@@ -45,13 +45,18 @@
         <tr><th class="uk-text-left uk-text-top">{{ course.specialty.term1 }}:</th><td>{{ course.specialty.name }}</td></tr>
         <tr><th class="uk-text-left uk-text-top">Кафедра:</th><td>{{ course.chair.name }}</td></tr>
         {% if versions %}
-
-
         <tr><th class="uk-text-left uk-text-top">Версии:</th>
             <td>{% for ver in versions %}
                 <a href="{% url 'courses:course-version-detail' pk=ver.id %}"
                    {% if ver.version != maxver.version %}class="uk-text-muted"{% endif %}>v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}</td>
+        </tr>
+        {% endif %}
+        {% if courseversion.syllabus %}
+        <tr><th class="uk-text-left uk-text-top">Программа:</th>
+            <td>{{ courseversion.syllabus | file_icon }}
+            <a href="{{ courseversion.syllabus.url }}">Скачать</a>
+            — {{ courseversion.syllabus.size | filesizeformat }}</td>
         </tr>
         {% endif %}
         </tbody></table>

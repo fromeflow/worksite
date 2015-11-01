@@ -1,3 +1,5 @@
+from os.path import splitext, join
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse_lazy
@@ -9,6 +11,24 @@ from students.models import Student
 
 
 EXAM_TYPE_CHOICES = (('E', 'Экзамен'), ('T', 'Зачёт'))
+
+COURSES_FOLDER = 'course'
+
+def upload_to(self, filename, info=''):
+    id = str(self.id)
+    abbr = str(self.course.abbreviation)
+    version = str(self.version)
+    ext = splitext(filename)[1].lower()
+    fullname = '{abbr}v{version} - {info}{ext}'.format(
+        abbr=abbr,
+        version=version,
+        info=info,
+        ext=ext
+    )
+    return join(COURSES_FOLDER, id, fullname)
+
+
+def UPLOAD_VERSION_SYLLABUS(s, fn): return upload_to(s, fn, 'Рабочая программа')
 
 
 class Course(ToLinkMixin, models.Model):
@@ -55,7 +75,9 @@ class CourseVersion(models.Model):
     course = models.ForeignKey(to=Course, verbose_name='Курс')
     version = models.PositiveSmallIntegerField(verbose_name='Номер версии', default=1)
     description = models.TextField(verbose_name='Описание версии курса', blank=True)
-    # рабочая программа, материалы
+    syllabus = models.FileField(verbose_name='Рабочая программа', blank=True, null=True,
+                                max_length=150,
+                                upload_to=UPLOAD_VERSION_SYLLABUS)
 
     def get_absolute_url(self):
         return reverse_lazy('courses:course-version-detail', kwargs={'pk': self.id})
