@@ -5,7 +5,7 @@
 
 {% block title %}
 {% if courseversion %}
-    {{ courseversion }}v{{ courseversion.version }} [Правка]
+    {{ courseversion }} для {{ courseversion.group }} [Правка]
 {% else %}
     Новая версия курса
 {% endif %}
@@ -13,8 +13,8 @@
 
 {% block content %}
 <h1>
-    {% if course %}
-        {{ courseversion }}v{{ courseversion.version }} [Правка]
+    {% if courseversion %}
+        {{ courseversion.course.title }} для {{ courseversion.group }} [Правка]
     {% else %}
         Новая версия курса
     {% endif %}
