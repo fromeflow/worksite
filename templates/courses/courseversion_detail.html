@@ -5,10 +5,8 @@
 
 {% block content_head %}
 {{ course.title }}
-{% if courseversion %} <small class="uk-text-muted">v{{ courseversion.version }}</small>{% endif %}
+{% if courseversion %} <small class="uk-text-muted"> для {{ courseversion.group }}</small>{% endif %}
 {% endblock %}
-
-<hr>
 
 {% block content_right %}
     {% if user.is_staff %}
@@ -30,25 +28,25 @@
     </div>
     {% endif %}
 
-    {% with versions|dictsort:'version'|last as maxver %}
+    {% with groups|first as actual_group %}
     <div class="uk-panel-box uk-margin">
         <h2 class="uk-panel-title">Информация</h2>
             {% if course.closed %}
                 <div class="uk-alert uk-alert-danger">Дисциплина больше не преподаётся или новой информации нет в базе</div>
             {% endif %}
-            {% if maxver.version > courseversion.version %}
-                <div class="uk-alert uk-alert-warning">Есть более новая версия курса</div>
+            {% if actual_group.id != courseversion.group_id %}
+                <div class="uk-alert uk-alert-warning">Эта версия больше не актуальна</div>
             {% endif %}
 
         <table class="uk-table-hover"><tbody>
         <tr><th class="uk-text-left uk-text-top">Кратко:</th><td>{{ course.abbreviation }}</td></tr>
         <tr><th class="uk-text-left uk-text-top">{{ course.specialty.term1 }}:</th><td>{{ course.specialty.name }}</td></tr>
         <tr><th class="uk-text-left uk-text-top">Кафедра:</th><td>{{ course.chair.name }}</td></tr>
-        {% if versions %}
-        <tr><th class="uk-text-left uk-text-top">Версии:</th>
-            <td>{% for ver in versions %}
-                <a href="{% url 'courses:course-version-detail' pk=ver.id %}"
-                   {% if ver.version != maxver.version %}class="uk-text-muted"{% endif %}>v{{ ver.version }}</a>{% if not forloop.last %},{% endif %}
+        {% if groups %}
+        <tr><th class="uk-text-left uk-text-top">Версии для:</th>
+            <td>{% for group in groups %}
+                <a href="{% url 'courses:course-version-detail' pk=group.version_id %}"
+                   {% if group.id != actual_group.id %}class="uk-text-muted"{% endif %}>{{ group.name }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}</td>
         </tr>
         {% endif %}
