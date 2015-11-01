@@ -4,7 +4,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.base import RedirectView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Max
 from django.db import IntegrityError
 
 from braces.views import StaffuserRequiredMixin
@@ -16,7 +15,6 @@ from .form import CourseForm, CourseVersionForm
 class CourseList(ListView):
     queryset = Course.objects\
         .select_related('specialty')\
-        .annotate(last_version_a=Max('courseversion__version'))\
         .all()
 
 class CourseLastVersionRedirect(RedirectView):
@@ -24,7 +22,7 @@ class CourseLastVersionRedirect(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         course_id = self.kwargs['pk']
-        courseversion = get_object_or_404(Course, pk=course_id).last_version
+        courseversion = get_object_or_404(Course, pk=course_id).actual_version
         if courseversion is None:
             return reverse_lazy('courses:course-detail', kwargs={'pk': course_id})
         return reverse_lazy('courses:course-version-detail', kwargs={'pk': courseversion.id})
@@ -41,7 +39,7 @@ class CourseVersionDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['course'] = context['courseversion'].course
-        context['versions'] = context['course'].version_numbers
+        context['groups'] = context['course'].version_groups
         context['semesters'] = context['courseversion'].coursesemester_set.all()
         return context
 
@@ -83,5 +81,5 @@ class CourseVersionCreate(StaffuserRequiredMixin, CreateView):
         try:
             return super().form_valid(form)
         except IntegrityError:
-            form.add_error('version', 'У версий не может быть одинаковых номеров')
+            form.add_error('group', 'Курс не может повторяться у группы')
             return self.form_invalid(form)

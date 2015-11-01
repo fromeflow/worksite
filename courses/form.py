@@ -13,9 +13,10 @@ class CourseForm(ModelForm):
         }
 
 class CourseVersionForm(ModelForm):
+    # TODO Фильтровать группы по специальности
     class Meta:
         model = CourseVersion
-        fields = ['version', 'description', 'syllabus']
+        fields = ['group', 'description', 'syllabus']
         widgets = {
             'description': Textarea(attrs={'data-uk-htmleditor': '{markdown:true}'}),
         }

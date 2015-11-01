@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from utils.mixins import ToLinkMixin
 
 from university.models import Specialty, Chair
-from students.models import Student
+from students.models import Student, Group
 
 
 EXAM_TYPE_CHOICES = (('E', 'Экзамен'), ('T', 'Зачёт'))
@@ -16,12 +16,12 @@ COURSES_FOLDER = 'course'
 
 def upload_to(self, filename, info=''):
     id = str(self.id)
-    abbr = str(self.course.abbreviation)
-    version = str(self.version)
+    title = str(self.course.title)
+    year = str(self.group.entrance_year)
     ext = splitext(filename)[1].lower()
-    fullname = '{abbr}v{version} - {info}{ext}'.format(
-        abbr=abbr,
-        version=version,
+    fullname = '{title} ({year}) - {info}{ext}'.format(
+        title=title,
+        year=year,
         info=info,
         ext=ext
     )
@@ -41,14 +41,16 @@ class Course(ToLinkMixin, models.Model):
     description = models.TextField(verbose_name="Общее описание курса", blank=True)
 
     @property
-    def version_numbers(self):
-        return CourseVersion.objects.filter(course=self.id).values('id', 'version')
+    def version_groups(self):
+        return [{'version_id': cv.id, 'name': cv.group.name, 'id': cv.group_id}
+                for cv in CourseVersion.objects.filter(course=self.id)\
+                .select_related('group').all()]
 
     @property
-    def last_version(self):
+    def actual_version(self):
         try:
             return CourseVersion.objects.filter(course=self.id)\
-                .select_related('course').latest('version')
+                .select_related('group').order_by('group').first()
         except CourseVersion.DoesNotExist:
             return None
 
@@ -73,7 +75,7 @@ class Course(ToLinkMixin, models.Model):
 class CourseVersion(models.Model):
     'Версия курса'
     course = models.ForeignKey(to=Course, verbose_name='Курс')
-    version = models.PositiveSmallIntegerField(verbose_name='Номер версии', default=1)
+    group = models.ForeignKey(to=Group, verbose_name='Группа', blank=True, null=True, default=None)
     description = models.TextField(verbose_name='Описание версии курса', blank=True)
     syllabus = models.FileField(verbose_name='Рабочая программа', blank=True, null=True,
                                 max_length=150,
@@ -83,19 +85,19 @@ class CourseVersion(models.Model):
         return reverse_lazy('courses:course-version-detail', kwargs={'pk': self.id})
 
     def __str__(self):
-        return "{course} - {version}".format(
+        return "{course} - {group}".format(
             course=self.course,
-            version=self.version
+            group=self.group
         )
 
     class Meta:
         verbose_name = 'версия дисциплины'
         verbose_name_plural = 'версии дисциплин'
-        unique_together = (('course', 'version'),)
-        ordering = ['version']
+        unique_together = (('course', 'group'),)
+        ordering = ['group', 'course']
 
     def link_str(self):
-        return self.title
+        return str(self)
 
 
 class CourseSemester(models.Model):
