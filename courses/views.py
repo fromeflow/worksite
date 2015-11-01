@@ -50,6 +50,7 @@ class CourseUpdate(StaffuserRequiredMixin, UpdateView):
 
 
 class CourseDelete(StaffuserRequiredMixin, DeleteView):
+    template_name = '_gen/confirm_delete.html'
     model = Course
     success_url = reverse_lazy('courses:index')
 
@@ -65,6 +66,7 @@ class CourseVersionUpdate(StaffuserRequiredMixin, UpdateView):
 
 
 class CourseVersionDelete(StaffuserRequiredMixin, DeleteView):
+    template_name = '_gen/confirm_delete.html'
     model = CourseVersion
     def get_success_url(self):
         return reverse_lazy('courses:course-last-version-redirect', kwargs={'pk': self.object.course_id})
