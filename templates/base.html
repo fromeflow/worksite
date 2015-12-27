@@ -25,7 +25,7 @@
                             <ul class="uk-nav uk-nav-navbar">
                                 <li><a href="{% url 'courses:index' %}">Читаемые курсы</a></li>
                                 <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
-                                <li><a href="#"><del>Учебные пособия</del></a></li>
+                                <li><a href="{% url 'textbooks:index' %}">Учебные пособия</a></li>
                                 <li><a href="#"><del>Тестирование</del></a></li>
                                 <li class="uk-nav-divider"></li>
                                 <li class="uk-nav-header">Старшекурсникам</li>
@@ -131,7 +131,7 @@
                         <ul class="uk-nav-sub">
                                 <li><a href="{% url 'courses:index' %}">Читаемые курсы</a></li>
                                 <li><a href="{% url 'projects:index' %}">Курсовые работы</a></li>
-                                <li><a href="#">Учебные пособия</a></li>
+                                <li><a href="{% url 'textbooks:index' %}">Учебные пособия</a></li>
                                 <li><a href="#">Тестирование</a></li>
                                 <li><a href="{% url 'projects:final-index' %}">Квалификационные работы</a></li>
                                 <li><a href="#">Государственные экзамены</a></li>

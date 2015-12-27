@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'courses',
     'projects',
     'students',
+    'textbooks',
     'university',
     'debug_toolbar',
 )

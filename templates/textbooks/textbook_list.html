@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load html text %}
+
+{% block title %}Учебные пособия{% endblock %}
+
+{% block content_head %}Учебные пособия{% endblock %}
+
+{% block content_left %}
+<ol>
+    {% for tb in textbook_list %}
+    <li><a href="{% url 'textbooks:detail' pk=tb.id %}">{{ tb }}</a></li>
+    {% endfor %}
+</ol>
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Всего:</th>
+            <td>{{ textbook_list | length }} {{ textbook_list | length | pluralize_ru:'пособие,пособия,пособий' }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

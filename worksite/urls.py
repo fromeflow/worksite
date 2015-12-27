@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^course/', include('courses.urls', namespace='courses', app_name='courses')),
     url(r'^project/', include('projects.urls', namespace='projects', app_name='projects')),
     url(r'^student/', include('students.urls', namespace='students', app_name='students')),
+    url(r'^textbook/', include('textbooks.urls', namespace='textbooks', app_name='textbooks')),
 
     url(r'^$', lambda r: render(r, 'index.html')),
 

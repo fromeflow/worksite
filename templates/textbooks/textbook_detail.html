@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load text html file_icon %}
+
+{% block title %}{{ object.authors }} {{ object.title }}{% endblock %}
+
+{% block content_head %}<small>{{ object.authors }}</small><br>{{ object.title }}{% endblock %}
+
+{% block content_left %}
+<p>{{ object.authors }}</p>
+<p>{{ object.title }}</p>
+<p>{{ object.is_compiler }}</p>
+<p>{{ object.publisher }}</p>
+<p>{{ object.year }}</p>
+<div>{{ object.description | markdown }}</div>
+{% endblock %}
+
+{% block content_right %}
+<div class="uk-panel-box uk-margin">
+    <h2 class="uk-panel-title">Информация</h2>
+</div>
+{% endblock %}
