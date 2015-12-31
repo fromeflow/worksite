@@ -16,7 +16,7 @@ class Textbook(models.Model):
     title = models.CharField(verbose_name='Название', max_length=200)
     publisher = models.CharField(verbose_name='Издательство', max_length=100, blank=True)
     year = models.IntegerField(verbose_name='Год издания', validators=[year_validator,], blank=True, null=True)
-    course = models.ManyToManyField(verbose_name='Курсы', to=Course, blank=True)
+    courses = models.ManyToManyField(verbose_name='Курсы', to=Course, blank=True)
     description = models.TextField(verbose_name='Описание', blank=True)
 
     def __str__(self):
