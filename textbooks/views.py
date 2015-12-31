@@ -10,3 +10,9 @@ class TextbookList(ListView):
 
 class TextbookDetail(DetailView):
     model = Textbook
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['materials'] = context['textbook'].textbookfile_set.all()
+        context['materials_count'] = context['textbook'].textbookfile_set.count()
+        return context

@@ -2,21 +2,44 @@
 
 {% load text html file_icon %}
 
-{% block title %}{{ object.authors }} {{ object.title }}{% endblock %}
+{% block title %}{{ textbook.authors }} {{ textbook.title }}{% endblock %}
 
-{% block content_head %}<small>{{ object.authors }}</small><br>{{ object.title }}{% endblock %}
+{% block content_head %}<small>{{ textbook.authors }}</small><br>{{ textbook.title }}{% endblock %}
 
 {% block content_left %}
-<p>{{ object.authors }}</p>
-<p>{{ object.title }}</p>
-<p>{{ object.is_compiler }}</p>
-<p>{{ object.publisher }}</p>
-<p>{{ object.year }}</p>
-<div>{{ object.description | markdown }}</div>
+    {% if textbook.description %}
+        {{ textbook.description | markdown:3 }}
+    {% endif %}
+
+    <p><strong>Выходные данные: </strong>
+        {% if not object.is_compiler %}
+            {{ textbook.authors }} {{ textbook.title }} — {{ textbook.publisher | default:'?'}}, {{ textbook.year | default:'?' }}.
+        {% else %}
+            {{ textbook.title }} / Сост.: {{ textbook.authors }} — {{ textbook.publisher | default:'?'}}, {{ textbook.year | default:'?' }}.
+        {% endif %}
+    </p>
+
+    <h2>Загружаемые материалы</h2>
+    <ul>
+    {% for m in materials %}
+        <li>{{ m.file | file_icon }} <a href="{{ m.file.url }}">{{ m.title }}</a> — {{ m.file.size | filesizeformat }}
+        {% if m.description %}<p>{{ m.description | markdown:3 }}</p>{% endif %}
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block content_right %}
 <div class="uk-panel-box uk-margin">
     <h2 class="uk-panel-title">Информация</h2>
+
+    {% if materials %}
+        <p>
+            Всего {{ materials_count }} {{ materials_count | pluralize_ru:'файл,файла,файлов' }}.
+        </p>
+    {% else %}
+        <p>Для этого пособия нет загружаемых материалов.</p>
+    {% endif %}
+
 </div>
 {% endblock %}
