@@ -32,14 +32,19 @@
 {% block content_right %}
 <div class="uk-panel-box uk-margin">
     <h2 class="uk-panel-title">Информация</h2>
-
     {% if materials %}
-        <p>
-            Всего {{ materials_count }} {{ materials_count | pluralize_ru:'файл,файла,файлов' }}.
-        </p>
+        <p>Всего {{ materials_count }} {{ materials_count | pluralize_ru:'файл,файла,файлов' }}.</p>
     {% else %}
         <p>Для этого пособия нет загружаемых материалов.</p>
     {% endif %}
 
+    {% if courses %}
+        <h3 class="uk-h4">Связанные курсы</h3>
+        <ul class="uk-list">
+            {% for c in courses %}
+                <li>{{ c | link_icon }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>
 {% endblock %}

@@ -13,6 +13,8 @@ class TextbookDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['materials'] = context['textbook'].textbookfile_set.all()
-        context['materials_count'] = context['textbook'].textbookfile_set.count()
+        textbook = context['textbook']
+        context['materials'] = textbook.textbookfile_set.all()
+        context['materials_count'] = textbook.textbookfile_set.count()
+        context['courses'] = textbook.courses.all()
         return context
