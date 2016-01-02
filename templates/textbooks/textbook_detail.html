@@ -24,6 +24,10 @@
     <ul class="uk-list-striped">
     {% for m in materials %}
         <li>{{ m.file | file_icon }} <a href="{{ m.file.url }}">{{ m.title }}</a> — {{ m.file.size | filesizeformat }}
+            {% if user.is_staff %}
+                <a href="{% url 'textbooks:file-edit' pk=m.id %}"><i class="uk-icon-edit uk-text-primary"></i>  Править</a>
+                <a href="{% url 'textbooks:file-delete' pk=m.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить</a>
+            {% endif %}
         {% if m.description %}
             <p>{{ m.description | markdown:3 }}</p>
         {% endif %}
@@ -43,7 +47,7 @@
                 <a href="{% url 'textbooks:delete' pk=textbook.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить</a>
             </li>
             <li>Материалы:
-
+                <a href="{% url 'textbooks:file-add' pk=textbook.id %}"><i class="uk-icon-plus uk-text-primary"></i> Добавить</a>
             </li>
         </ul>
     </div>

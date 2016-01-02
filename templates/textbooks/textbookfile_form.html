@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load html static %}
+
+{% block head %}{% include '_inc/editor_head.html' %}{% endblock %}
+
+{% block title %}
+{% if textbookfile %}
+    {{ textbookfile }} ({{ textbookfile.textbook }}) [Правка]
+{% else %}
+    Новый файл учебного пособия
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>
+    {% if textbookfile %}
+        {{ textbookfile }} ({{ textbookfile.textbook }}) [Правка]
+    {% else %}
+        Новый файл учебного пособия
+    {% endif %}
+</h1>
+
+{% include '_gen/form.html' %}
+{% endblock %}
