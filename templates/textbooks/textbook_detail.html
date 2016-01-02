@@ -32,21 +32,36 @@
 {% endblock %}
 
 {% block content_right %}
-<div class="uk-panel-box uk-margin">
-    <h2 class="uk-panel-title">Информация</h2>
-    {% if materials %}
-        <p>Всего {{ materials_count }} {{ materials_count | pluralize_ru:'файл,файла,файлов' }}.</p>
-    {% else %}
-        <p>Для этого пособия нет загружаемых материалов.</p>
+    {% if user.is_staff %}
+    <div class="uk-panel-box uk-margin">
+        <h2 class="uk-panel-title">Управление</h2>
+        <ul class="uk-list">
+            <li>Учебное пособие:
+                <a href="{% url 'textbooks:edit' pk=textbook.id %}"><i class="uk-icon-edit uk-text-primary"></i> Править</a>
+                <a href="{% url 'textbooks:delete' pk=textbook.id %}"><i class="uk-icon-trash uk-text-danger"></i> Удалить</a>
+            </li>
+            <li>Материалы:
+
+            </li>
+        </ul>
+    </div>
     {% endif %}
 
-    {% if courses %}
-        <h3 class="uk-h4">Связанные курсы</h3>
-        <ul class="uk-list">
-            {% for c in courses %}
-                <li>{{ c | link_icon }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</div>
+    <div class="uk-panel-box uk-margin">
+        <h2 class="uk-panel-title">Информация</h2>
+        {% if materials %}
+            <p>Всего {{ materials_count }} {{ materials_count | pluralize_ru:'файл,файла,файлов' }}.</p>
+        {% else %}
+            <p>Для этого пособия нет загружаемых материалов.</p>
+        {% endif %}
+
+        {% if courses %}
+            <h3 class="uk-h4">Связанные курсы</h3>
+            <ul class="uk-list">
+                {% for c in courses %}
+                    <li>{{ c | link_icon }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock %}

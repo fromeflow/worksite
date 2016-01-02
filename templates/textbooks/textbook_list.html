@@ -3,7 +3,12 @@
 
 {% block title %}Учебные пособия{% endblock %}
 
-{% block content_head %}Учебные пособия{% endblock %}
+{% block content_head %}
+    Учебные пособия
+    {% if user.is_staff %}
+        <small><a href="{% url 'textbooks:create' %}"><i class="uk-icon-plus uk-text-primary"></i></a></small>
+    {% endif %}
+{% endblock %}
 
 {% block content_left %}
 <ol>
