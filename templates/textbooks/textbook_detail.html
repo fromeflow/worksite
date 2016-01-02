@@ -20,10 +20,12 @@
     </p>
 
     <h2>Загружаемые материалы</h2>
-    <ul>
+    <ul class="uk-list-striped">
     {% for m in materials %}
         <li>{{ m.file | file_icon }} <a href="{{ m.file.url }}">{{ m.title }}</a> — {{ m.file.size | filesizeformat }}
-        {% if m.description %}<p>{{ m.description | markdown:3 }}</p>{% endif %}
+        {% if m.description %}
+            <p>{{ m.description | markdown:3 }}</p>
+        {% endif %}
         </li>
     {% endfor %}
     </ul>
