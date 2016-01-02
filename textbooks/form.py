@@ -14,7 +14,7 @@ class TextbookForm(ModelForm):
 class TextbookFileForm(ModelForm):
     class Meta:
         model = TextbookFile
-        fields = ['title', 'file', 'description']
+        fields = ['title', 'file', 'order', 'description']
         widgets = {
             'title': TextInput(attrs={'size': '200'}),
             'description': Textarea(attrs={'data-uk-htmleditor': '{markdown:true}'}),

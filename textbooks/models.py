@@ -35,6 +35,7 @@ class Textbook(models.Model):
 class TextbookFile(models.Model):
     title = models.CharField(verbose_name='Название', max_length=200)
     file = models.FileField(verbose_name='Файл', upload_to=upload_textbook_files_to)
+    order = models.IntegerField(verbose_name='Позиция в списке', default=100)
     description = models.TextField(verbose_name='Описание', blank=True)
     textbook = models.ForeignKey(verbose_name='Пособие', to=Textbook)
 
@@ -42,7 +43,7 @@ class TextbookFile(models.Model):
         return '{}: {}'.format(self.textbook, self.title)
 
     class Meta:
-        ordering = ['textbook', 'title']
+        ordering = ['textbook', 'order', 'title']
         verbose_name = 'материалы пособия'
         verbose_name_plural = 'материалы пособия'
         unique_together = ('textbook', 'title')
