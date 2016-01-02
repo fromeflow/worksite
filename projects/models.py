@@ -7,7 +7,7 @@ from students.models import Student
 from university.models import Employee
 from courses.models import CourseSemester
 
-from utils.validators import mark5_validator, year_validator
+from utils.validators import mark5_validators, year_validators
 from utils.mixins import ToLinkMixin
 from utils.private_storage.storage import private_storage
 
@@ -46,7 +46,7 @@ class GenericProject(models.Model):
     student = models.ForeignKey(to=Student, verbose_name='Исполнитель', blank=True, null=True, default=None,
                                 limit_choices_to={'sent_down': False})
     supervisor = models.ForeignKey(to=Employee, verbose_name='Руководитель', blank=True, null=True, default=None)
-    mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True, default=None, validators=mark5_validator)
+    mark = models.IntegerField(verbose_name='Оценка', blank=True, null=True, default=None, validators=mark5_validators)
     text = models.FileField(verbose_name='Текст', blank=True, null=True,
                             max_length=150, storage=private_storage,
                             upload_to=UPLOAD_PROJECT_TEXT)

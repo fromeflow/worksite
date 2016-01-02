@@ -5,14 +5,14 @@ from django.core.urlresolvers import reverse_lazy
 from university.models import Specialty, Employee
 from accounts.models import Person
 
-from utils.validators import year_validator
+from utils.validators import year_validators
 from utils.mixins import ToLinkMixin
 
 class Group(ToLinkMixin, models.Model):
     "Академическая группа"
     suffix = models.CharField(verbose_name='Суффикс специальности', max_length=2)
     specialty = models.ForeignKey(to=Specialty, verbose_name='Специальность')
-    entrance_year = models.IntegerField(verbose_name='Год поступления', validators=year_validator)
+    entrance_year = models.IntegerField(verbose_name='Год поступления', validators=year_validators)
     code = models.CharField(verbose_name='Шифр', max_length=10, blank=True)
     distance_learning = models.BooleanField(verbose_name='Заочное обучение', default=False)
     supervisor = models.ForeignKey(to=Employee, verbose_name='Куратор', null=True, blank=True, default=None)

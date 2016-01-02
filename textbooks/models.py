@@ -1,7 +1,7 @@
 from os.path import join
 from django.db import models
 from django.core.urlresolvers import reverse
-from utils.validators import year_validator
+from utils.validators import year_validators
 from courses.models import Course
 
 TEXTBOOKS_FOLDER = 'textbooks'
@@ -15,7 +15,7 @@ class Textbook(models.Model):
     is_compiler = models.BooleanField(verbose_name='Составитель?', default=False)
     title = models.CharField(verbose_name='Название', max_length=200)
     publisher = models.CharField(verbose_name='Издательство', max_length=100, blank=True)
-    year = models.IntegerField(verbose_name='Год издания', validators=year_validator, blank=True, null=True)
+    year = models.IntegerField(verbose_name='Год издания', validators=year_validators, blank=True, null=True)
     courses = models.ManyToManyField(verbose_name='Курсы', to=Course, blank=True)
     description = models.TextField(verbose_name='Описание', blank=True)
 
