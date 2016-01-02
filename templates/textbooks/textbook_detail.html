@@ -19,6 +19,7 @@
         {% endif %}
     </p>
 
+    {% if materials %}
     <h2>Загружаемые материалы</h2>
     <ul class="uk-list-striped">
     {% for m in materials %}
@@ -29,6 +30,7 @@
         </li>
     {% endfor %}
     </ul>
+    {% endif %}
 {% endblock %}
 
 {% block content_right %}
