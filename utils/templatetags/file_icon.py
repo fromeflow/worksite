@@ -35,5 +35,8 @@ FILE_TYPES = invert(FILE_TYPES_INVERTED)
 @stringfilter
 def file_icon(path):
     ext = splitext(path)[1]
-    file_type = '-' + FILE_TYPES.get(ext, '')
+    try:
+        file_type = '-' + FILE_TYPES[ext]
+    except KeyError:
+        file_type = ''
     return mark_safe(render_to_string('file_icon.html', {'file_type': file_type}))
